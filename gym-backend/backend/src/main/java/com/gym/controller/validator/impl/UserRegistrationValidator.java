@@ -1,41 +1,40 @@
 package com.gym.controller.validator.impl;
 
-import com.gym.common.controller.dto.UserRegistrationDto;
-import com.gym.common.response.Conflict;
-import com.gym.common.response.MMTResponseCreator;
-import com.gym.controller.processor.dto.ValidUserRegistrationRequest;
+
+import com.gym.controller.request.dto.base.UserRegistrationDto;
+import com.gym.controller.request.dto.valid.ValidUserRegistrationRequest;
 import com.gym.controller.validator.Validator;
-import com.hubspot.algebra.Result;
-import cyclops.control.Either;
+import com.gym.controller.validator.ValidatorHelper;
 import org.apache.commons.lang3.tuple.Triple;
 import org.springframework.stereotype.Component;
 
-import static com.gym.common.controller.answer.UserAnswers.PASSWORD_DOES_NOT_MATCH;
+import static com.gym.common.controller.answer.UserAnswers.INVALID_MAIL_CREDENTIALS;
+import static com.gym.common.controller.answer.UserAnswers.INVALID_NICKNAME_CREDENTIALS;
+import static com.gym.common.controller.answer.UserAnswers.INVALID_PASSWORD_CREDENTIALS;
+import static com.gym.common.controller.answer.UserAnswers.PASSWORDS_DOES_NOT_MATCH;
 
 @Component
 public class UserRegistrationValidator extends Validator<UserRegistrationDto, ValidUserRegistrationRequest> {
 
     @Override
-    public Either<MMTResponseCreator, ValidUserRegistrationRequest> validate(UserRegistrationDto userRegistrationDto) {
+    public ValidUserRegistrationRequest validate(UserRegistrationDto userRegistrationDto) {
         ValidUserRegistrationRequest validUserRegistrationRequest = new ValidUserRegistrationRequest();
+        ValidatorHelper<String> validatorHelper = new ValidatorHelper<>();
 
-        assignDataToValidRequest(
-                Triple.of(validUserRegistrationRequest::setMail, userRegistrationDto.getMail(), 1),
-                Triple.of(validUserRegistrationRequest::setPassword, userRegistrationDto.getPassword(), 2),
-                Triple.of(validUserRegistrationRequest::setPasswordMatcher, userRegistrationDto.getPasswordConfirm(), 3),
-                Triple.of(validUserRegistrationRequest::setNickname, userRegistrationDto.getNickName(), 4));
+        validatorHelper.assignDataToValidRequest(
+                string -> simpleStringValidator(string),
+                Triple.of(validUserRegistrationRequest::setMail, userRegistrationDto.getMail(), INVALID_MAIL_CREDENTIALS),
+                Triple.of(validUserRegistrationRequest::setPassword, userRegistrationDto.getPassword(), INVALID_PASSWORD_CREDENTIALS),
+                Triple.of(validUserRegistrationRequest::setPasswordMatcher, userRegistrationDto.getPasswordMatcher(), INVALID_PASSWORD_CREDENTIALS),
+                Triple.of(validUserRegistrationRequest::setNickname, userRegistrationDto.getNickName(), INVALID_NICKNAME_CREDENTIALS));
 
-        Result<ValidUserRegistrationRequest, MMTResponseCreator> result = checkIfGivenPasswordsMatches(validUserRegistrationRequest);
-        if(result.isOk()) {
-            return Either.right(result.expect("3")); //TODO
-        }
-        return Either.left(result.unwrapErrOrElseThrow()); //TODO
+        return checkIfGivenPasswordsMatches(validUserRegistrationRequest);
     }
 
-    private Result<ValidUserRegistrationRequest, MMTResponseCreator> checkIfGivenPasswordsMatches(ValidUserRegistrationRequest validUserRegistrationRequest) {
+    private ValidUserRegistrationRequest checkIfGivenPasswordsMatches(ValidUserRegistrationRequest validUserRegistrationRequest) {
         if (validUserRegistrationRequest.getPassword().equals(validUserRegistrationRequest.getPasswordMatcher())) {
-            return Result.ok(new ValidUserRegistrationRequest());
+            return validUserRegistrationRequest;
         }
-        return Result.err(new Conflict(PASSWORD_DOES_NOT_MATCH));
+        throw new IllegalArgumentException(String.valueOf(PASSWORDS_DOES_NOT_MATCH));
     }
 }

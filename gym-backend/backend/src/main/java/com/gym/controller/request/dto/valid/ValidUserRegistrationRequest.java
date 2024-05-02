@@ -1,5 +1,6 @@
-package com.gym.controller.processor.dto;
+package com.gym.controller.request.dto.valid;
 
+import com.gym.model.user.Gender;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,4 +11,5 @@ public class ValidUserRegistrationRequest {
     private String passwordMatcher;
     private String mail;
     private String nickname;
+    private Gender gender;
 }

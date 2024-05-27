@@ -10,6 +10,7 @@
     <modules>
         <module>gym-response</module>
         <module>gym-backend</module>
+        <module>gym-backend/initializer</module>
     </modules>
 
 </project>

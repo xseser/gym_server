@@ -20,9 +20,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.List;
 
-import static com.gym.common.controller.url.UrlManagement.API_BASE;
-import static com.gym.common.controller.url.UrlManagement.USER_LOGIN;
-import static com.gym.common.controller.url.UrlManagement.USER_REGISTRATION;
+import static com.response.gym.controller.url.UrlManagement.API_BASE;
+import static com.response.gym.controller.url.UrlManagement.USER_LOGIN;
+import static com.response.gym.controller.url.UrlManagement.USER_REGISTRATION;
 
 @Component
 @Slf4j

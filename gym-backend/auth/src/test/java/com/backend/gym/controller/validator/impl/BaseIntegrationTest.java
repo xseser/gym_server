@@ -2,7 +2,6 @@ package com.backend.gym.controller.validator.impl;
 
 import com.backend.gym.controller.request.dto.base.UserRegistrationDto;
 import com.backend.gym.controller.request.dto.valid.ValidUserRegistrationRequest;
-import com.mmt.gym.initialiser.GymBackendApplication;
 import org.assertj.core.api.Assertions;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = GymBackendApplication.class)
+@SpringBootTest
 public abstract class BaseIntegrationTest {
 
     @Autowired

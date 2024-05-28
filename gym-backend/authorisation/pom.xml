@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>gym.mmt.auth</groupId>
-    <artifactId>authorisation</artifactId>
+    <artifactId>gym-backend-security</artifactId>
     <version>0.0.1</version>
 
     <properties>

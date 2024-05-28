@@ -1,11 +1,7 @@
 package com.backend.gym.controller.validator.impl;
 
-import com.backend.gym.TestConfig;
 import com.backend.gym.controller.request.dto.base.UserRegistrationDto;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import static com.response.gym.controller.answer.UserAnswers.INVALID_MAIL_CREDENTIALS;
 import static com.response.gym.controller.answer.UserAnswers.INVALID_NICKNAME_CREDENTIALS;

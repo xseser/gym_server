@@ -4,10 +4,12 @@ import com.backend.gym.controller.request.dto.base.UserLoginDto;
 import com.backend.gym.controller.request.dto.valid.ValidUserLoginDto;
 import com.core.gym.validator.Validator;
 import com.core.gym.validator.ValidatorHelper;
+import org.springframework.stereotype.Component;
 
 import static com.backend.gym.controller.validator.impl.base.MailValidator.mailValidator;
 import static com.backend.gym.controller.validator.impl.base.PasswordValidator.passwordValidator;
 
+@Component
 public class UserLoginValidator extends Validator<UserLoginDto, ValidUserLoginDto> {
 
     private final ValidatorHelper<String> stringValidatorHelper;

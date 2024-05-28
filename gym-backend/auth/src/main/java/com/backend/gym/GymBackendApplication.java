@@ -1,9 +1,9 @@
-package com.mmt.gym.initialiser;
+package com.backend.gym;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages = {"com.backend.gym", "gym.mmt.auth.config"})
+@SpringBootApplication(scanBasePackages = {"gym.mmt.auth", "com.core.gym", "com.backend.gym"})
 public class GymBackendApplication {
 
     public static void main(String[] args) {

@@ -10,7 +10,8 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>gym-backend-authorisation</artifactId>
+    <groupId>com.backend.gym</groupId>
+    <artifactId>gym-backend-authentication</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
@@ -25,12 +26,7 @@
     <dependencies>
         <dependency>
             <groupId>gym.mmt.auth</groupId>
-            <artifactId>authorisation</artifactId>
-            <version>0.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.mmt.gym.initialiser</groupId>
-            <artifactId>initializer</artifactId>
+            <artifactId>gym-backend-security</artifactId>
             <version>0.0.1</version>
         </dependency>
 
@@ -91,7 +87,7 @@
             <version>0.11.5</version>
         </dependency>
         <dependency>
-            <groupId>com.gym</groupId>
+            <groupId>com.core.gym</groupId>
             <artifactId>gym-core</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>

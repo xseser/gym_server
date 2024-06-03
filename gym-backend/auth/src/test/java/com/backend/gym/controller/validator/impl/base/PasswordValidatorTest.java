@@ -19,4 +19,16 @@ public class PasswordValidatorTest extends BaseValidator<String> {
         //then
         Assertions.assertThat(insertedPassword).isEqualTo(password);
     }
+
+    @Test
+    public void validPasswordWithWhiteSpacesCausesValidAssignment() {
+        //given
+        String insertedPassword = "    Password231!      ";
+
+        //when
+        String password = insertValidationAndGetValidResult(()-> passwordValidator(insertedPassword, emptyConsumer));
+
+        //then
+        Assertions.assertThat(password).isEqualTo("Password231!");
+    }
 }

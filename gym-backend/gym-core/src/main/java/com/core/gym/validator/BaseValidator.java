@@ -11,10 +11,11 @@ public class BaseValidator {
         if(stringToValidation == null || stringToValidation.isEmpty()) {
             return Either.left(errorCode);
         }
+        stringToValidation = stringToValidation.strip();
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(stringToValidation);
         if(matcher.matches()) {
-            return Either.right(stringToValidation.strip());
+            return Either.right(stringToValidation);
         }
         return Either.left(errorCode);
     }

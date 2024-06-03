@@ -1,0 +1,4 @@
+gym/mmt/auth/config/JwtService.class
+gym/mmt/auth/config/JwtAuthFilter.class
+gym/mmt/auth/config/ApplicationConfig.class
+gym/mmt/auth/config/SecurityConfiguration.class

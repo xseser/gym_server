@@ -1,12 +1,10 @@
 package gym.mmt.auth.config;
 
-
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,7 +24,6 @@ import static com.response.gym.controller.url.UrlManagement.USER_REGISTRATION;
 
 @Component
 @Slf4j
-@RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
@@ -36,28 +33,33 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             API_BASE + USER_REGISTRATION,
             API_BASE + USER_LOGIN);
 
+    public JwtAuthFilter(JwtService jwtService, UserDetailsService userDetailsService) {
+        this.jwtService = jwtService;
+        this.userDetailsService = userDetailsService;
+    }
+
     @Override
     protected void doFilterInternal
             (@NonNull HttpServletRequest request,
-             @NonNull HttpServletResponse response,
-             @NonNull FilterChain filterChain)
+                    @NonNull HttpServletResponse response,
+                    @NonNull FilterChain filterChain)
             throws ServletException, IOException {
 
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
         final String email;
-        if (authHeader == null ||!authHeader.startsWith("Bearer ")) {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
         jwt = authHeader.substring(7);
         email = jwtService.extractUsername(jwt);
-        processAuthentication(email,request);
+        processAuthentication(email, request);
         filterChain.doFilter(request, response);
     }
 
     private void processAuthentication(String email, HttpServletRequest request) {
-        if(email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(email);
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                     userDetails,
@@ -67,7 +69,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authToken);
         }
     }
-
 
     @Override
     protected boolean shouldNotFilter(@NonNull HttpServletRequest request) {

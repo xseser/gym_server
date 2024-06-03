@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="gym-backend-authentication" />
+        <module name="gym-core" />
+        <module name="gym-backend-security" />
+        <module name="gym-response" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="authorisation" target="17" />
+      <module name="backend" target="17" />
+      <module name="backend-starter" target="17" />
+      <module name="falshCard-parent" target="1.5" />
+      <module name="flashcard-common" target="21" />
+      <module name="gym-app-backend" target="17" />
+      <module name="gym-app-security" target="17" />
+      <module name="gym-authorisation" target="21" />
+      <module name="gym-backend (1)" target="21" />
+      <module name="gym-backend (2)" target="21" />
+      <module name="gym-backend-authorisation" target="17" />
+      <module name="gym-database" target="21" />
+      <module name="gym-response (1)" target="21" />
+      <module name="gym-response (2)" target="21" />
+      <module name="init" target="17" />
+      <module name="initializer" target="17" />
+      <module name="response" target="1.7" />
+      <module name="test" target="21" />
+      <module name="userAuthentication" target="17" />
+      <module name="UserAuthorisationUseCase" target="21" />
+      <module name="userRegistration" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="authorisation" options="-parameters" />
+      <module name="backend" options="-parameters" />
+      <module name="backend-starter" options="-parameters" />
+      <module name="gym-app-backend" options="-parameters" />
+      <module name="gym-app-security" options="-parameters" />
+      <module name="gym-backend" options="" />
+      <module name="gym-backend-authentication" options="-parameters" />
+      <module name="gym-backend-authorisation" options="-parameters" />
+      <module name="gym-backend-security" options="-parameters" />
+      <module name="gym-core" options="-parameters" />
+      <module name="init" options="-parameters" />
+      <module name="initializer" options="-parameters" />
+      <module name="userAuthentication" options="-parameters" />
+      <module name="userRegistration" options="-parameters" />
+    </option>
+  </component>
+</project>

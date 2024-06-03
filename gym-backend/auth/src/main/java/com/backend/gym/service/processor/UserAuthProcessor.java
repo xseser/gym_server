@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import static com.response.gym.controller.answer.UserAnswers.GIVEN_USER_ALREADY_EXISTS;
 import static com.response.gym.controller.answer.UserAnswers.GIVEN_USER_WAS_NOT_FOUND;
+import static com.response.gym.controller.answer.UserAnswers.PASSWORDS_DOES_NOT_MATCH;
 
 @Component
 @Slf4j
@@ -33,6 +34,9 @@ public class UserAuthProcessor {
 
     public MMTResponseCreator createUserAccount(ValidUserRegistrationRequest validUserRegistrationRequest) {
         log.info("Starting processing registration new user account with data: {}", validUserRegistrationRequest);
+        if(registrationValidator.arePasswordAndPasswordMatcherMatch(validUserRegistrationRequest)) {
+            return new Conflict(PASSWORDS_DOES_NOT_MATCH);
+        }
         if(registrationValidator.isUserAccountUnique(validUserRegistrationRequest.getMail(), validUserRegistrationRequest.getNickname())) {
             return userAuthManagement.createUserAccount(validUserRegistrationRequest);
         }

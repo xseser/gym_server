@@ -1,0 +1,6 @@
+com/backend/gym/TestConfig.class
+com/backend/gym/service/processor/UserRegistrationProcessorTest.class
+com/backend/gym/controller/validator/impl/BaseIntegrationTest.class
+com/backend/gym/controller/validator/impl/BaseUserValidator.class
+com/backend/gym/controller/validator/impl/UserRegistrationValidatorTest.class
+com/backend/gym/controller/validator/impl/base/GenderValidatorTest.class

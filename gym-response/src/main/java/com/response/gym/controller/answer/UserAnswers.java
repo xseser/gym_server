@@ -2,6 +2,7 @@ package com.response.gym.controller.answer;
 
 public abstract class UserAnswers {
 
+    public static final int INTERNAL_ERROR = -1;
     public static final int PASSWORDS_DOES_NOT_MATCH = 100000;
     public static final int INVALID_MAIL_CREDENTIALS = 100010;
     public static final int INVALID_NICKNAME_CREDENTIALS = 100020;

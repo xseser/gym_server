@@ -1,0 +1,10 @@
+/Users/igormier/private/IdeaProjects/gym_server/gym-response/src/main/java/com/response/gym/response/SpecifiedResponseDefinition.java
+/Users/igormier/private/IdeaProjects/gym_server/gym-response/src/main/java/com/response/gym/response/BadRequest.java
+/Users/igormier/private/IdeaProjects/gym_server/gym-response/src/main/java/com/response/gym/response/Ok.java
+/Users/igormier/private/IdeaProjects/gym_server/gym-response/src/main/java/com/response/gym/response/MMTResponseCreator.java
+/Users/igormier/private/IdeaProjects/gym_server/gym-response/src/main/java/com/response/gym/response/Conflict.java
+/Users/igormier/private/IdeaProjects/gym_server/gym-response/src/main/java/com/response/gym/response/Created.java
+/Users/igormier/private/IdeaProjects/gym_server/gym-response/src/main/java/com/response/gym/controller/url/UrlManagement.java
+/Users/igormier/private/IdeaProjects/gym_server/gym-response/src/main/java/com/response/gym/response/Body.java
+/Users/igormier/private/IdeaProjects/gym_server/gym-response/src/main/java/com/response/gym/response/NotFound.java
+/Users/igormier/private/IdeaProjects/gym_server/gym-response/src/main/java/com/response/gym/controller/answer/UserAnswers.java

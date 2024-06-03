@@ -1,5 +1,6 @@
 package com.core.gym;
 
+import com.core.gym.model.Error;
 import com.response.gym.response.BadRequest;
 import com.response.gym.response.Conflict;
 import com.response.gym.response.MMTResponseCreator;
@@ -15,17 +16,18 @@ import static com.response.gym.controller.answer.UserAnswers.PASSWORDS_DOES_NOT_
 @Slf4j
 public abstract class ExceptionHandlerController extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = { IllegalArgumentException.class })
-    protected ResponseEntity handleExceptionDuringValidation(IllegalArgumentException code) {
+    @ExceptionHandler(value = { IllegalStateException.class })
+    protected ResponseEntity handleExceptionDuringValidation(IllegalStateException code) {
         ResponseEntity response = mapUserRegistrationCodes(Integer.parseInt(code.getMessage())).makeResponse();
         log.info("Sending new response to client: {}", response);
         return response;
     }
 
     public MMTResponseCreator mapUserRegistrationCodes(int code) {
+        Error error = new Error(code);
         return switch (code) {
-            case PASSWORDS_DOES_NOT_MATCH -> new Conflict(PASSWORDS_DOES_NOT_MATCH);
-            default -> new BadRequest(code);
+            case PASSWORDS_DOES_NOT_MATCH -> new Conflict(error);
+            default -> new BadRequest(error);
         };
     }
 }

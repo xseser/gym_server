@@ -1,0 +1,10 @@
+com/response/gym/response/MMTResponseCreator.class
+com/response/gym/response/NotFound.class
+com/response/gym/response/BadRequest.class
+com/response/gym/controller/url/UrlManagement.class
+com/response/gym/response/Created.class
+com/response/gym/response/Conflict.class
+com/response/gym/response/Body.class
+com/response/gym/response/SpecifiedResponseDefinition.class
+com/response/gym/response/Ok.class
+com/response/gym/controller/answer/UserAnswers.class

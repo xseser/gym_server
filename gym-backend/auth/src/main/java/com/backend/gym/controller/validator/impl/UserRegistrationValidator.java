@@ -1,10 +1,9 @@
 package com.backend.gym.controller.validator.impl;
 
-import com.backend.gym.controller.request.dto.valid.ValidUserLoginDto;
 import com.backend.gym.controller.request.dto.valid.ValidUserRegistrationRequest;
 import com.backend.gym.controller.request.dto.base.UserRegistrationDto;
 import com.core.gym.validator.Validator;
-import com.core.gym.validator.ValidatorHelperV2;
+import com.core.gym.validator.ValidatorHelper;
 import com.response.gym.response.MMTResponseCreator;
 import cyclops.control.Either;
 import org.springframework.context.annotation.Primary;
@@ -19,16 +18,16 @@ import static com.backend.gym.controller.validator.impl.base.PasswordValidator.p
 @Component
 public class UserRegistrationValidator extends Validator<UserRegistrationDto, ValidUserRegistrationRequest> {
 
-    private final ValidatorHelperV2 validatorHelperV2;
+    private final ValidatorHelper validatorHelper;
 
-    public UserRegistrationValidator(ValidatorHelperV2 validatorHelperV2) {
-        this.validatorHelperV2 = validatorHelperV2;
+    public UserRegistrationValidator(ValidatorHelper validatorHelper) {
+        this.validatorHelper = validatorHelper;
     }
 
     @Override
     public Either<MMTResponseCreator, ValidUserRegistrationRequest> validate(UserRegistrationDto userRegistrationDto) {
         ValidUserRegistrationRequest validUserRegistrationRequest = new ValidUserRegistrationRequest();
-        return validatorHelperV2.validate(
+        return validatorHelper.validate(
                         nameValidator(userRegistrationDto.getNickName(), validUserRegistrationRequest::setNickname),
                         passwordValidator(userRegistrationDto.getPassword(), validUserRegistrationRequest::setPassword),
                         passwordValidator(userRegistrationDto.getPasswordMatcher(), validUserRegistrationRequest::setPasswordMatcher),

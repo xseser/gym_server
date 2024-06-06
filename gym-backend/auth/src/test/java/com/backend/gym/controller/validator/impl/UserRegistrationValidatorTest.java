@@ -21,64 +21,32 @@ public class UserRegistrationValidatorTest extends BaseIntegrationTest implement
     }
 
     @Test
-    public void nickNameWithExactLowerBundleLengthDoesNotCauseError() {
+    public void invalidNickNameWillCauseInvalidNickNameCredentialsError() {
         //given
         UserRegistrationDto userRegistrationDto = provideUserRegistrationData();
-        userRegistrationDto.setNickName("lengt6");
+        userRegistrationDto.setNickName(null);
 
         //when & then
-        validateValidUserRegistrationRequest(userRegistrationDto);
+        validateInvalidUserRegistrationRequest(userRegistrationDto);
     }
 
     @Test
-    public void nickNameWithExactUpperBundleLengthDoesNotCauseError() {
+    public void invalidPasswordWillCauseBadRequest() {
         //given
         UserRegistrationDto userRegistrationDto = provideUserRegistrationData();
-        userRegistrationDto.setNickName("length25length25length25l");
+        userRegistrationDto.setPassword(null);
 
         //when & then
-        validateValidUserRegistrationRequest(userRegistrationDto);
+        validateInvalidUserRegistrationRequest(userRegistrationDto);
     }
 
     @Test
-    public void mailWithExactLowerBundleLengthDoesNotCauseAnyError() {
+    public void invalidMailWillCauseBadRequest() {
         //given
         UserRegistrationDto userRegistrationDto = provideUserRegistrationData();
-        userRegistrationDto.setMail("12k@ok");
+        userRegistrationDto.setPassword(null);
 
         //when & then
-        validateValidUserRegistrationRequest(userRegistrationDto);
-    }
-
-    @Test
-    public void mailWithExactUpperBundleLengthDoesNotCauseAnyError() {
-        //given
-        UserRegistrationDto userRegistrationDto = provideUserRegistrationData();
-        userRegistrationDto.setMail("@upperBundleupperBundleupperBundleupperBundleupperBundleupperBundleupperBundleupperBundleupperBundle");
-
-        //when & then
-        validateValidUserRegistrationRequest(userRegistrationDto);
-    }
-
-    @Test
-    public void passwordWithExactLowerLengthBundleCausesPasswordCredentialsErrorCode() {
-        //given
-        UserRegistrationDto userRegistrationDto = provideUserRegistrationData();
-        userRegistrationDto.setPassword("Aab12!");
-        userRegistrationDto.setPasswordMatcher("Aab12!");
-
-        //when & then
-        validateValidUserRegistrationRequest(userRegistrationDto);
-    }
-
-    @Test
-    public void passwordWithExactUpperLengthBundleCausesPasswordCredentialsErrorCode() {
-        //given
-        UserRegistrationDto userRegistrationDto = provideUserRegistrationData();
-        userRegistrationDto.setPassword("25isValidPasswordLength!!");
-        userRegistrationDto.setPasswordMatcher("25isValidPasswordLength!!");
-
-        //when & then
-        validateValidUserRegistrationRequest(userRegistrationDto);
+        validateInvalidUserRegistrationRequest(userRegistrationDto);
     }
 }

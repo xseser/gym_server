@@ -26,6 +26,20 @@ public abstract class BaseIntegrationTest {
         assertUserRegistrationToValidUserRegistration(userRegistrationDto, afterValidation);
     }
 
+    protected void validateInvalidUserRegistrationRequest(UserRegistrationDto userRegistrationDto) {
+        //when
+        Either<MMTResponseCreator, ValidUserRegistrationRequest> afterValidation = userRegistrationValidator.validate(userRegistrationDto);
+
+        //then
+        Assertions
+                .assertThat(afterValidation
+                        .getLeft()
+                        .toOptional()
+                        .orElseThrow()
+                        .getStatusCode())
+                .isEqualTo(400);
+    }
+
     protected void assertUserRegistrationToValidUserRegistration(
             UserRegistrationDto userRegistrationDto,
             Either<MMTResponseCreator, ValidUserRegistrationRequest> afterValidation) {

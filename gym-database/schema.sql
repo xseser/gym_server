@@ -16,7 +16,7 @@ create table if not exists gym.users
     mail        varchar(100),
     is_verified boolean,
     is_locked   boolean,
-    password    varchar(30),
+    password    varchar(100),
     gender      varchar(10),
     role        varchar(10)
 );

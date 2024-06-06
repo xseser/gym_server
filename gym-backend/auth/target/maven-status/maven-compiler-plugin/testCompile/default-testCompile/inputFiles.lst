@@ -1,9 +1,0 @@
-/Users/igormier/IdeaProjects/gym_server/gym-backend/auth/src/test/java/com/backend/gym/controller/validator/impl/base/BaseValidator.java
-/Users/igormier/IdeaProjects/gym_server/gym-backend/auth/src/test/java/com/backend/gym/controller/validator/impl/BaseUserValidator.java
-/Users/igormier/IdeaProjects/gym_server/gym-backend/auth/src/test/java/com/backend/gym/TestConfig.java
-/Users/igormier/IdeaProjects/gym_server/gym-backend/auth/src/test/java/com/backend/gym/controller/validator/impl/base/GenderValidatorTest.java
-/Users/igormier/IdeaProjects/gym_server/gym-backend/auth/src/test/java/com/backend/gym/service/processor/UserRegistrationProcessorTest.java
-/Users/igormier/IdeaProjects/gym_server/gym-backend/auth/src/test/java/com/backend/gym/controller/validator/impl/base/PasswordValidatorTest.java
-/Users/igormier/IdeaProjects/gym_server/gym-backend/auth/src/test/java/com/backend/gym/controller/validator/impl/BaseIntegrationTest.java
-/Users/igormier/IdeaProjects/gym_server/gym-backend/auth/src/test/java/com/backend/gym/controller/validator/impl/base/MailValidatorTest.java
-/Users/igormier/IdeaProjects/gym_server/gym-backend/auth/src/test/java/com/backend/gym/controller/validator/impl/UserRegistrationValidatorTest.java

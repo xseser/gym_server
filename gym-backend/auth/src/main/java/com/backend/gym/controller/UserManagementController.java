@@ -1,13 +1,8 @@
 package com.backend.gym.controller;
 
-import com.backend.gym.controller.request.dto.valid.ValidUserRegistrationRequest;
-import com.core.gym.ExceptionHandlerController;
-import com.core.gym.processor.ControllerProcessor;
 import com.backend.gym.controller.request.dto.base.UserLoginDto;
 import com.backend.gym.controller.request.dto.base.UserRegistrationDto;
-import com.backend.gym.controller.request.dto.valid.ValidUserLoginDto;
-import com.backend.gym.service.UserAuthManagement;
-import com.backend.gym.service.processor.UserAuthProcessor;
+import com.backend.gym.controller.service.ControllerProxy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,31 +16,25 @@ import static com.response.gym.controller.url.UrlManagement.USER_REGISTRATION;
 
 @RestController
 @Slf4j
-public class UserManagementController extends ExceptionHandlerController {
+public class UserManagementController {
 
-    private final ControllerProcessor controllerProcessor;
-    private final UserAuthProcessor userAuthProcessor;
+    private final ControllerProxy controllerProxy;
 
-    public UserManagementController(
-            ControllerProcessor controllerProcessor,
-            UserAuthProcessor userAuthProcessor) {
-        this.controllerProcessor = controllerProcessor;
-        this.userAuthProcessor = userAuthProcessor;
+    public UserManagementController(ControllerProxy controllerProxy) {
+        this.controllerProxy = controllerProxy;
     }
 
     @RequestMapping(method = RequestMethod.POST, value = API_BASE + USER_REGISTRATION)
     public ResponseEntity registerUser(@RequestBody UserRegistrationDto userRegistrationDto) {
         log.info("received request to register new user account with data: {}", userRegistrationDto);
-        return controllerProcessor
-                .process(userRegistrationDto, it -> userAuthProcessor.createUserAccount((ValidUserRegistrationRequest) it))
+        return controllerProxy.createUserAccount(userRegistrationDto)
                 .makeResponse();
     }
 
     @RequestMapping(method = RequestMethod.POST, value = API_BASE + USER_LOGIN)
     public ResponseEntity loginUser(@RequestBody UserLoginDto userLoginDto) {
         log.info("received request to log in user with data: {}", userLoginDto);
-        return controllerProcessor
-                .process(userLoginDto, it -> userAuthProcessor.logInAccount((ValidUserLoginDto) it))
+        return controllerProxy.loginAccount(userLoginDto)
                 .makeResponse();
     }
 }

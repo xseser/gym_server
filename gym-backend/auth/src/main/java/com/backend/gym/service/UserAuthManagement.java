@@ -2,12 +2,12 @@ package com.backend.gym.service;
 
 import com.backend.gym.controller.request.dto.valid.ValidUserRegistrationRequest;
 import com.backend.gym.model.user.User;
-import com.response.gym.response.MMTResponseCreator;
-import com.backend.gym.controller.request.dto.valid.ValidUserLoginDto;
+import com.backend.gym.service.response.UserLoginResponseDto;
+import com.backend.gym.service.response.UserRegistrationResponseDto;
 
 public interface UserAuthManagement {
 
-    MMTResponseCreator createUserAccount(ValidUserRegistrationRequest validUserRegistrationRequest);
+    UserRegistrationResponseDto createUserAccount(ValidUserRegistrationRequest validUserRegistrationRequest);
 
-    MMTResponseCreator logInAccount(User user);
+    UserLoginResponseDto logInAccount(User user);
 }

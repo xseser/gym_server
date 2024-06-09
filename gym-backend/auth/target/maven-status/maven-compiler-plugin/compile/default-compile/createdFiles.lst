@@ -7,6 +7,7 @@ com/backend/gym/service/UserAuthManagementImpl.class
 com/backend/gym/controller/validator/impl/base/GenderValidator.class
 com/backend/gym/model/user/Role.class
 com/backend/gym/model/user/Token.class
+com/backend/gym/controller/validator/impl/base/PasswordMatcherValidator.class
 com/backend/gym/service/response/UserRegistrationResponseDto.class
 com/backend/gym/controller/validator/impl/base/NameValidator.class
 com/backend/gym/controller/validator/impl/base/MailValidator.class

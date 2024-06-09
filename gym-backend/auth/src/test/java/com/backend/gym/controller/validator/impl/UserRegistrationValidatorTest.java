@@ -4,6 +4,7 @@ import com.backend.gym.controller.request.dto.base.UserRegistrationDto;
 import org.junit.jupiter.api.Test;
 ;
 
+import static com.response.gym.controller.answer.UserAnswers.INVALID_GENDER_CREDENTIALS;
 import static com.response.gym.controller.answer.UserAnswers.INVALID_MAIL_CREDENTIALS;
 import static com.response.gym.controller.answer.UserAnswers.INVALID_NICKNAME_CREDENTIALS;
 import static com.response.gym.controller.answer.UserAnswers.INVALID_PASSWORD_CREDENTIALS;
@@ -27,26 +28,47 @@ public class UserRegistrationValidatorTest extends BaseIntegrationTest implement
         userRegistrationDto.setNickName(null);
 
         //when & then
-        validateInvalidUserRegistrationRequest(userRegistrationDto);
+        validateInvalidUserRegistrationRequest(userRegistrationDto, INVALID_NICKNAME_CREDENTIALS);
     }
 
     @Test
-    public void invalidPasswordWillCauseBadRequest() {
+    public void invalidPasswordWillCauseInvalidPasswordCredentialsError() {
         //given
         UserRegistrationDto userRegistrationDto = provideUserRegistrationData();
         userRegistrationDto.setPassword(null);
 
         //when & then
-        validateInvalidUserRegistrationRequest(userRegistrationDto);
+        validateInvalidUserRegistrationRequest(userRegistrationDto, INVALID_PASSWORD_CREDENTIALS);
     }
 
     @Test
-    public void invalidMailWillCauseBadRequest() {
+    public void invalidMailWillCauseInvalidMailCredentialsError() {
         //given
         UserRegistrationDto userRegistrationDto = provideUserRegistrationData();
-        userRegistrationDto.setPassword(null);
+        userRegistrationDto.setMail(null);
 
         //when & then
-        validateInvalidUserRegistrationRequest(userRegistrationDto);
+        validateInvalidUserRegistrationRequest(userRegistrationDto, INVALID_MAIL_CREDENTIALS);
+    }
+
+    @Test
+    public void invalidGenderWillCauseInvalidGenderCredentialsError() {
+        //given
+        UserRegistrationDto userRegistrationDto = provideUserRegistrationData();
+        userRegistrationDto.setGender("null");
+
+        //when & then
+        validateInvalidUserRegistrationRequest(userRegistrationDto, INVALID_GENDER_CREDENTIALS);
+    }
+
+    @Test
+    public void invalidNameAndGenderWillCauseInvalidNickNameCredentialsError() {
+        //given
+        UserRegistrationDto userRegistrationDto = provideUserRegistrationData();
+        userRegistrationDto.setNickName(null);
+        userRegistrationDto.setGender("null");
+
+        //when & then
+        validateInvalidUserRegistrationRequest(userRegistrationDto, INVALID_NICKNAME_CREDENTIALS);
     }
 }

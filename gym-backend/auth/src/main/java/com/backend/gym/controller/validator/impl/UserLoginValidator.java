@@ -4,7 +4,6 @@ import com.backend.gym.controller.request.dto.base.UserLoginDto;
 import com.backend.gym.controller.request.dto.valid.ValidUserLoginDto;
 import com.core.gym.validator.Validator;
 import com.core.gym.validator.ValidatorHelper;
-import com.response.gym.response.MMTResponseCreator;
 import cyclops.control.Either;
 import org.springframework.stereotype.Component;
 
@@ -21,12 +20,12 @@ public class UserLoginValidator extends Validator<UserLoginDto, ValidUserLoginDt
     }
 
     @Override
-    public Either<MMTResponseCreator, ValidUserLoginDto> validate(UserLoginDto userLoginDto) {
+    public Either<Integer, ValidUserLoginDto> validate(UserLoginDto userLoginDto) {
         ValidUserLoginDto validUserLoginDto = new ValidUserLoginDto();
         return validatorHelper.validate(
                         mailValidator(userLoginDto.getMail(), validUserLoginDto::setMail),
                         passwordValidator(userLoginDto.getPassword(), validUserLoginDto::setPassword))
-                .<Either<MMTResponseCreator, ValidUserLoginDto>>
+                .<Either<Integer, ValidUserLoginDto>>
                         map(Either::left)
                 .orElseGet(()-> Either.right(validUserLoginDto));
     }

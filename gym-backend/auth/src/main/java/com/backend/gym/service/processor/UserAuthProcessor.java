@@ -1,19 +1,20 @@
 package com.backend.gym.service.processor;
 
 import com.backend.gym.controller.request.dto.valid.ValidUserLoginDto;
-import com.backend.gym.repository.UserRepository;
-import com.response.gym.response.Conflict;
-import com.response.gym.response.MMTResponseCreator;
 import com.backend.gym.controller.request.dto.valid.ValidUserRegistrationRequest;
+import com.backend.gym.repository.UserRepository;
 import com.backend.gym.service.UserAuthManagement;
 import com.backend.gym.service.validator.UserValidator;
+import com.response.gym.response.Conflict;
+import com.response.gym.response.Created;
+import com.response.gym.response.MMTResponseCreator;
 import com.response.gym.response.NotFound;
+import com.response.gym.response.Ok;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import static com.response.gym.controller.answer.UserAnswers.GIVEN_USER_ALREADY_EXISTS;
 import static com.response.gym.controller.answer.UserAnswers.GIVEN_USER_WAS_NOT_FOUND;
-import static com.response.gym.controller.answer.UserAnswers.PASSWORDS_DOES_NOT_MATCH;
 
 @Component
 @Slf4j
@@ -34,13 +35,11 @@ public class UserAuthProcessor {
 
     public MMTResponseCreator createUserAccount(ValidUserRegistrationRequest validUserRegistrationRequest) {
         log.info("Starting processing registration new user account with data: {}", validUserRegistrationRequest);
-        if(registrationValidator.arePasswordAndPasswordMatcherMatch(validUserRegistrationRequest)) {
-            return new Conflict(PASSWORDS_DOES_NOT_MATCH);
+        if (registrationValidator.isUserAccountUnique(validUserRegistrationRequest.getMail(), validUserRegistrationRequest.getNickname())) {
+            return new Created(userAuthManagement.createUserAccount(validUserRegistrationRequest));
         }
-        if(registrationValidator.isUserAccountUnique(validUserRegistrationRequest.getMail(), validUserRegistrationRequest.getNickname())) {
-            return userAuthManagement.createUserAccount(validUserRegistrationRequest);
-        }
-        log.error("End of processing registration new user account with data: {}, with error: {}",
+        log.error(
+                "End of processing registration new user account with data: {}, with error: {}",
                 validUserRegistrationRequest,
                 GIVEN_USER_ALREADY_EXISTS);
         return new Conflict(GIVEN_USER_ALREADY_EXISTS);
@@ -50,8 +49,10 @@ public class UserAuthProcessor {
         log.info("Starting processing logging in user account with data: {}", validUserLoginDto);
         return userRepository.findByMail(validUserLoginDto.getMail())
                 .map(userAuthManagement::logInAccount)
-                .orElseGet(()-> {
-                    log.error("End of processing logging in user account with data: {}, with error: {}",
+                .map(it -> (MMTResponseCreator) new Ok(it))
+                .orElseGet(() -> {
+                    log.error(
+                            "End of processing logging in user account with data: {}, with error: {}",
                             validUserLoginDto,
                             GIVEN_USER_WAS_NOT_FOUND);
                     return new NotFound(GIVEN_USER_WAS_NOT_FOUND);

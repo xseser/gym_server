@@ -23,8 +23,7 @@ public class ValidatorHelper {
     }
 
     @SafeVarargs
-    public final Optional<MMTResponseCreator> validate(Either<Integer, ?>... results) {
-        return forEachValidation(results)
-                .map(BadRequest::new);
+    public final Optional<Integer> validate(Either<Integer, ?>... results) {
+        return forEachValidation(results);
     }
 }

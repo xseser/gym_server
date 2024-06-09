@@ -10,6 +10,7 @@
 /Users/igormier/IdeaProjects/gym_server/gym-backend/auth/src/main/java/com/backend/gym/service/processor/UserAuthProcessor.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/auth/src/main/java/com/backend/gym/model/user/Role.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/auth/src/main/java/com/backend/gym/model/user/User.java
+/Users/igormier/IdeaProjects/gym_server/gym-backend/auth/src/main/java/com/backend/gym/controller/validator/impl/base/PasswordMatcherValidator.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/auth/src/main/java/com/backend/gym/model/user/Gender.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/auth/src/main/java/com/backend/gym/model/user/Token.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/auth/src/main/java/com/backend/gym/controller/request/dto/base/UserRegistrationDto.java

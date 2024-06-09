@@ -20,6 +20,7 @@
         <module>authorisation</module>
         <module>auth</module>
         <module>gym-core</module>
+        <module>User-registration-use-case</module>
     </modules>
 
     <properties>
@@ -118,6 +119,11 @@
             <artifactId>mockito-junit-jupiter</artifactId>
             <version>5.11.0</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.gavlyukovskiy</groupId>
+            <artifactId>datasource-decorator-spring-boot-autoconfigure</artifactId>
+            <version>1.9.1</version>
         </dependency>
     </dependencies>
 

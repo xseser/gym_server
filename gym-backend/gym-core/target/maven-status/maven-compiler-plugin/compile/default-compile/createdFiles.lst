@@ -1,6 +1,5 @@
 com/core/gym/validator/BaseValidator.class
 com/core/gym/processor/ControllerProcessor.class
-com/core/gym/validator/ValidatorHelperV2.class
 com/core/gym/validator/ValidatorHelper.class
 com/core/gym/ExceptionHandlerController.class
 com/core/gym/HealthCheckController.class

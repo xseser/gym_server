@@ -37,7 +37,7 @@ public class UserRegistrationProcessorTest implements BaseUserValidator {
         when(registrationValidator.isUserAccountUnique(any(String.class), any(String.class)))
                 .thenReturn(true);
         when(userAuthManagement.createUserAccount(any(ValidUserRegistrationRequest.class)))
-                .thenReturn(new Created());
+                .thenReturn(mapValidUserRegistrationDataToResponse());
         //when
         MMTResponseCreator response = userRegistrationProcessor.createUserAccount(validUserRegistrationRequest);
 

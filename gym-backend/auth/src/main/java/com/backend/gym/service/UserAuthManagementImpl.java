@@ -28,7 +28,7 @@ public class UserAuthManagementImpl implements UserAuthManagement {
     }
 
     @Override
-    public MMTResponseCreator createUserAccount(ValidUserRegistrationRequest validUserRegistrationRequest) {
+    public UserRegistrationResponseDto createUserAccount(ValidUserRegistrationRequest validUserRegistrationRequest) {
         User user = User.builder()
                 .id(UUID.randomUUID())
                 .mail(validUserRegistrationRequest.getMail())
@@ -39,14 +39,12 @@ public class UserAuthManagementImpl implements UserAuthManagement {
                 .role(Role.MEMBER)
                 .build();
         User provisionedUser = userRepository.save(user);
-        UserRegistrationResponseDto userRegistrationResponseDto = new UserRegistrationResponseDto(provisionedUser);
-        return new Created(userRegistrationResponseDto);
+        return new UserRegistrationResponseDto(provisionedUser);
     }
 
     @Override
-    public MMTResponseCreator logInAccount(User user) {
+    public UserLoginResponseDto logInAccount(User user) {
         String tokenGenerated = jwtService.generateToken(user);
-        UserLoginResponseDto userLoginResponseDto = new UserLoginResponseDto(user, tokenGenerated);
-        return new Ok(userLoginResponseDto);
+        return new UserLoginResponseDto(user, tokenGenerated);
     }
 }

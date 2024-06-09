@@ -3,9 +3,11 @@ package com.backend.gym.service.response;
 import com.backend.gym.model.user.Gender;
 import com.backend.gym.model.user.Role;
 import com.backend.gym.model.user.User;
+import lombok.AllArgsConstructor;
 
 import java.util.UUID;
 
+@AllArgsConstructor
 public class UserRegistrationResponseDto {
 
     private UUID id;

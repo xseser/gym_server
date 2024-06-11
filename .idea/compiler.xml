@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="gym-backend-authentication" />
-        <module name="User-registration-use-case" />
         <module name="gym-core" />
         <module name="gym-backend-security" />
+        <module name="gym-backend-starter" />
         <module name="gym-response" />
+        <module name="User-platform-access-use-case" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -32,6 +32,7 @@
       <module name="initializer" target="17" />
       <module name="response" target="1.7" />
       <module name="test" target="21" />
+      <module name="User-registration-use-case" target="17" />
       <module name="userAuthentication" target="17" />
       <module name="UserAuthorisationUseCase" target="21" />
       <module name="userRegistration" target="17" />
@@ -39,15 +40,16 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="User-platform-access-use-case" options="-parameters" />
       <module name="authorisation" options="-parameters" />
       <module name="backend" options="-parameters" />
       <module name="backend-starter" options="-parameters" />
       <module name="gym-app-backend" options="-parameters" />
       <module name="gym-app-security" options="-parameters" />
       <module name="gym-backend" options="" />
-      <module name="gym-backend-authentication" options="-parameters" />
       <module name="gym-backend-authorisation" options="-parameters" />
       <module name="gym-backend-security" options="-parameters" />
+      <module name="gym-backend-starter" options="-parameters" />
       <module name="gym-core" options="-parameters" />
       <module name="init" options="-parameters" />
       <module name="initializer" options="-parameters" />

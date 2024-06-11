@@ -1,0 +1,8 @@
+/Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/test/java/com/gym/user/registration/service/BaseUserValidator.java
+/Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/test/java/com/gym/user/registration/controller/validator/base/GenderValidatorTest.java
+/Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/test/java/com/gym/user/registration/controller/validator/base/MailValidatorTest.java
+/Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/test/java/com/gym/user/registration/service/processor/UserRegistrationProcessorTest.java
+/Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/test/java/com/gym/user/registration/controller/validator/base/PasswordValidatorTest.java
+/Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/test/java/com/gym/user/registration/controller/validator/base/BaseValidator.java
+/Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/test/java/com/gym/user/registration/controller/validator/base/NameValidatorTest.java
+/Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/test/java/com/gym/user/registration/service/validator/UserValidatorTest.java

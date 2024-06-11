@@ -1,0 +1,5 @@
+com/backend/gym/controller/proxy/ControllerProxy.class
+com/backend/gym/factory/ControllerProcessor.class
+com/backend/gym/GymBackendApplication.class
+com/backend/gym/controller/proxy/ControllerProxyService.class
+com/backend/gym/controller/UserManagementController.class

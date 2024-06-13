@@ -1,6 +1,4 @@
-create database gym_database;
-
-create schema gym_database.gym;
+create schema if not exists gym;
 
 drop table if exists gym.trainings cascade;
 drop table if exists gym.users cascade;

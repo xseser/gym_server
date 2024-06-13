@@ -22,4 +22,5 @@ com/gym/user/registration/repository/UserRepository.class
 com/gym/user/registration/security/JwtServiceProvider.class
 com/gym/user/registration/controller/request/valid/ValidUserRegistrationRequest.class
 com/gym/user/registration/controller/request/base/UserRegistrationDto.class
+com/gym/user/registration/IsThisWork.class
 com/gym/user/registration/service/CustomPasswordEncoder.class

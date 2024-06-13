@@ -12,6 +12,7 @@
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/service/UserAuthManagementImpl.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/controller/validator/UserLoginValidator.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/model/User.java
+/Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/IsThisWork.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/controller/request/valid/ValidUserRegistrationRequest.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/service/processor/UserAuthProcessor.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/controller/request/base/UserRegistrationDto.java

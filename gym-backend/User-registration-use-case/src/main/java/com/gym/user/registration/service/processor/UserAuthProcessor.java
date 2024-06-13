@@ -4,7 +4,6 @@ import com.gym.user.registration.controller.request.valid.ValidUserLoginDto;
 import com.gym.user.registration.controller.request.valid.ValidUserRegistrationRequest;
 import com.gym.user.registration.repository.UserRepository;
 import com.gym.user.registration.service.UserAuthManagement;
-import com.gym.user.registration.service.validator.UserValidator;
 import com.response.gym.response.Conflict;
 import com.response.gym.response.Created;
 import com.response.gym.response.MMTResponseCreator;
@@ -20,22 +19,19 @@ import static com.response.gym.controller.answer.UserAnswers.GIVEN_USER_WAS_NOT_
 @Slf4j
 public class UserAuthProcessor {
 
-    private final UserValidator registrationValidator;
     private final UserRepository userRepository;
     private final UserAuthManagement userAuthManagement;
 
     public UserAuthProcessor(
-            UserValidator registrationValidator,
             UserRepository userRepository,
             UserAuthManagement userAuthManagement) {
-        this.registrationValidator = registrationValidator;
         this.userRepository = userRepository;
         this.userAuthManagement = userAuthManagement;
     }
 
     public MMTResponseCreator createUserAccount(ValidUserRegistrationRequest validUserRegistrationRequest) {
         log.info("Starting processing registration new user account with data: {}", validUserRegistrationRequest);
-        if (registrationValidator.isUserAccountUnique(validUserRegistrationRequest.getMail(), validUserRegistrationRequest.getNickname())) {
+        if (userRepository.existsByNicknameOrMail(validUserRegistrationRequest.getMail(), validUserRegistrationRequest.getNickname())) {
             return new Created(userAuthManagement.createUserAccount(validUserRegistrationRequest));
         }
         log.error(

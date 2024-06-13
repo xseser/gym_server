@@ -8,5 +8,5 @@ HOST_IP=$(get_local_ip)
 echo "Local IP address detected: $HOST_IP"
 
 
-./run_db.sh
-./run_backend_server.sh postgres mysecretpassword jdbc:postgresql://${HOST_IP}:5432/gym_database
+./scripts/run_db.sh
+./scripts/run_backend_server.sh postgres mysecretpassword jdbc:postgresql://${HOST_IP}:5432/gym_database

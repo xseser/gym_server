@@ -33,6 +33,7 @@ public class UserAuthManagementImpl implements UserAuthManagement {
                 .nickname(validUserRegistrationRequest.getNickname())
                 .gender(validUserRegistrationRequest.getGender())
                 .isVerified(false)
+                .isLocked(false)
                 .role(Role.MEMBER)
                 .build();
         User provisionedUser = userRepository.save(user);

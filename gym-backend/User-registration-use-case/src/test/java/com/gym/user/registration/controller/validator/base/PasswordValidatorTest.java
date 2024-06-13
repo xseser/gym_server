@@ -79,4 +79,52 @@ public class PasswordValidatorTest extends BaseValidator<String> {
         //then
         Assertions.assertThat(error).isEqualTo(INVALID_PASSWORD_CREDENTIALS);
     }
+
+    @Test
+    public void passwordWithoutNumberProduceInvalidPasswordCredentialError() {
+        //given
+        String insertedPassword = "Password!!!";
+
+        //when
+        Integer error = insertValidationAndGetInvalidResult(() -> passwordValidator(insertedPassword, emptyConsumer));
+
+        //then
+        Assertions.assertThat(error).isEqualTo(INVALID_PASSWORD_CREDENTIALS);
+    }
+
+    @Test
+    public void passwordWithoutSpecialCharacterProduceInvalidPasswordCredentialError() {
+        //given
+        String insertedPassword = "Password123";
+
+        //when
+        Integer error = insertValidationAndGetInvalidResult(() -> passwordValidator(insertedPassword, emptyConsumer));
+
+        //then
+        Assertions.assertThat(error).isEqualTo(INVALID_PASSWORD_CREDENTIALS);
+    }
+
+    @Test
+    public void passwordWithoutSmallCharProduceInvalidPasswordCredentialError() {
+        //given
+        String insertedPassword = "PPPPSSSDD!23";
+
+        //when
+        Integer error = insertValidationAndGetInvalidResult(() -> passwordValidator(insertedPassword, emptyConsumer));
+
+        //then
+        Assertions.assertThat(error).isEqualTo(INVALID_PASSWORD_CREDENTIALS);
+    }
+
+    @Test
+    public void passwordWithoutBigCharProduceInvalidPasswordCredentialError() {
+        //given
+        String insertedPassword = "aaaaddddadada!23";
+
+        //when
+        Integer error = insertValidationAndGetInvalidResult(() -> passwordValidator(insertedPassword, emptyConsumer));
+
+        //then
+        Assertions.assertThat(error).isEqualTo(INVALID_PASSWORD_CREDENTIALS);
+    }
 }

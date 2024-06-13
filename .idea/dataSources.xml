@@ -15,5 +15,12 @@
       <jdbc-url>jdbc:postgresql://mws02.mikr.us:50046/gym_database</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="gym_database@localhost" uuid="bbf5ceac-3d3b-43e0-83b0-91b230d04792">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/gym_database</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

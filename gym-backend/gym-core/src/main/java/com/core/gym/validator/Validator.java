@@ -3,7 +3,6 @@ package com.core.gym.validator;
 import com.response.gym.response.BadRequest;
 import com.response.gym.response.MMTResponseCreator;
 import cyclops.control.Either;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;

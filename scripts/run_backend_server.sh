@@ -25,16 +25,15 @@ else
   echo "No existing Docker container is using port $PORT"
 fi
 
-cd ..
-cd gym-backend || { echo "Directory gym-backend does not exist"; exit 1; }
+# Define project paths
+PROJECT_PATH="gym-backend"
+STARTER_PATH="$PROJECT_PATH/gym-backend-starter"
 
 echo "Building Maven project without running tests..."
-mvn clean package -DskipTests || { echo "Error during Maven build"; exit 1; }
-
-cd gym-backend-starter || { echo "Directory gym-backend-starter does not exist"; exit 1; }
+mvn package -DskipTests || { echo "Error during Maven build"; exit 1; }
 
 echo "Building Docker image..."
-docker build -t gym-backend . || { echo "Error during Docker build"; exit 1; }
+docker build -t gym-backend $STARTER_PATH || { echo "Error during Docker build"; exit 1; }
 
 echo "Running Docker container in the background..."
 docker run -d -p 9876:9876 \

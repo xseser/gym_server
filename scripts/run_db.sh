@@ -8,7 +8,7 @@ DB_USER="postgres"
 DB_NAME="gym_database"
 SCHEMA_FILE="gym-database/schema.sql"
 DB_PORT="5432"
-
+pwd
 echo "Stopping and removing existing PostgreSQL container (if any)..."
 docker rm -f $DB_CONTAINER_NAME > /dev/null 2>&1 || true
 
@@ -30,7 +30,6 @@ docker exec -u $DB_USER $DB_CONTAINER_NAME psql -U $DB_USER -c "CREATE DATABASE 
   { echo "Error creating database $DB_NAME"; exit 1; }
 
 echo "Executing schema.sql..."
-cd ..
 docker cp $SCHEMA_FILE $DB_CONTAINER_NAME:/schema.sql || \
   { echo "Error copying schema.sql to PostgreSQL container"; exit 1; }
 

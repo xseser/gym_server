@@ -1,7 +1,6 @@
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/repository/UserRepository.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/controller/response/UserRegistrationResponseDto.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/service/CustomPasswordEncoder.java
-/Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/service/validator/UserValidator.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/model/Gender.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/controller/request/valid/ValidUserLoginDto.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/controller/response/UserLoginResponseDto.java

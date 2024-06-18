@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.backend.gym.common.response.MMTResponseCreatorTest" time="0.145" tests="5" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.backend.gym.common.response.MMTResponseCreatorTest" time="0.292" tests="5" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -12,7 +12,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="GB"/>
     <property name="sun.boot.library.path" value="/Users/igormier/.sdkman/candidates/java/21.0.1-amzn/lib"/>
-    <property name="sun.java.command" value="/Users/igormier/IdeaProjects/gym_server/gym-response/target/surefire/surefirebooter-20240617193406408_3.jar /Users/igormier/IdeaProjects/gym_server/gym-response/target/surefire 2024-06-17T19-34-06_321-jvmRun1 surefire-20240617193406408_1tmp surefire_0-20240617193406408_2tmp"/>
+    <property name="sun.java.command" value="/Users/igormier/IdeaProjects/gym_server/gym-response/target/surefire/surefirebooter-20240618220941492_3.jar /Users/igormier/IdeaProjects/gym_server/gym-response/target/surefire 2024-06-18T22-09-41_215-jvmRun1 surefire-20240618220941492_1tmp surefire_0-20240618220941492_2tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/igormier/IdeaProjects/gym_server/gym-response/target/test-classes:/Users/igormier/IdeaProjects/gym_server/gym-response/target/classes:/Users/igormier/.m2/repository/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar:/Users/igormier/.m2/repository/org/springframework/spring-web/6.1.3/spring-web-6.1.3.jar:/Users/igormier/.m2/repository/org/springframework/spring-beans/6.1.3/spring-beans-6.1.3.jar:/Users/igormier/.m2/repository/org/springframework/spring-core/6.1.3/spring-core-6.1.3.jar:/Users/igormier/.m2/repository/org/springframework/spring-jcl/6.1.3/spring-jcl-6.1.3.jar:/Users/igormier/.m2/repository/io/micrometer/micrometer-observation/1.12.2/micrometer-observation-1.12.2.jar:/Users/igormier/.m2/repository/io/micrometer/micrometer-commons/1.12.2/micrometer-commons-1.12.2.jar:/Users/igormier/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.9.3/junit-jupiter-api-5.9.3.jar:/Users/igormier/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/igormier/.m2/repository/org/junit/platform/junit-platform-commons/1.9.3/junit-platform-commons-1.9.3.jar:/Users/igormier/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/igormier/.m2/repository/org/assertj/assertj-core/3.24.2/assertj-core-3.24.2.jar:/Users/igormier/.m2/repository/net/bytebuddy/byte-buddy/1.12.21/byte-buddy-1.12.21.jar:/Users/igormier/.m2/repository/com/oath/cyclops/cyclops/10.4.1/cyclops-10.4.1.jar:/Users/igormier/.m2/repository/org/agrona/Agrona/0.9.1/Agrona-0.9.1.jar:/Users/igormier/.m2/repository/org/reactivestreams/reactive-streams/1.0.0/reactive-streams-1.0.0.jar:/Users/igormier/.m2/repository/io/kindedj/kindedj/1.1.0/kindedj-1.1.0.jar:"/>
@@ -29,7 +29,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/igormier/IdeaProjects/gym_server/gym-response/target/surefire/surefirebooter-20240617193406408_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/igormier/IdeaProjects/gym_server/gym-response/target/surefire/surefirebooter-20240618220941492_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="21.0.1+12-LTS"/>
@@ -58,9 +58,9 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="flashCardResponseCreator__canInclude__BADREQUEST" classname="com.backend.gym.common.response.MMTResponseCreatorTest" time="0.118"/>
+  <testcase name="flashCardResponseCreator__canInclude__BADREQUEST" classname="com.backend.gym.common.response.MMTResponseCreatorTest" time="0.247"/>
   <testcase name="flashCardResponseCreator__canInclude__CONFLICT" classname="com.backend.gym.common.response.MMTResponseCreatorTest" time="0.002"/>
   <testcase name="flashCardResponseCreator__canInclude__CREATED" classname="com.backend.gym.common.response.MMTResponseCreatorTest" time="0.001"/>
-  <testcase name="flashCardResponseCreator__canInclude__OK" classname="com.backend.gym.common.response.MMTResponseCreatorTest" time="0.001"/>
+  <testcase name="flashCardResponseCreator__canInclude__OK" classname="com.backend.gym.common.response.MMTResponseCreatorTest" time="0.002"/>
   <testcase name="flashCardResponseCreator__canInclude__NOTFOUND" classname="com.backend.gym.common.response.MMTResponseCreatorTest" time="0.001"/>
 </testsuite>

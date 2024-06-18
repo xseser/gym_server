@@ -31,7 +31,7 @@ public class UserAuthProcessor {
 
     public MMTResponseCreator createUserAccount(ValidUserRegistrationRequest validUserRegistrationRequest) {
         log.info("Starting processing registration new user account with data: {}", validUserRegistrationRequest);
-        if (userRepository.existsByNicknameOrMail(validUserRegistrationRequest.getMail(), validUserRegistrationRequest.getNickname())) {
+        if (!userRepository.existsByNicknameOrMail(validUserRegistrationRequest.getNickname(), validUserRegistrationRequest.getMail())) {
             return new Created(userAuthManagement.createUserAccount(validUserRegistrationRequest));
         }
         log.error(

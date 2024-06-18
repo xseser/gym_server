@@ -35,7 +35,7 @@ public class UserAuthProcessorTest implements BaseUserValidator {
         ValidUserRegistrationRequest validUserRegistrationRequest = provideValidUserRegistrationData();
 
         when(userRepository.existsByNicknameOrMail(any(String.class), any(String.class)))
-                .thenReturn(true);
+                .thenReturn(false);
         when(userAuthManagement.createUserAccount(any(ValidUserRegistrationRequest.class)))
                 .thenReturn(mapValidUserRegistrationDataToResponse());
         //when
@@ -53,7 +53,7 @@ public class UserAuthProcessorTest implements BaseUserValidator {
         ValidUserRegistrationRequest validUserRegistrationRequest = provideValidUserRegistrationData();
 
         when(userRepository.existsByNicknameOrMail(any(String.class), any(String.class)))
-                .thenReturn(false);
+                .thenReturn(true);
         //when
         MMTResponseCreator response = userRegistrationProcessor.createUserAccount(validUserRegistrationRequest);
 

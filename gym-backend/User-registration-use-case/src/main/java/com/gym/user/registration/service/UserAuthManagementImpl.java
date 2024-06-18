@@ -7,6 +7,7 @@ import com.gym.user.registration.model.Role;
 import com.gym.user.registration.model.User;
 import com.gym.user.registration.repository.UserRepository;
 import gym.mmt.auth.config.JwtService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;

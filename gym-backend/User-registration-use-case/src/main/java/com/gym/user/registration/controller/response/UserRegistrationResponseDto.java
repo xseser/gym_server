@@ -5,11 +5,13 @@ import com.gym.user.registration.model.Role;
 import com.gym.user.registration.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.UUID;
 
 @AllArgsConstructor
 @Data
+@Slf4j
 public class UserRegistrationResponseDto {
 
     private UUID id;
@@ -24,5 +26,17 @@ public class UserRegistrationResponseDto {
         this.nickname = user.getNickname();
         this.gender = user.getGender();
         this.role = user.getRole();
+        log.info("User account created successfully. Provisioned user: {}", this);
+    }
+
+    @Override
+    public String toString() {
+        return "UserRegistrationResponseDto{" +
+               "id=" + id +
+               ", mail='" + mail + '\'' +
+               ", nickname='" + nickname + '\'' +
+               ", gender=" + gender +
+               ", role=" + role +
+               '}';
     }
 }

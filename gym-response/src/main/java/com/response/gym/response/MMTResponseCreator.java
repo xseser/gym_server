@@ -5,6 +5,9 @@ import lombok.Setter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
 @Getter
 @Setter
 public abstract class MMTResponseCreator extends Body {

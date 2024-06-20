@@ -7,7 +7,7 @@ import com.gym.user.registration.controller.request.valid.ValidUserLoginDto;
 import cyclops.control.Either;
 import org.springframework.stereotype.Component;
 
-import static com.gym.user.registration.controller.validator.base.MailValidator.mailValidator;
+import static com.gym.user.registration.controller.validator.base.NameValidator.nameValidator;
 import static com.gym.user.registration.controller.validator.base.PasswordValidator.passwordValidator;
 
 @Component
@@ -23,7 +23,7 @@ public class UserLoginValidator extends Validator<UserLoginDto, ValidUserLoginDt
     public Either<Integer, ValidUserLoginDto> validate(UserLoginDto userLoginDto) {
         ValidUserLoginDto validUserLoginDto = new ValidUserLoginDto();
         return validatorHelper.validate(
-                        mailValidator(userLoginDto.getMail(), validUserLoginDto::setMail),
+                        nameValidator(userLoginDto.getNickname(), validUserLoginDto::setNickname),
                         passwordValidator(userLoginDto.getPassword(), validUserLoginDto::setPassword))
                 .<Either<Integer, ValidUserLoginDto>>
                         map(Either::left)

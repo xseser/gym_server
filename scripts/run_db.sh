@@ -6,7 +6,7 @@ DB_NETWORK="gym-network"
 DB_PASSWORD="mysecretpassword"
 DB_USER="postgres"
 DB_NAME="gym_database"
-SCHEMA_FILE="gym-database/schema.sql"
+SCHEMA_FILE="init.sql"
 DB_PORT="5432"
 pwd
 echo "Stopping and removing existing PostgreSQL container (if any)..."

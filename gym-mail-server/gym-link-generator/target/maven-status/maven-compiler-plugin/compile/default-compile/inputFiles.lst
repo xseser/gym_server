@@ -1,0 +1,10 @@
+/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-link-generator/src/main/java/com/gym/mail/generator/service/MailConfirmationService.java
+/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-link-generator/src/main/java/com/gym/mail/generator/dto/ValidMailConfirmationDto.java
+/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-link-generator/src/main/java/com/gym/mail/generator/service/impl/MailConfirmationServiceImpl.java
+/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-link-generator/src/main/java/com/gym/mail/generator/model/EmailStatus.java
+/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-link-generator/src/main/java/com/gym/mail/generator/model/MailConfirmation.java
+/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-link-generator/src/main/java/com/gym/mail/generator/service/LinkGenerator.java
+/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-link-generator/src/main/java/com/gym/mail/generator/model/EmailType.java
+/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-link-generator/src/main/java/com/gym/mail/generator/repository/MailConfirmationRepository.java
+/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-link-generator/src/main/java/com/gym/mail/generator/service/impl/LinkGeneratorServiceImpl.java
+/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-link-generator/src/main/java/com/gym/mail/generator/dto/MailConfirmationRequestDto.java

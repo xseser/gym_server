@@ -2,7 +2,9 @@ package com.backend.gym.controller;
 
 import com.backend.gym.controller.proxy.ControllerProxy;
 import com.gym.user.registration.controller.request.base.UserLoginDto;
+import com.gym.user.registration.controller.request.base.UserRegisterConfirmation;
 import com.gym.user.registration.controller.request.base.UserRegistrationDto;
+import com.response.gym.response.Ok;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import static com.response.gym.controller.url.UrlManagement.API_BASE;
+import static com.response.gym.controller.url.UrlManagement.CONFIRM_REGISTRATION;
 import static com.response.gym.controller.url.UrlManagement.USER_LOGIN;
 import static com.response.gym.controller.url.UrlManagement.USER_REGISTRATION;
 
@@ -36,5 +39,18 @@ public class UserManagementController {
         log.info("received request to log in user with data: {}", userLoginDto);
         return controllerProxy.loginAccount(userLoginDto)
                 .makeResponse();
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = API_BASE + CONFIRM_REGISTRATION)
+    public ResponseEntity confirmRegistration(@RequestBody UserRegisterConfirmation userRegisterConfirmation) {
+        log.info("received request to confirm registration via mail with data: {}", userRegisterConfirmation);
+        return controllerProxy.verifyUser(userRegisterConfirmation)
+                .makeResponse();
+    }
+
+    //TODO to delete -- just for test purpose
+    @RequestMapping(method = RequestMethod.POST, value = API_BASE + "test")
+    public ResponseEntity test() {
+        return new Ok().makeResponse();
     }
 }

@@ -1,0 +1,16 @@
+com/gym/mail/management/service/dto/UserRegisterConfirmation.class
+com/gym/mail/management/factory/ActionByTypeResolver$1.class
+com/gym/mail/management/service/MailConfirmationProcessor.class
+com/gym/mail/management/service/impl/MailConfirmationProcessorForPasswordChangeImpl.class
+com/gym/mail/management/service/impl/MailConfirmationProcessorForRegistrationImpl.class
+com/gym/mail/management/rest/RestConfig.class
+com/gym/mail/management/service/impl/LinkAccepterServiceImpl.class
+com/gym/mail/management/dto/ConfirmationDto$ConfirmationDtoBuilder.class
+com/gym/mail/management/factory/ActionResolverFactory.class
+com/gym/mail/management/service/impl/MailConfirmationProcessorForAdvertisementImpl.class
+com/gym/mail/management/factory/ActionByTypeResolver.class
+com/gym/mail/management/service/LinkAccepterService.class
+com/gym/mail/management/service/dto/UserRegisterConfirmation$UserRegisterConfirmationBuilder.class
+com/gym/mail/management/rest/RestTemplateWrapper.class
+com/gym/mail/management/dto/ConfirmationDto.class
+com/gym/mail/management/adapter/BackendAdapter.class

@@ -1,15 +1,15 @@
 package com.gym.user.registration.controller.request.valid;
 
 public class ValidUserLoginDto {
-    private String mail;
+    private String nickname;
     private String password;
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
-    public String getMail() {
-        return mail;
+    public String getNickname() {
+        return nickname;
     }
 
     public String getPassword() {
@@ -23,7 +23,7 @@ public class ValidUserLoginDto {
     @Override
     public String toString() {
         return "ValidUserLoginDto{" +
-               "mail='" + mail + '\'' +
+               "nickname='" + nickname + '\'' +
                ", password='" + "*******" + '\'' +
                '}';
     }

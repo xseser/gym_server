@@ -2,12 +2,16 @@ package com.backend.gym.controller.proxy;
 
 import com.backend.gym.factory.ControllerProcessor;
 import com.gym.user.registration.controller.request.base.UserLoginDto;
+import com.gym.user.registration.controller.request.base.UserRegisterConfirmation;
 import com.gym.user.registration.controller.request.base.UserRegistrationDto;
 import com.gym.user.registration.controller.request.valid.ValidUserLoginDto;
+import com.gym.user.registration.controller.request.valid.ValidUserRegisterConfirmation;
 import com.gym.user.registration.controller.request.valid.ValidUserRegistrationRequest;
 import com.gym.user.registration.controller.validator.UserLoginValidator;
+import com.gym.user.registration.controller.validator.UserRegistrationConfirmationValidator;
 import com.gym.user.registration.controller.validator.UserRegistrationValidator;
 import com.gym.user.registration.service.processor.UserAuthProcessor;
+import com.gym.user.registration.service.processor.UserMailRegistrationProcessor;
 import com.response.gym.response.MMTResponseCreator;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +42,13 @@ public class ControllerProxyService implements ControllerProxy {
                 userLoginDto,
                 UserLoginValidator.class,
                 it -> userAuthProcessor.logInAccount((ValidUserLoginDto) it));
+    }
+
+    @Override
+    public MMTResponseCreator verifyUser(UserRegisterConfirmation userRegisterConfirmation) {
+        return controllerProcessor.process(
+                userRegisterConfirmation,
+                UserRegistrationConfirmationValidator.class,
+                it -> userAuthProcessor.verifyUser((ValidUserRegisterConfirmation) it));
     }
 }

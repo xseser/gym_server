@@ -41,4 +41,9 @@ public class UserAuthManagementImplTest implements BaseUserValidator {
 
         Assertions.assertThat(userRegistrationResponseDto).isEqualTo(mapValidUserRegistrationDataToResponse());
     }
+
+    @Test
+    public void loginUserAccountProvidesTokenInResponse() {
+
+    }
 }

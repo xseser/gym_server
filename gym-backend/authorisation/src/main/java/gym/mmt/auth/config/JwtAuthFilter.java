@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static com.response.gym.controller.url.UrlManagement.API_BASE;
+import static com.response.gym.controller.url.UrlManagement.CONFIRM_REGISTRATION;
 import static com.response.gym.controller.url.UrlManagement.USER_LOGIN;
 import static com.response.gym.controller.url.UrlManagement.USER_REGISTRATION;
 
@@ -31,7 +32,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final List<String> paths = List.of(
             API_BASE + USER_REGISTRATION,
-            API_BASE + USER_LOGIN);
+            API_BASE + USER_LOGIN,
+            API_BASE + CONFIRM_REGISTRATION);
 
     public JwtAuthFilter(JwtService jwtService, UserDetailsService userDetailsService) {
         this.jwtService = jwtService;
@@ -47,20 +49,20 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
-        final String email;
+        final String name;
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
         jwt = authHeader.substring(7);
-        email = jwtService.extractUsername(jwt);
-        processAuthentication(email, request);
+        name = jwtService.extractUsername(jwt);
+        processAuthentication(name, request);
         filterChain.doFilter(request, response);
     }
 
-    private void processAuthentication(String email, HttpServletRequest request) {
-        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(email);
+    private void processAuthentication(String name, HttpServletRequest request) {
+        if (name != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(name);
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                     userDetails,
                     null,

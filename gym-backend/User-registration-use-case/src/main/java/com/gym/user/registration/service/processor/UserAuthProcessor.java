@@ -1,7 +1,9 @@
 package com.gym.user.registration.service.processor;
 
 import com.gym.user.registration.controller.request.valid.ValidUserLoginDto;
+import com.gym.user.registration.controller.request.valid.ValidUserRegisterConfirmation;
 import com.gym.user.registration.controller.request.valid.ValidUserRegistrationRequest;
+import com.gym.user.registration.controller.response.UserRegistrationResponseDto;
 import com.gym.user.registration.repository.UserRepository;
 import com.gym.user.registration.service.UserAuthManagement;
 import com.response.gym.response.Conflict;
@@ -11,6 +13,8 @@ import com.response.gym.response.NotFound;
 import com.response.gym.response.Ok;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.response.gym.controller.answer.UserAnswers.GIVEN_USER_ALREADY_EXISTS;
 import static com.response.gym.controller.answer.UserAnswers.GIVEN_USER_WAS_NOT_FOUND;
@@ -21,18 +25,23 @@ public class UserAuthProcessor {
 
     private final UserRepository userRepository;
     private final UserAuthManagement userAuthManagement;
+    private final UserMailRegistrationProcessor userMailRegistrationProcessor;
 
     public UserAuthProcessor(
             UserRepository userRepository,
-            UserAuthManagement userAuthManagement) {
+            UserAuthManagement userAuthManagement, UserMailRegistrationProcessor userMailRegistrationProcessor) {
         this.userRepository = userRepository;
         this.userAuthManagement = userAuthManagement;
+        this.userMailRegistrationProcessor = userMailRegistrationProcessor;
     }
 
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public MMTResponseCreator createUserAccount(ValidUserRegistrationRequest validUserRegistrationRequest) {
         log.info("Starting processing registration new user account with data: {}", validUserRegistrationRequest);
         if (!userRepository.existsByNicknameOrMail(validUserRegistrationRequest.getNickname(), validUserRegistrationRequest.getMail())) {
-            return new Created(userAuthManagement.createUserAccount(validUserRegistrationRequest));
+            UserRegistrationResponseDto responseDto = userAuthManagement.createUserAccount(validUserRegistrationRequest);
+            userMailRegistrationProcessor.sendEmailRegistrationConfirmation(responseDto);
+            return new Created(responseDto);
         }
         log.error(
                 "End of processing registration new user account with data: {}, with error: {}",
@@ -43,13 +52,26 @@ public class UserAuthProcessor {
 
     public MMTResponseCreator logInAccount(ValidUserLoginDto validUserLoginDto) {
         log.info("Starting processing logging in user account with data: {}", validUserLoginDto);
-        return userRepository.findByMail(validUserLoginDto.getMail())
+        return userRepository.findByNickname(validUserLoginDto.getNickname())
                 .map(userAuthManagement::logInAccount)
                 .map(it -> (MMTResponseCreator) new Ok(it))
                 .orElseGet(() -> {
                     log.error(
                             "End of processing logging in user account with data: {}, with error: {}",
                             validUserLoginDto,
+                            GIVEN_USER_WAS_NOT_FOUND);
+                    return new NotFound(GIVEN_USER_WAS_NOT_FOUND);
+                });
+    }
+
+    public MMTResponseCreator verifyUser(ValidUserRegisterConfirmation validUserRegisterConfirmation) {
+        return userRepository.findByNickname(validUserRegisterConfirmation.getNickname())
+                .map(it -> userAuthManagement.verifyUserAccount(it, validUserRegisterConfirmation.getVerified()))
+                .map(it -> (MMTResponseCreator) new Ok(it))
+                .orElseGet(() -> {
+                    log.error(
+                            "End of processing verification user account with data: {}, with error: {}",
+                            validUserRegisterConfirmation,
                             GIVEN_USER_WAS_NOT_FOUND);
                     return new NotFound(GIVEN_USER_WAS_NOT_FOUND);
                 });

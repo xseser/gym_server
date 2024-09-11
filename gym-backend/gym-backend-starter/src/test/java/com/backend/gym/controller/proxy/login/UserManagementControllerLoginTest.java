@@ -48,10 +48,10 @@ public class UserManagementControllerLoginTest extends TestUserLoginDataProvider
     }
 
     @Test
-    public void loggingWithoutMailWillCauseInvalidMailCredentialsError() {
+    public void loggingWithoutNicknameWillCauseInvalidMailCredentialsError() {
         //given
         UserLoginDto userLoginDto = provideValidUserLoginData();
-        userLoginDto.setMail(null);
+        userLoginDto.setNickname(null);
 
         //when
         MMTResponseCreator mmtResponseCreator = controllerProxyService.loginAccount(userLoginDto);

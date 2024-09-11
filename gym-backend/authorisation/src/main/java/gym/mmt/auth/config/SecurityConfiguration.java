@@ -2,6 +2,7 @@ package gym.mmt.auth.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -34,11 +35,11 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(
                                         "/MMT/api/v1/register",
-                                        "/MMT/api/v1/health")
+                                        "/MMT/api/v1/health",
+                                        "MMT/api/v1/login",
+                                        "MMT/api/v1/confirm")
                                 .permitAll()
-                                //                                .requestMatchers("/crackit/v1/management/**").hasAnyRole(ADMIN.name(), MEMBER.name())
-                                //                                .requestMatchers(GET, "/crackit/v1/management/**").hasAnyAuthority(ADMIN_READ.name(), MEMBER_READ.name())
-                                //                                .requestMatchers(POST, "/crackit/v1/management/**").hasAnyAuthority(ADMIN_CREATE.name(), MEMBER_CREATE.name())
+                                .requestMatchers(HttpMethod.POST, "MMT/api/v1/test").hasAnyAuthority("MEMBER")
                                 .anyRequest()
                                 .authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))

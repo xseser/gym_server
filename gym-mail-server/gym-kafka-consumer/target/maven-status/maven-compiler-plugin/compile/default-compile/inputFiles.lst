@@ -1,0 +1,11 @@
+/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-kafka-consumer/src/main/java/com/gym/mail/kafka/service/processor/EventTypeRecognizer.java
+/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-kafka-consumer/src/main/java/com/gym/mail/kafka/listener/KafkaConsumer.java
+/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-kafka-consumer/src/main/java/com/gym/mail/kafka/service/processor/EventMailProcessor.java
+/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-kafka-consumer/src/main/java/com/gym/mail/kafka/dto/CommonMailDto.java
+/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-kafka-consumer/src/main/java/com/gym/mail/kafka/service/processor/impl/AdvertisementProcessor.java
+/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-kafka-consumer/src/main/java/com/gym/mail/kafka/dto/Advertisement.java
+/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-kafka-consumer/src/main/java/com/gym/mail/kafka/dto/UserRegistration.java
+/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-kafka-consumer/src/main/java/com/gym/mail/kafka/service/processor/impl/UserRegistrationProcessor.java
+/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-kafka-consumer/src/main/java/com/gym/mail/kafka/service/EventToMailService.java
+/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-kafka-consumer/src/main/java/com/gym/mail/kafka/factory/EventTypeFactory.java
+/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-kafka-consumer/src/main/java/com/gym/mail/kafka/config/KafkaConsumerConfig.java

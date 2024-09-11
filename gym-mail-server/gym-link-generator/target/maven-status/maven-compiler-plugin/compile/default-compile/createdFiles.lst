@@ -1,0 +1,12 @@
+com/gym/mail/generator/model/EmailStatus.class
+com/gym/mail/generator/dto/ValidMailConfirmationDto.class
+com/gym/mail/generator/repository/MailConfirmationRepository.class
+com/gym/mail/generator/model/MailConfirmation$MailConfirmationBuilder.class
+com/gym/mail/generator/service/MailConfirmationService.class
+com/gym/mail/generator/model/EmailType.class
+com/gym/mail/generator/dto/MailConfirmationRequestDto.class
+com/gym/mail/generator/service/LinkGenerator.class
+com/gym/mail/generator/service/impl/LinkGeneratorServiceImpl.class
+com/gym/mail/generator/dto/ValidMailConfirmationDto$ValidMailConfirmationDtoBuilder.class
+com/gym/mail/generator/model/MailConfirmation.class
+com/gym/mail/generator/service/impl/MailConfirmationServiceImpl.class

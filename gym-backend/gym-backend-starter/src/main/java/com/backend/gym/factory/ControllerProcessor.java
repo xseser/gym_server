@@ -6,6 +6,7 @@ import com.response.gym.response.MMTResponseCreator;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 @Component
 public class ControllerProcessor<REQUEST, VALID> {

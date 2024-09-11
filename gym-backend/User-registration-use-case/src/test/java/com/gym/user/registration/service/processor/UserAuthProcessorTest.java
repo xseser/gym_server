@@ -1,6 +1,7 @@
 package com.gym.user.registration.service.processor;
 
 import com.gym.user.registration.controller.request.valid.ValidUserRegistrationRequest;
+import com.gym.user.registration.controller.response.UserRegistrationResponseDto;
 import com.gym.user.registration.repository.UserRepository;
 import com.gym.user.registration.service.BaseUserValidator;
 import com.gym.user.registration.service.UserAuthManagement;
@@ -29,6 +30,9 @@ public class UserAuthProcessorTest implements BaseUserValidator {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private UserMailRegistrationProcessor userMailRegistrationProcessor;
+
     @Test
     public void creatingNewAccountWithUniqueData_causesCreatedResponse() {
         //given
@@ -36,6 +40,7 @@ public class UserAuthProcessorTest implements BaseUserValidator {
 
         when(userRepository.existsByNicknameOrMail(any(String.class), any(String.class)))
                 .thenReturn(false);
+        userMailRegistrationProcessor.sendEmailRegistrationConfirmation(any(UserRegistrationResponseDto.class));
         when(userAuthManagement.createUserAccount(any(ValidUserRegistrationRequest.class)))
                 .thenReturn(mapValidUserRegistrationDataToResponse());
         //when

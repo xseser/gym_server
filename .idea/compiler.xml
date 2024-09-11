@@ -7,10 +7,16 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="gym-core" />
-        <module name="gym-backend-security" />
         <module name="gym-backend-starter" />
+        <module name="gym-link-generator" />
+        <module name="gym-link-accepter" />
         <module name="gym-response" />
         <module name="User-platform-access-use-case" />
+        <module name="kafka-producer" />
+        <module name="gym-gmail-adapter" />
+        <module name="gym-kafka-consumer" />
+        <module name="gym-backend-security" />
+        <module name="gym-mail-starter" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -51,8 +57,14 @@
       <module name="gym-backend-security" options="-parameters" />
       <module name="gym-backend-starter" options="-parameters" />
       <module name="gym-core" options="-parameters" />
+      <module name="gym-gmail-adapter" options="-parameters" />
+      <module name="gym-kafka-consumer" options="-parameters" />
+      <module name="gym-link-accepter" options="-parameters" />
+      <module name="gym-link-generator" options="-parameters" />
+      <module name="gym-mail-starter" options="-parameters" />
       <module name="init" options="-parameters" />
       <module name="initializer" options="-parameters" />
+      <module name="kafka-producer" options="-parameters" />
       <module name="userAuthentication" options="-parameters" />
       <module name="userRegistration" options="-parameters" />
     </option>

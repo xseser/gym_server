@@ -3,10 +3,12 @@ package com.gym.user.registration.service;
 import com.gym.user.registration.controller.request.valid.ValidUserRegistrationRequest;
 import com.gym.user.registration.controller.response.UserLoginResponseDto;
 import com.gym.user.registration.controller.response.UserRegistrationResponseDto;
+import com.gym.user.registration.controller.response.UserVerificationResponseDto;
 import com.gym.user.registration.model.Role;
 import com.gym.user.registration.model.User;
 import com.gym.user.registration.repository.UserRepository;
 import gym.mmt.auth.config.JwtService;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +27,7 @@ public class UserAuthManagementImpl implements UserAuthManagement {
         this.jwtService = jwtService;
     }
 
+    @Transactional
     @Override
     public UserRegistrationResponseDto createUserAccount(ValidUserRegistrationRequest validUserRegistrationRequest) {
         User user = User.builder()
@@ -45,5 +48,13 @@ public class UserAuthManagementImpl implements UserAuthManagement {
     public UserLoginResponseDto logInAccount(User user) {
         String tokenGenerated = jwtService.generateToken(user);
         return new UserLoginResponseDto(user, tokenGenerated);
+    }
+
+    @Transactional
+    @Override
+    public UserVerificationResponseDto verifyUserAccount(User user, Boolean isVerified) {
+        user.setIsVerified(isVerified);
+        userRepository.save(user);
+        return new UserVerificationResponseDto(user);
     }
 }

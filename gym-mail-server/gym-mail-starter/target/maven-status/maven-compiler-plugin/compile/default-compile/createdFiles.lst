@@ -1,0 +1,5 @@
+com/gym/mail/management/controller/MockController.class
+com/gym/mail/management/controller/EmailController.class
+com/gym/mail/management/controller/MailControllerInterceptor.class
+com/gym/mail/management/GymMailManagementApplication.class
+com/gym/mail/management/controller/MailInterceptorConfig.class

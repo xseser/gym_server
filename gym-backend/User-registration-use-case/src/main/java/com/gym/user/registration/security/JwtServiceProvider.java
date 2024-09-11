@@ -17,7 +17,7 @@ public class JwtServiceProvider {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> userRepository.findByMail(username)
+        return name -> userRepository.findByNickname(name)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 }

@@ -26,7 +26,7 @@ class TestUserLoginDataProvider extends BaseIntegrationTest implements DataProvi
 
     protected UserLoginDto provideValidUserLoginData() {
         return UserLoginDto.builder()
-                .mail(getMail())
+                .nickname(getNickName())
                 .password(getPassword())
                 .build();
     }
@@ -34,7 +34,7 @@ class TestUserLoginDataProvider extends BaseIntegrationTest implements DataProvi
     protected User mapUserLoginDtoToUser(UserLoginDto userLoginDto) {
         return User.builder()
                 .id(UUID.randomUUID())
-                .mail(userLoginDto.getMail())
+                .mail(userLoginDto.getNickname())
                 .password(userLoginDto.getPassword())
                 .role(this.role)
                 .nickname(this.nickname)

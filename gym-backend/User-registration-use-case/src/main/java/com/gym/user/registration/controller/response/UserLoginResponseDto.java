@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @NoArgsConstructor
-public class UserLoginResponseDto {
+public class UserLoginResponseDto extends AuthResponse {
 
     private Role role;
     private String nickname;

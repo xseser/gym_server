@@ -16,26 +16,29 @@ import java.util.UUID;
 
 class TestUserLoginDataProvider extends BaseIntegrationTest implements DataProvider {
 
-    private final Role role = Role.MEMBER;
+    private Role role;
     private String nickname;
+    private String password;
 
     @BeforeEach
     public void setUpNickname() {
         this.nickname = getNickName();
+        this.role = getRole();
+        this.password = getPassword();
     }
 
     protected UserLoginDto provideValidUserLoginData() {
         return UserLoginDto.builder()
-                .nickname(getNickName())
-                .password(getPassword())
+                .nickname(this.nickname)
+                .password(this.password)
                 .build();
     }
 
-    protected User mapUserLoginDtoToUser(UserLoginDto userLoginDto) {
+    protected User mapUserLoginDtoToUser() {
         return User.builder()
                 .id(UUID.randomUUID())
-                .mail(userLoginDto.getNickname())
-                .password(userLoginDto.getPassword())
+                .mail(getMail())
+                .password(this.password)
                 .role(this.role)
                 .nickname(this.nickname)
                 .build();

@@ -1,6 +1,9 @@
 package com.backend.gym.controller.proxy;
 
+import com.gym.user.registration.model.Role;
 import org.apache.commons.lang3.RandomStringUtils;
+
+import java.util.Arrays;
 
 public interface DataProvider {
 
@@ -16,8 +19,14 @@ public interface DataProvider {
         return generateRandomString();
     }
 
+    default Role getRole() {
+        return Arrays.stream(Role.values())
+                .findAny()
+                .orElse(null);
+    }
+
     default String getPassword() {
-        return "Password123!";
+        return "Password123!" + generateRandomString();
     }
 
     default String getGender() {

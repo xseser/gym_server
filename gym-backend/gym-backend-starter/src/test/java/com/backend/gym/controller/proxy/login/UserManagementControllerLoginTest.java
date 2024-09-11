@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 import static com.response.gym.controller.answer.UserAnswers.GIVEN_USER_WAS_NOT_FOUND;
-import static com.response.gym.controller.answer.UserAnswers.INVALID_MAIL_CREDENTIALS;
+import static com.response.gym.controller.answer.UserAnswers.INVALID_NICKNAME_CREDENTIALS;
 import static com.response.gym.controller.answer.UserAnswers.INVALID_PASSWORD_CREDENTIALS;
 
 public class UserManagementControllerLoginTest extends TestUserLoginDataProvider {
@@ -25,7 +25,7 @@ public class UserManagementControllerLoginTest extends TestUserLoginDataProvider
     public void validUserLoginRequestWillCauseTokenAndDataReturn() {
         //given
         UserLoginDto userLoginDto = provideValidUserLoginData();
-        User user = mapUserLoginDtoToUser(userLoginDto);
+        User user = mapUserLoginDtoToUser();
         userRepository.save(user);
 
         //when
@@ -57,7 +57,7 @@ public class UserManagementControllerLoginTest extends TestUserLoginDataProvider
         MMTResponseCreator mmtResponseCreator = controllerProxyService.loginAccount(userLoginDto);
 
         //then
-        assertInvalidUserLogin(mmtResponseCreator.makeResponse(), HttpStatus.BAD_REQUEST, INVALID_MAIL_CREDENTIALS);
+        assertInvalidUserLogin(mmtResponseCreator.makeResponse(), HttpStatus.BAD_REQUEST, INVALID_NICKNAME_CREDENTIALS);
     }
 
     @Test

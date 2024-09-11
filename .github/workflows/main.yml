@@ -28,11 +28,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Make run_all.sh executable
-        run: chmod +x scripts/run_all.sh
+      - name: Make run_db.sh executable
+        run: chmod +x scripts/run_db.sh
 
       - name: Set up database and server context
-        run: bash scripts/run_all.sh
+        run: bash scripts/run_db.sh
 
       - name: Build with Maven
         run: mvn -B package --file pom.xml

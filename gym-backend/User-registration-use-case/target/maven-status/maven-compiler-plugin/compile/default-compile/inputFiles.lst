@@ -1,4 +1,3 @@
-/Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/mail/CommonMailDto.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/adapter/MailConfirmationDto.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/controller/validator/UserRegistrationConfirmationValidator.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/controller/response/UserRegistrationResponseDto.java
@@ -8,7 +7,6 @@
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/controller/request/valid/ValidUserLoginDto.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/controller/response/UserLoginResponseDto.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/controller/response/AuthResponse.java
-/Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/config/KafkaProducerConfig.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/controller/validator/base/MailValidator.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/controller/request/base/UserLoginDto.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/adapter/RestTemplateWrapper.java
@@ -17,11 +15,8 @@
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/controller/validator/base/PasswordValidator.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/service/UserAuthManagement.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/adapter/GymMailAdapter.java
-/Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/mail/UserRegistration.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/controller/validator/base/NameValidator.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/repository/UserRepository.java
-/Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/mail/RegistrationMail.java
-/Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/kafka/KafkaProducer.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/controller/request/base/UserRegisterConfirmation.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/service/processor/UserMailRegistrationProcessor.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/security/JwtServiceProvider.java
@@ -35,3 +30,4 @@
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/controller/validator/base/GenderValidator.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/controller/validator/UserRegistrationValidator.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/model/Role.java
+/Users/igormier/IdeaProjects/gym_server/gym-backend/User-registration-use-case/src/main/java/com/gym/user/registration/config/KafkaConfig.java

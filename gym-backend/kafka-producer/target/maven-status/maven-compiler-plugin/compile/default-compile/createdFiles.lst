@@ -1,1 +1,6 @@
-com/gym/mail/management/Main.class
+com/gym/kafka/producer/mail/RegistrationMail.class
+com/gym/kafka/producer/KafkaProducerWrapper.class
+com/gym/kafka/producer/mail/EventDto.class
+com/gym/kafka/producer/mail/UserRegistration.class
+com/gym/kafka/producer/mail/RegistrationMail$RegistrationMailBuilder.class
+com/gym/kafka/producer/GymKafkaProducer.class

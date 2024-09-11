@@ -1,4 +1,4 @@
-package com.gym.user.registration.mail;
+package com.gym.kafka.producer.mail;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

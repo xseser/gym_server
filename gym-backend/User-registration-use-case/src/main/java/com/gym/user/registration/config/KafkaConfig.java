@@ -1,10 +1,11 @@
 package com.gym.user.registration.config;
 
-import com.gym.user.registration.mail.CommonMailDto;
-import com.gym.user.registration.mail.RegistrationMail;
-import org.apache.kafka.clients.consumer.ConsumerConfig;
+import com.gym.kafka.producer.GymKafkaProducer;
+import com.gym.kafka.producer.KafkaProducerWrapper;
+import com.gym.kafka.producer.mail.EventDto;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
@@ -16,10 +17,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-public class KafkaProducerConfig {
+public class KafkaConfig {
+
+    private final String kafkaMailGroup;
+
+    public KafkaConfig(@Value("${kafka.mail.group}") String kafkaMailGroup) {
+        this.kafkaMailGroup = kafkaMailGroup;
+    }
 
     @Bean
-    public ProducerFactory<String, CommonMailDto> producerFactory() {
+    public ProducerFactory<String, EventDto> producerFactory() {
         Map<String, Object> config = new HashMap<>();
 
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka:9092");
@@ -32,7 +39,12 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, CommonMailDto> kafkaTemplate() {
+    public KafkaTemplate<String, EventDto> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
+    }
+
+    @Bean
+    public GymKafkaProducer kafkaProducer() {
+        return new KafkaProducerWrapper(kafkaTemplate(), kafkaMailGroup);
     }
 }

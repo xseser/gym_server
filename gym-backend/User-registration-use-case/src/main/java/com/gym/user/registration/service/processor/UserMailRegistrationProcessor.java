@@ -1,24 +1,17 @@
 package com.gym.user.registration.service.processor;
 
-import com.gym.user.registration.adapter.GymMailAdapter;
+import com.gym.kafka.producer.GymKafkaProducer;
+import com.gym.kafka.producer.mail.EventDto;
+import com.gym.kafka.producer.mail.UserRegistration;
 import com.gym.user.registration.controller.response.UserRegistrationResponseDto;
-import com.gym.user.registration.kafka.KafkaProducer;
-import com.gym.user.registration.mail.CommonMailDto;
-import com.gym.user.registration.mail.UserRegistration;
 import org.springframework.stereotype.Component;
-
-import java.util.concurrent.Executor;
 
 @Component
 public class UserMailRegistrationProcessor {
 
-    private final GymMailAdapter gymMailAdapter;
-    private final Executor executor;
-    private final KafkaProducer kafkaProducer;
+    private final GymKafkaProducer kafkaProducer;
 
-    public UserMailRegistrationProcessor(GymMailAdapter gymMailAdapter, Executor executor, KafkaProducer kafkaProducer) {
-        this.gymMailAdapter = gymMailAdapter;
-        this.executor = executor;
+    public UserMailRegistrationProcessor(GymKafkaProducer kafkaProducer) {
         this.kafkaProducer = kafkaProducer;
     }
 
@@ -26,7 +19,7 @@ public class UserMailRegistrationProcessor {
         kafkaProducer.sendMessage(mapToMail(responseDto));
     }
 
-    private CommonMailDto mapToMail(UserRegistrationResponseDto userRegistrationResponseDto) {
+    private EventDto mapToMail(UserRegistrationResponseDto userRegistrationResponseDto) {
         return new UserRegistration(
                 userRegistrationResponseDto.getNickname(),
                 userRegistrationResponseDto.getMail(),

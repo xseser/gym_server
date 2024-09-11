@@ -61,6 +61,7 @@
       <module name="gym-kafka-consumer" options="-parameters" />
       <module name="gym-link-accepter" options="-parameters" />
       <module name="gym-link-generator" options="-parameters" />
+      <module name="gym-mail-server" options="-parameters" />
       <module name="gym-mail-starter" options="-parameters" />
       <module name="init" options="-parameters" />
       <module name="initializer" options="-parameters" />

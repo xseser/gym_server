@@ -1,7 +1,5 @@
 package com.core.gym.validator;
 
-import com.response.gym.response.BadRequest;
-import com.response.gym.response.MMTResponseCreator;
 import cyclops.control.Either;
 import org.springframework.stereotype.Component;
 

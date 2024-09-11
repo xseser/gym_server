@@ -1,4 +1,4 @@
-package com.gym.user.registration.mail;
+package com.gym.kafka.producer.mail;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-public class UserRegistration extends CommonMailDto {
+public class UserRegistration extends EventDto {
     private String verification;
 
     public UserRegistration(String nickname, String mail, String verification) {

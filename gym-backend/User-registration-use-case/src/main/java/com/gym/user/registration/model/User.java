@@ -13,8 +13,14 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.UUID;
+
+import static com.gym.user.registration.model.authorities.Auth.getAdminAuthorities;
+import static com.gym.user.registration.model.authorities.Auth.getMemberAuthorities;
+import static com.gym.user.registration.model.authorities.Auth.getPremiumAuthorities;
+import static com.gym.user.registration.model.authorities.Auth.getSuperAdminAuthorities;
 
 @Entity
 @Data
@@ -51,10 +57,23 @@ public class User implements UserDetails {
     @Column(name = "is_locked")
     private Boolean isLocked;
 
+    @Column(name = "role_expiration_time")
+    private LocalDateTime roleExpirationTime;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.role.getAuthorities();
+        return switch (this.role) {
+            case MEMBER -> getMemberAuthorities();
+            case PREMIUM -> getPremiumAuthorities();
+            case SUPER_ADMIN -> getSuperAdminAuthorities();
+            case ADMIN -> getAdminAuthorities();
+        };
+    }
+
+    @Override
+    public String getPassword() {
+        return this.password;
     }
 
     @Override
@@ -64,21 +83,21 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return !this.isLocked;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return this.isVerified;
+        return !this.isLocked;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return this.isVerified;
     }
 }

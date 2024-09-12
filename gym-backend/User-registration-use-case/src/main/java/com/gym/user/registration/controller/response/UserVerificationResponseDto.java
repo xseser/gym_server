@@ -2,10 +2,12 @@ package com.gym.user.registration.controller.response;
 
 import com.gym.user.registration.model.Role;
 import com.gym.user.registration.model.User;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-public class UserVerificationResponseDto extends AuthResponse {
+@AllArgsConstructor
+public class UserVerificationResponseDto {
     private String id;
     private String nickname;
     private Role role;

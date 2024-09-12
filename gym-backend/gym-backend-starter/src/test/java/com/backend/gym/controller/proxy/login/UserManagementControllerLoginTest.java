@@ -1,32 +1,22 @@
 package com.backend.gym.controller.proxy.login;
 
-import com.backend.gym.controller.proxy.ControllerProxyService;
 import com.gym.user.registration.controller.request.base.UserLoginDto;
-import com.gym.user.registration.model.User;
-import com.gym.user.registration.repository.UserRepository;
 import com.response.gym.response.MMTResponseCreator;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
-import static com.response.gym.controller.answer.UserAnswers.GIVEN_USER_WAS_NOT_FOUND;
+import static com.response.gym.controller.answer.UserAnswers.INVALID_LOCK_STATE;
 import static com.response.gym.controller.answer.UserAnswers.INVALID_NICKNAME_CREDENTIALS;
 import static com.response.gym.controller.answer.UserAnswers.INVALID_PASSWORD_CREDENTIALS;
+import static com.response.gym.controller.answer.UserAnswers.INVALID_VERIFICATION_STATE;
 
 public class UserManagementControllerLoginTest extends TestUserLoginDataProvider {
-
-    @Autowired
-    ControllerProxyService controllerProxyService;
-
-    @Autowired
-    UserRepository userRepository;
 
     @Test
     public void validUserLoginRequestWillCauseTokenAndDataReturn() {
         //given
         UserLoginDto userLoginDto = provideValidUserLoginData();
-        User user = mapUserLoginDtoToUser();
-        userRepository.save(user);
+        saveUserAccount();
 
         //when
         MMTResponseCreator mmtResponseCreator = controllerProxyService.loginAccount(userLoginDto);
@@ -36,7 +26,7 @@ public class UserManagementControllerLoginTest extends TestUserLoginDataProvider
     }
 
     @Test
-    public void userWhichDoesNotExistDuringLoggingWillCauseGivenUserNotFoundError() {
+    public void userWhichDoesNotExistDuringLoggingWillCauseUnauthorisedError() {
         //given
         UserLoginDto userLoginDto = provideValidUserLoginData();
 
@@ -44,7 +34,7 @@ public class UserManagementControllerLoginTest extends TestUserLoginDataProvider
         MMTResponseCreator mmtResponseCreator = controllerProxyService.loginAccount(userLoginDto);
 
         //then
-        assertInvalidUserLogin(mmtResponseCreator.makeResponse(), HttpStatus.NOT_FOUND, GIVEN_USER_WAS_NOT_FOUND);
+        assertInvalidUserLogin(mmtResponseCreator.makeResponse(), HttpStatus.FORBIDDEN);
     }
 
     @Test
@@ -72,4 +62,44 @@ public class UserManagementControllerLoginTest extends TestUserLoginDataProvider
         //then
         assertInvalidUserLogin(mmtResponseCreator.makeResponse(), HttpStatus.BAD_REQUEST, INVALID_PASSWORD_CREDENTIALS);
     }
+
+    @Test
+    public void invalidPasswordWillCauseUnauthorisedError() {
+        UserLoginDto userLoginDto = provideValidUserLoginData();
+        userLoginDto.setPassword("IamInvalid123^^");
+        saveUserAccount();
+
+        MMTResponseCreator mmtResponseCreator = controllerProxyService.loginAccount(userLoginDto);
+
+        //then
+        assertInvalidUserLogin(mmtResponseCreator.makeResponse(), HttpStatus.FORBIDDEN);
+    }
+
+    @Test
+    public void unverifiedUserWillCauseUnauthorisedError() {
+        //given
+        UserLoginDto userLoginDto = provideValidUserLoginData();
+        saveUserAccountWhichIsUnverified();
+
+        //when
+        MMTResponseCreator mmtResponseCreator = controllerProxyService.loginAccount(userLoginDto);
+
+        //then
+        assertInvalidUserLogin(mmtResponseCreator.makeResponse(), HttpStatus.UNAUTHORIZED, INVALID_VERIFICATION_STATE);
+    }
+
+    @Test
+    public void lockedUserWillCauseUnauthorisedError() {
+        //given
+        UserLoginDto userLoginDto = provideValidUserLoginData();
+        saveUserAccountWhichIsLocked();
+
+        //when
+        MMTResponseCreator mmtResponseCreator = controllerProxyService.loginAccount(userLoginDto);
+
+        //then
+        assertInvalidUserLogin(mmtResponseCreator.makeResponse(), HttpStatus.UNAUTHORIZED, INVALID_LOCK_STATE);
+    }
+
+    //TODO add test with expired user role.
 }

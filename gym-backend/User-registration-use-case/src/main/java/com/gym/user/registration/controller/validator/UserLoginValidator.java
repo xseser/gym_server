@@ -3,7 +3,7 @@ package com.gym.user.registration.controller.validator;
 import com.core.gym.validator.Validator;
 import com.core.gym.validator.ValidatorHelper;
 import com.gym.user.registration.controller.request.base.UserLoginDto;
-import com.gym.user.registration.controller.request.valid.ValidUserLoginDto;
+import com.gym.user.registration.controller.request.valid.ValidUserLoginRequest;
 import cyclops.control.Either;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +11,7 @@ import static com.gym.user.registration.controller.validator.base.NameValidator.
 import static com.gym.user.registration.controller.validator.base.PasswordValidator.passwordValidator;
 
 @Component
-public class UserLoginValidator extends Validator<UserLoginDto, ValidUserLoginDto> {
+public class UserLoginValidator extends Validator<UserLoginDto, ValidUserLoginRequest> {
 
     private final ValidatorHelper validatorHelper;
 
@@ -20,13 +20,13 @@ public class UserLoginValidator extends Validator<UserLoginDto, ValidUserLoginDt
     }
 
     @Override
-    public Either<Integer, ValidUserLoginDto> validate(UserLoginDto userLoginDto) {
-        ValidUserLoginDto validUserLoginDto = new ValidUserLoginDto();
+    public Either<Integer, ValidUserLoginRequest> validate(UserLoginDto userLoginDto) {
+        ValidUserLoginRequest validUserLoginRequest = new ValidUserLoginRequest();
         return validatorHelper.validate(
-                        nameValidator(userLoginDto.getNickname(), validUserLoginDto::setNickname),
-                        passwordValidator(userLoginDto.getPassword(), validUserLoginDto::setPassword))
-                .<Either<Integer, ValidUserLoginDto>>
+                        nameValidator(userLoginDto.getNickname(), validUserLoginRequest::setNickname),
+                        passwordValidator(userLoginDto.getPassword(), validUserLoginRequest::setPassword))
+                .<Either<Integer, ValidUserLoginRequest>>
                         map(Either::left)
-                .orElseGet(() -> Either.right(validUserLoginDto));
+                .orElseGet(() -> Either.right(validUserLoginRequest));
     }
 }

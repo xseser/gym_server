@@ -7,16 +7,11 @@ import com.gym.user.registration.controller.response.UserRegistrationResponseDto
 import com.gym.user.registration.model.Gender;
 import com.gym.user.registration.model.Role;
 import com.gym.user.registration.model.User;
-import com.gym.user.registration.repository.UserRepository;
 import org.assertj.core.api.Assertions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 class TestUserRegistrationDataProvider extends BaseIntegrationTest implements DataProvider {
-
-    @Autowired
-    UserRepository userRepository;
 
     protected UserRegistrationDto provideValidUserRegistrationDto() {
         String password = getPassword();

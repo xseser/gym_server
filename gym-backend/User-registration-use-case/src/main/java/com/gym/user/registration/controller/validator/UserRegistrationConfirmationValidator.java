@@ -8,6 +8,7 @@ import cyclops.control.Either;
 import org.springframework.stereotype.Component;
 
 import static com.gym.user.registration.controller.validator.base.NameValidator.nameValidator;
+import static com.gym.user.registration.controller.validator.base.VerificationValidator.verificationFlagValidator;
 
 @Component
 public class UserRegistrationConfirmationValidator extends Validator<UserRegisterConfirmation, ValidUserRegisterConfirmation> {
@@ -21,9 +22,9 @@ public class UserRegistrationConfirmationValidator extends Validator<UserRegiste
     @Override
     public Either<Integer, ValidUserRegisterConfirmation> validate(UserRegisterConfirmation userRegisterConfirmation) {
         ValidUserRegisterConfirmation validUserRegisterConfirmation = new ValidUserRegisterConfirmation();
-        validUserRegisterConfirmation.setVerified(userRegisterConfirmation.getIsVerified());
         return validatorHelper.validate(
-                nameValidator(userRegisterConfirmation.getNickname(), validUserRegisterConfirmation::setNickname))
+                nameValidator(userRegisterConfirmation.getNickname(), validUserRegisterConfirmation::setNickname),
+                verificationFlagValidator(userRegisterConfirmation.getIsVerified(), validUserRegisterConfirmation::setVerified))
                 .<Either<Integer, ValidUserRegisterConfirmation>>
                         map(Either::left)
                 .orElseGet(() -> Either.right(validUserRegisterConfirmation));

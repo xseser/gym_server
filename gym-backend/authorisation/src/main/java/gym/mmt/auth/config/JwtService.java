@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import java.security.Key;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 
@@ -24,16 +26,22 @@ public class JwtService {
     public String generateToken(UserDetails user) {
         return Jwts.builder()
                 .setSubject(user.getUsername())
-                .claim("authorities", populateAuthorities(user.getAuthorities()))
+                .addClaims(getClaims(user))
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 86400000))
+                .setExpiration(new Date(System.currentTimeMillis() + 300000))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
+    public Map<String, Object> getClaims(UserDetails userDetails) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("authorities", populateAuthorities(userDetails.getAuthorities()));
+        return claims;
+    }
+
 
     private Key getSigningKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(SECRET);
+        byte[] keyBytes = Decoders.BASE64URL.decode(SECRET);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 

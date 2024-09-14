@@ -1,8 +1,16 @@
 package com.gym.user.registration.controller.request.valid;
 
-public class ValidUserLoginDto {
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+public class ValidUserLoginRequest {
     private String nickname;
     private String password;
+
+    public ValidUserLoginRequest(String nickname, String password) {
+        this.nickname = nickname;
+        this.password = password;
+    }
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
@@ -22,7 +30,7 @@ public class ValidUserLoginDto {
 
     @Override
     public String toString() {
-        return "ValidUserLoginDto{" +
+        return "ValidUserLoginRequest{" +
                "nickname='" + nickname + '\'' +
                ", password='" + "*******" + '\'' +
                '}';

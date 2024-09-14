@@ -5,6 +5,7 @@
 /Users/igormier/IdeaProjects/gym_server/gym-backend/gym-backend-starter/src/test/java/com/backend/gym/controller/proxy/BaseIntegrationTest.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/gym-backend-starter/src/test/java/com/backend/gym/controller/proxy/registration/UserManagementControllerRegistrationTest.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/gym-backend-starter/src/test/java/com/backend/gym/controller/proxy/config/TestConfig.java
+/Users/igormier/IdeaProjects/gym_server/gym-backend/gym-backend-starter/src/test/java/com/backend/gym/controller/proxy/verification/UserManagementControllerVerificationTest.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/gym-backend-starter/src/test/java/com/backend/gym/controller/proxy/login/UserManagementControllerLoginTest.java
+/Users/igormier/IdeaProjects/gym_server/gym-backend/gym-backend-starter/src/test/java/com/backend/gym/controller/proxy/verification/TestVerificationUserProvider.java
 /Users/igormier/IdeaProjects/gym_server/gym-backend/gym-backend-starter/src/test/java/com/backend/gym/controller/proxy/login/TestUserLoginDataProvider.java
-/Users/igormier/IdeaProjects/gym_server/gym-backend/gym-backend-starter/src/test/java/com/backend/gym/controller/proxy/login/UserTestObject.java

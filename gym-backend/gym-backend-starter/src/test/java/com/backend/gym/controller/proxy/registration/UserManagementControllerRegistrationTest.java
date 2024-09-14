@@ -1,10 +1,8 @@
 package com.backend.gym.controller.proxy.registration;
 
-import com.backend.gym.controller.proxy.ControllerProxyService;
 import com.gym.user.registration.controller.request.base.UserRegistrationDto;
 import com.response.gym.response.MMTResponseCreator;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 import static com.response.gym.controller.answer.UserAnswers.GIVEN_USER_ALREADY_EXISTS;
@@ -15,9 +13,6 @@ import static com.response.gym.controller.answer.UserAnswers.INVALID_PASSWORD_CR
 import static com.response.gym.controller.answer.UserAnswers.PASSWORDS_DOES_NOT_MATCH;
 
 public class UserManagementControllerRegistrationTest extends TestUserRegistrationDataProvider {
-
-    @Autowired
-    ControllerProxyService controllerProxyService;
 
     @Test
     public void validDataForRegistrationCausesValidResponse() {

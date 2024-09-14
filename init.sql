@@ -13,14 +13,15 @@ drop table if exists gym.exercises cascade;
 
 create table if not exists gym.users
 (
-    id          uuid primary key,
-    nickname    varchar(20),
-    mail        varchar(100),
-    is_verified boolean,
-    is_locked   boolean,
-    password    varchar(100),
-    gender      varchar(10),
-    role        varchar(10)
+    id                   uuid primary key,
+    nickname             varchar(20),
+    mail                 varchar(100),
+    is_verified          boolean,
+    is_locked            boolean,
+    password             varchar(100),
+    gender               varchar(10),
+    role                 varchar(10),
+    role_expiration_time timestamp
 );
 
 create table if not exists gym.mail_confirmation

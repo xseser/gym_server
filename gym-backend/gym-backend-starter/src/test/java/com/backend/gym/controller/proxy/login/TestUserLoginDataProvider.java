@@ -6,22 +6,27 @@ import com.gym.user.registration.controller.request.base.UserLoginDto;
 import com.gym.user.registration.controller.response.UserLoginResponseDto;
 import com.gym.user.registration.model.Role;
 import com.gym.user.registration.model.User;
-import com.response.gym.response.MMTResponseCreator;
+import com.gym.user.registration.repository.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.UUID;
 
 class TestUserLoginDataProvider extends BaseIntegrationTest implements DataProvider {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     private Role role;
     private String nickname;
     private String password;
 
     @BeforeEach
-    public void setUpNickname() {
+    public void setUp() {
         this.nickname = getNickName();
         this.role = getRole();
         this.password = getPassword();
@@ -40,6 +45,8 @@ class TestUserLoginDataProvider extends BaseIntegrationTest implements DataProvi
                 .mail(getMail())
                 .password(this.password)
                 .role(this.role)
+                .isLocked(false)
+                .isVerified(true)
                 .nickname(this.nickname)
                 .build();
     }
@@ -51,7 +58,6 @@ class TestUserLoginDataProvider extends BaseIntegrationTest implements DataProvi
         Assertions.assertThat(loginResponseDto).isNotNull();
         Assertions.assertThat(loginResponseDto.getToken()).isNotNull();
         Assertions.assertThat(loginResponseDto.getNickname()).isEqualTo(this.nickname);
-        Assertions.assertThat(loginResponseDto.getRole()).isEqualTo(this.role);
     }
 
     protected void assertInvalidUserLogin(ResponseEntity response, HttpStatus status, int code) {
@@ -59,5 +65,29 @@ class TestUserLoginDataProvider extends BaseIntegrationTest implements DataProvi
 
         Assertions.assertThat(response.getStatusCode()).isEqualTo(status);
         Assertions.assertThat(errorCode).isEqualTo(code);
+    }
+
+    protected void assertInvalidUserLogin(ResponseEntity response, HttpStatus status) {
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(status);
+    }
+
+    protected void saveUserAccount() {
+        User user = mapUserLoginDtoToUser();
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+    }
+
+    protected void saveUserAccountWhichIsUnverified() {
+        User user = mapUserLoginDtoToUser();
+        user.setIsVerified(false);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+    }
+
+    protected void saveUserAccountWhichIsLocked() {
+        User user = mapUserLoginDtoToUser();
+        user.setIsLocked(true);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
     }
 }

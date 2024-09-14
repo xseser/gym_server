@@ -1,13 +1,23 @@
 package com.gym.user.registration.service.processor;
 
+import com.gym.user.registration.controller.request.valid.ValidUserLoginRequest;
+import com.gym.user.registration.controller.request.valid.ValidUserRegisterConfirmation;
 import com.gym.user.registration.controller.request.valid.ValidUserRegistrationRequest;
+import com.gym.user.registration.controller.response.UserLoginResponseDto;
 import com.gym.user.registration.controller.response.UserRegistrationResponseDto;
+import com.gym.user.registration.controller.response.UserVerificationResponseDto;
+import com.gym.user.registration.model.User;
 import com.gym.user.registration.repository.UserRepository;
 import com.gym.user.registration.service.BaseUserValidator;
 import com.gym.user.registration.service.UserAuthManagement;
+import com.response.gym.response.Accepted;
 import com.response.gym.response.Conflict;
 import com.response.gym.response.Created;
+import com.response.gym.response.Forbidden;
 import com.response.gym.response.MMTResponseCreator;
+import com.response.gym.response.NotFound;
+import com.response.gym.response.Ok;
+import cyclops.control.Either;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +25,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
+import static com.response.gym.controller.answer.UserAnswers.GIVEN_USER_VERIFICATION_STATE_IS_ALREADY_SET;
+import static com.response.gym.controller.answer.UserAnswers.GIVEN_USER_WAS_NOT_FOUND;
+import static com.response.gym.controller.answer.UserAnswers.INVALID_LOGIN_CREDENTIALS;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -66,5 +82,114 @@ public class UserAuthProcessorTest implements BaseUserValidator {
         Assertions
                 .assertThat(response.getStatusCode())
                 .isEqualTo(new Conflict().getStatusCode());
+    }
+
+    @Test
+    public void logInAccount_userCouldNotBeAuthenticated_ForbiddenWasReturned() {
+        ValidUserLoginRequest validUserLoginRequest = provideValidUserLoginData();
+
+        when(userAuthManagement.authenticate(any(String.class), any(String.class)))
+                .thenReturn(Either.left(INVALID_LOGIN_CREDENTIALS));
+
+        MMTResponseCreator response = userRegistrationProcessor.logInAccount(validUserLoginRequest);
+
+        Assertions
+                .assertThat(response.getStatusCode())
+                .isEqualTo(new Forbidden().getStatusCode());
+    }
+
+    @Test
+    public void logInAccount_userCouldNotBeFound_NotFoundWasReturned() {
+        ValidUserLoginRequest validUserLoginRequest = provideValidUserLoginData();
+
+        when(userAuthManagement.authenticate(any(String.class), any(String.class)))
+                .thenReturn(Either.right(null));
+        when(userRepository.findByNickname(eq(validUserLoginRequest.getNickname())))
+                .thenReturn(Optional.empty());
+
+        MMTResponseCreator response = userRegistrationProcessor.logInAccount(validUserLoginRequest);
+
+        Assertions
+                .assertThat(response.getStatusCode())
+                .isEqualTo(new NotFound().getStatusCode());
+    }
+
+    @Test
+    public void logInAccount_validData_okStatusAndValidDataWasReturned() {
+        ValidUserLoginRequest validUserLoginRequest = provideValidUserLoginData();
+        User user = provideUser();
+        UserLoginResponseDto userLoginResponseDto = new UserLoginResponseDto(user, "mocked token");
+
+        when(userAuthManagement.authenticate(any(String.class), any(String.class)))
+                .thenReturn(Either.right(null));
+        when(userRepository.findByNickname(eq(validUserLoginRequest.getNickname())))
+                .thenReturn(Optional.of(user));
+        when(userAuthManagement.logInAccount(any(User.class)))
+                .thenReturn(userLoginResponseDto);
+
+        MMTResponseCreator response = userRegistrationProcessor.logInAccount(validUserLoginRequest);
+
+        Assertions
+                .assertThat(response.getStatusCode())
+                .isEqualTo(new Ok().getStatusCode());
+
+        Assertions
+                .assertThat((UserLoginResponseDto) response.makeResponse().getBody())
+                .isEqualTo(userLoginResponseDto);
+    }
+
+    @Test
+    public void verifyUser_validData_okStatusAndValidDataWasReturned() {
+        ValidUserRegisterConfirmation validUserRegisterConfirmation = provideValidUserRegisterConfirmation(true);
+        User user = provideUser();
+        UserVerificationResponseDto expectedResponse = mapValidUserRegisterConfirmationToResponse(true);
+
+        when(userRepository.findByNickname(eq(nickname)))
+                .thenReturn(Optional.ofNullable(user));
+
+        when(userAuthManagement.verifyUserAccount(eq(user), eq(validUserRegisterConfirmation.getVerified())))
+                .thenReturn(expectedResponse);
+
+        MMTResponseCreator response = userRegistrationProcessor.verifyUser(validUserRegisterConfirmation);
+
+        Assertions.assertThat(response.getStatusCode())
+                .isEqualTo(new Ok().getStatusCode());
+
+        Assertions.assertThat(response.makeResponse().getBody())
+                .isEqualTo(expectedResponse);
+    }
+
+    @Test
+    public void verifyUser_userDoesNotExist_notFoundStatusAndCorrectCodeWereReturned() {
+        ValidUserRegisterConfirmation validUserRegisterConfirmation = provideValidUserRegisterConfirmation(true);
+
+        when(userRepository.findByNickname(eq(nickname)))
+                .thenReturn(Optional.empty());
+
+        MMTResponseCreator response = userRegistrationProcessor.verifyUser(validUserRegisterConfirmation);
+
+        Assertions.assertThat(response.getStatusCode())
+                .isEqualTo(new NotFound().getStatusCode());
+
+        Assertions.assertThat(response.makeResponse().getBody())
+                .isEqualTo(GIVEN_USER_WAS_NOT_FOUND);
+    }
+
+    @Test
+    public void verifyUser_userIsAlreadyVerified_acceptedStatusAndCorrectCodeWereReturned() {
+        ValidUserRegisterConfirmation validUserRegisterConfirmation = provideValidUserRegisterConfirmation(true);
+        User user = provideUser();
+        user.setIsVerified(true);
+
+        when(userRepository.findByNickname(eq(nickname)))
+                .thenReturn(Optional.of(user));
+
+        MMTResponseCreator response = userRegistrationProcessor.verifyUser(validUserRegisterConfirmation);
+
+        Assertions.assertThat(response.getStatusCode())
+                .isEqualTo(new Accepted().getStatusCode());
+
+        Assertions.assertThat(response.makeResponse().getBody())
+                .isEqualTo(GIVEN_USER_VERIFICATION_STATE_IS_ALREADY_SET);
     }
 }

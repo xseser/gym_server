@@ -1,11 +1,12 @@
-com/backend/gym/controller/proxy/registration/UserTestObject.class
 com/backend/gym/controller/proxy/config/TestConfig.class
+com/backend/gym/controller/proxy/registration/TestUserRegistrationDataProvider.class
+com/backend/gym/controller/proxy/registration/UserManagementControllerRegistrationTest.class
+com/backend/gym/controller/proxy/registration/UserTestObject.class
 com/backend/gym/controller/proxy/DataProvider.class
+com/backend/gym/controller/proxy/verification/TestVerificationUserProvider.class
+com/backend/gym/controller/proxy/verification/UserManagementControllerVerificationTest.class
 com/backend/gym/controller/proxy/login/TestUserLoginDataProvider.class
 com/backend/gym/controller/proxy/login/UserManagementControllerLoginTest.class
-com/backend/gym/controller/proxy/registration/TestUserRegistrationDataProvider.class
 com/backend/gym/controller/proxy/registration/UserTestObject$UserTestObjectBuilder.class
 com/backend/gym/controller/proxy/config/MockedKafkaProducer.class
 com/backend/gym/controller/proxy/BaseIntegrationTest.class
-com/backend/gym/controller/proxy/login/UserTestObject.class
-com/backend/gym/controller/proxy/registration/UserManagementControllerRegistrationTest.class

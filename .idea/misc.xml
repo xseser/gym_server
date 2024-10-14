@@ -11,6 +11,7 @@
         <option value="$PROJECT_DIR$/gym-backend/authorisation/pom.xml" />
         <option value="$PROJECT_DIR$/gym-backend/User-registration-use-case/pom.xml" />
         <option value="$PROJECT_DIR$/gym-mail-server/gym-mail/pom.xml" />
+        <option value="$PROJECT_DIR$/gym-bdd-tests/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
@@ -24,7 +25,7 @@
     </option>
   </component>
   <component name="NullableNotNullManager">
-    <option name="myDefaultNullable" value="jakarta.annotation.Nullable" />
+    <option name="myDefaultNullable" value="javax.annotation.Nullable" />
     <option name="myDefaultNotNull" value="org.jetbrains.annotations.NotNull" />
     <option name="myNullables">
       <value>

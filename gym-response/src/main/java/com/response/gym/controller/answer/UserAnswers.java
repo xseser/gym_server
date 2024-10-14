@@ -12,6 +12,9 @@ public abstract class UserAnswers {
     public static final int GIVEN_USER_WAS_NOT_FOUND = 100060;
 
 
+    public static final int NULLABLE_STRING_OBJECT = 100310;
+
+
     public static final int INVALID_LOGIN_CREDENTIALS = 100070;
     public static final int INVALID_VERIFICATION_STATE = 100080;
     public static final int INVALID_LOCK_STATE = 100090;

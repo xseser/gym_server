@@ -17,6 +17,7 @@
         <module name="gym-kafka-consumer" />
         <module name="gym-backend-security" />
         <module name="gym-mail-starter" />
+        <module name="gym-bdd-tests" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

@@ -1,5 +1,6 @@
 package com.gym.user.registration.service.processor;
 
+import com.gym.user.registration.controller.request.valid.ValidRefreshTokenRequest;
 import com.gym.user.registration.controller.request.valid.ValidUserLoginRequest;
 import com.gym.user.registration.controller.request.valid.ValidUserRegisterConfirmation;
 import com.gym.user.registration.controller.request.valid.ValidUserRegistrationRequest;
@@ -8,6 +9,7 @@ import com.gym.user.registration.model.User;
 import com.gym.user.registration.repository.UserRepository;
 import com.gym.user.registration.service.UserAuthManagement;
 import com.response.gym.response.Accepted;
+import com.response.gym.response.BadRequest;
 import com.response.gym.response.Conflict;
 import com.response.gym.response.Created;
 import com.response.gym.response.Forbidden;
@@ -17,6 +19,7 @@ import com.response.gym.response.NotFound;
 import com.response.gym.response.Ok;
 import com.response.gym.response.Unauthorised;
 import cyclops.control.Either;
+import gym.mmt.auth.config.JwtService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Isolation;
@@ -36,13 +39,15 @@ public class UserAuthProcessor {
     private final UserRepository userRepository;
     private final UserAuthManagement userAuthManagement;
     private final UserMailRegistrationProcessor userMailRegistrationProcessor;
+    private final JwtService jwtService;
 
     public UserAuthProcessor(
             UserRepository userRepository,
-            UserAuthManagement userAuthManagement, UserMailRegistrationProcessor userMailRegistrationProcessor) {
+            UserAuthManagement userAuthManagement, UserMailRegistrationProcessor userMailRegistrationProcessor, JwtService jwtService) {
         this.userRepository = userRepository;
         this.userAuthManagement = userAuthManagement;
         this.userMailRegistrationProcessor = userMailRegistrationProcessor;
+        this.jwtService = jwtService;
     }
 
     @Transactional(isolation = Isolation.READ_COMMITTED)
@@ -65,7 +70,7 @@ public class UserAuthProcessor {
         log.info("Starting processing logging in user account with data: {}", validUserLoginRequest);
         return userAuthManagement.authenticate(validUserLoginRequest.getNickname(), validUserLoginRequest.getPassword())
                 .map(it -> userRepository.findByNickname(validUserLoginRequest.getNickname())
-                        .map(userAuthManagement::logInAccount)
+                        .map(userAuthManagement::generateTokens)
                         .map(userLoginResponseDto -> {
                             log.info("end of processing logging in user account with response: {}", userLoginResponseDto);
                             return (MMTResponseCreator) new Ok(userLoginResponseDto);
@@ -103,9 +108,19 @@ public class UserAuthProcessor {
     }
 
     private Either<MMTResponseCreator, User> checkIfGivenUserIAlreadyVerified(User user, boolean verificationState) {
-        if(user.getIsVerified() == verificationState) {
+        if (user.getIsVerified() == verificationState) {
             return Either.left(new Accepted(GIVEN_USER_VERIFICATION_STATE_IS_ALREADY_SET));
         }
         return Either.right(user);
+    }
+
+    public MMTResponseCreator refreshToken(ValidRefreshTokenRequest validRefreshTokenRequest) {
+        if (!jwtService.isRefreshTokenValid(validRefreshTokenRequest.getRefreshToken())) {
+            return new Unauthorised();
+        }
+        return userRepository.findByNickname(jwtService.extractUsernameFromRefreshToken(validRefreshTokenRequest.getRefreshToken()))
+                .map(userAuthManagement::generateTokens)
+                .map(it -> (MMTResponseCreator) new Ok(it))
+                .orElseGet(BadRequest::new);
     }
 }

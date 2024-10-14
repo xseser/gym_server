@@ -3,10 +3,9 @@ package com.backend.gym.controller.proxy.login;
 import com.backend.gym.controller.proxy.BaseIntegrationTest;
 import com.backend.gym.controller.proxy.DataProvider;
 import com.gym.user.registration.controller.request.base.UserLoginDto;
-import com.gym.user.registration.controller.response.UserLoginResponseDto;
+import com.gym.user.registration.controller.response.UserAuthenticationResponse;
 import com.gym.user.registration.model.Role;
 import com.gym.user.registration.model.User;
-import com.gym.user.registration.repository.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +51,7 @@ class TestUserLoginDataProvider extends BaseIntegrationTest implements DataProvi
     }
 
     protected void assertValidUserLogin(ResponseEntity response) {
-        UserLoginResponseDto loginResponseDto = (UserLoginResponseDto) response.getBody();
+        UserAuthenticationResponse loginResponseDto = (UserAuthenticationResponse) response.getBody();
 
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         Assertions.assertThat(loginResponseDto).isNotNull();

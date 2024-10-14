@@ -3,7 +3,7 @@ package com.gym.user.registration.service.processor;
 import com.gym.user.registration.controller.request.valid.ValidUserLoginRequest;
 import com.gym.user.registration.controller.request.valid.ValidUserRegisterConfirmation;
 import com.gym.user.registration.controller.request.valid.ValidUserRegistrationRequest;
-import com.gym.user.registration.controller.response.UserLoginResponseDto;
+import com.gym.user.registration.controller.response.UserAuthenticationResponse;
 import com.gym.user.registration.controller.response.UserRegistrationResponseDto;
 import com.gym.user.registration.controller.response.UserVerificationResponseDto;
 import com.gym.user.registration.model.User;
@@ -118,13 +118,13 @@ public class UserAuthProcessorTest implements BaseUserValidator {
     public void logInAccount_validData_okStatusAndValidDataWasReturned() {
         ValidUserLoginRequest validUserLoginRequest = provideValidUserLoginData();
         User user = provideUser();
-        UserLoginResponseDto userLoginResponseDto = new UserLoginResponseDto(user, "mocked token");
+        UserAuthenticationResponse userLoginResponseDto = new UserAuthenticationResponse(user, "mocked token", "refresh token");
 
         when(userAuthManagement.authenticate(any(String.class), any(String.class)))
                 .thenReturn(Either.right(null));
         when(userRepository.findByNickname(eq(validUserLoginRequest.getNickname())))
                 .thenReturn(Optional.of(user));
-        when(userAuthManagement.logInAccount(any(User.class)))
+        when(userAuthManagement.generateTokens(any(User.class)))
                 .thenReturn(userLoginResponseDto);
 
         MMTResponseCreator response = userRegistrationProcessor.logInAccount(validUserLoginRequest);
@@ -134,7 +134,7 @@ public class UserAuthProcessorTest implements BaseUserValidator {
                 .isEqualTo(new Ok().getStatusCode());
 
         Assertions
-                .assertThat((UserLoginResponseDto) response.makeResponse().getBody())
+                .assertThat((UserAuthenticationResponse) response.makeResponse().getBody())
                 .isEqualTo(userLoginResponseDto);
     }
 

@@ -1,17 +1,12 @@
 package com.gym.user.registration.service;
 
 import com.gym.user.registration.controller.request.valid.ValidUserRegistrationRequest;
-import com.gym.user.registration.controller.response.UserLoginResponseDto;
+import com.gym.user.registration.controller.response.UserAuthenticationResponse;
 import com.gym.user.registration.controller.response.UserRegistrationResponseDto;
 import com.gym.user.registration.controller.response.UserVerificationResponseDto;
 import com.gym.user.registration.model.Role;
 import com.gym.user.registration.model.User;
 import com.gym.user.registration.repository.UserRepository;
-import com.response.gym.response.BadRequest;
-import com.response.gym.response.Conflict;
-import com.response.gym.response.InternalServerError;
-import com.response.gym.response.MMTResponseCreator;
-import com.response.gym.response.NotFound;
 import cyclops.control.Either;
 import gym.mmt.auth.config.JwtService;
 import jakarta.transaction.Transactional;
@@ -63,9 +58,10 @@ public class UserAuthManagementImpl implements UserAuthManagement {
     }
 
     @Override
-    public UserLoginResponseDto logInAccount(User user) {
-        String tokenGenerated = jwtService.generateToken(user);
-        return new UserLoginResponseDto(user, tokenGenerated);
+    public UserAuthenticationResponse generateTokens(User user) {
+        String tokenGenerated = jwtService.generateAccessToken(user);
+        String refreshToken = jwtService.generateRefreshToken(user);
+        return new UserAuthenticationResponse(user, tokenGenerated, refreshToken);
     }
 
     @Transactional

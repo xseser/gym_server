@@ -37,7 +37,8 @@ public class SecurityConfiguration {
                                         "/MMT/api/v1/register",
                                         "/MMT/api/v1/health",
                                         "MMT/api/v1/login",
-                                        "MMT/api/v1/confirm")
+                                        "MMT/api/v1/confirm",
+                                        "MMT/api/v1/refresh")
                                 .permitAll()
                                 .requestMatchers(HttpMethod.POST, "MMT/api/v1/test").hasAnyAuthority("MEMBER")
                                 .anyRequest()

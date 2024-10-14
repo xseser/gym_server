@@ -1,0 +1,17 @@
+/Users/igormier/IdeaProjects/gym_server/gym-bdd-tests/src/main/java/com/gym/bdd/tests/data/generator/DataGenerator.java
+/Users/igormier/IdeaProjects/gym_server/gym-bdd-tests/src/main/java/com/gym/bdd/tests/step/dto/response/UserRegistrationResponse.java
+/Users/igormier/IdeaProjects/gym_server/gym-bdd-tests/src/main/java/com/gym/bdd/tests/serenity/PrepareDataHolder.java
+/Users/igormier/IdeaProjects/gym_server/gym-bdd-tests/src/main/java/com/gym/bdd/tests/step/LoggingSteps.java
+/Users/igormier/IdeaProjects/gym_server/gym-bdd-tests/src/main/java/com/gym/bdd/tests/step/dto/request/GeneralRequest.java
+/Users/igormier/IdeaProjects/gym_server/gym-bdd-tests/src/main/java/com/gym/bdd/tests/step/dto/request/UserLoginInRequest.java
+/Users/igormier/IdeaProjects/gym_server/gym-bdd-tests/src/main/java/com/gym/bdd/tests/url/UrlManagement.java
+/Users/igormier/IdeaProjects/gym_server/gym-bdd-tests/src/main/java/com/gym/bdd/tests/serenity/request/LoginRequestHolder.java
+/Users/igormier/IdeaProjects/gym_server/gym-bdd-tests/src/main/java/com/gym/bdd/tests/step/dto/response/GeneralResponse.java
+/Users/igormier/IdeaProjects/gym_server/gym-bdd-tests/src/main/java/com/gym/bdd/tests/serenity/ResponseDataHolder.java
+/Users/igormier/IdeaProjects/gym_server/gym-bdd-tests/src/main/java/com/gym/bdd/tests/serenity/cucumber/Holder.java
+/Users/igormier/IdeaProjects/gym_server/gym-bdd-tests/src/main/java/com/gym/bdd/tests/step/dto/comparator/UserRegistrationComparator.java
+/Users/igormier/IdeaProjects/gym_server/gym-bdd-tests/src/main/java/com/gym/bdd/tests/step/dto/request/UserRegistrationRequest.java
+/Users/igormier/IdeaProjects/gym_server/gym-bdd-tests/src/main/java/com/gym/bdd/tests/step/RegistrationSteps.java
+/Users/igormier/IdeaProjects/gym_server/gym-bdd-tests/src/main/java/com/gym/bdd/tests/serenity/SystemHolder.java
+/Users/igormier/IdeaProjects/gym_server/gym-bdd-tests/src/main/java/com/gym/bdd/tests/serenity/request/RegistrationRequestHolder.java
+/Users/igormier/IdeaProjects/gym_server/gym-bdd-tests/src/main/java/com/gym/bdd/tests/serenity/response/RegistrationResponseDataHolder.java

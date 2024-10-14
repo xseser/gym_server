@@ -1,9 +1,0 @@
-com/gym/user/registration/controller/validator/base/BaseValidator.class
-com/gym/user/registration/controller/validator/base/PasswordValidatorTest.class
-com/gym/user/registration/controller/validator/base/NameValidatorTest.class
-com/gym/user/registration/controller/validator/base/PasswordMatcherValidatorTest.class
-com/gym/user/registration/service/BaseUserValidator.class
-com/gym/user/registration/service/UserAuthManagementImplTest.class
-com/gym/user/registration/service/processor/UserAuthProcessorTest.class
-com/gym/user/registration/controller/validator/base/GenderValidatorTest.class
-com/gym/user/registration/controller/validator/base/MailValidatorTest.class

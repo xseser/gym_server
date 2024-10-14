@@ -1,9 +1,0 @@
-/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-gmail-adapter/src/main/java/com/gym/mail/adapter/service/providers/EmailPasswordResetService.java
-/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-gmail-adapter/src/main/java/com/gym/mail/adapter/service/config/GymMailSender.java
-/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-gmail-adapter/src/main/java/com/gym/mail/adapter/service/providers/EmailSender.java
-/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-gmail-adapter/src/main/java/com/gym/mail/adapter/service/EmailRecognizerServiceImpl.java
-/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-gmail-adapter/src/main/java/com/gym/mail/adapter/service/factory/EmailTypeFactoryImpl.java
-/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-gmail-adapter/src/main/java/com/gym/mail/adapter/service/factory/EmailTypeFactory.java
-/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-gmail-adapter/src/main/java/com/gym/mail/adapter/service/providers/EmailRegistrationService.java
-/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-gmail-adapter/src/main/java/com/gym/mail/adapter/service/providers/EmailAdvertisementService.java
-/Users/igormier/IdeaProjects/gym_server/gym-mail-server/gym-gmail-adapter/src/main/java/com/gym/mail/adapter/service/EmailRecognizer.java

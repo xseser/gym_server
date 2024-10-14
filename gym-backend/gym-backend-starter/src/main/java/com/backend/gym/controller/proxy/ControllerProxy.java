@@ -1,5 +1,6 @@
 package com.backend.gym.controller.proxy;
 
+import com.gym.user.registration.controller.request.base.RefreshTokenDto;
 import com.gym.user.registration.controller.request.base.UserLoginDto;
 import com.gym.user.registration.controller.request.base.UserRegisterConfirmation;
 import com.gym.user.registration.controller.request.base.UserRegistrationDto;
@@ -12,4 +13,6 @@ public interface ControllerProxy {
     MMTResponseCreator loginAccount(UserLoginDto userLoginDto);
 
     MMTResponseCreator verifyUser(UserRegisterConfirmation userRegisterConfirmation);
+
+    MMTResponseCreator refreshToken(RefreshTokenDto refreshTokenDto);
 }

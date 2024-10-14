@@ -1,5 +1,0 @@
-/Users/igormier/IdeaProjects/gym_server/gym-backend/kafka-producer/src/main/java/com/gym/kafka/producer/mail/UserRegistration.java
-/Users/igormier/IdeaProjects/gym_server/gym-backend/kafka-producer/src/main/java/com/gym/kafka/producer/mail/RegistrationMail.java
-/Users/igormier/IdeaProjects/gym_server/gym-backend/kafka-producer/src/main/java/com/gym/kafka/producer/GymKafkaProducer.java
-/Users/igormier/IdeaProjects/gym_server/gym-backend/kafka-producer/src/main/java/com/gym/kafka/producer/KafkaProducerWrapper.java
-/Users/igormier/IdeaProjects/gym_server/gym-backend/kafka-producer/src/main/java/com/gym/kafka/producer/mail/EventDto.java

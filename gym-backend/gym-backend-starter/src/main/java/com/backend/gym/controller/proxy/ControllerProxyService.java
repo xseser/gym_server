@@ -1,12 +1,15 @@
 package com.backend.gym.controller.proxy;
 
 import com.backend.gym.factory.ControllerProcessor;
+import com.gym.user.registration.controller.request.base.RefreshTokenDto;
 import com.gym.user.registration.controller.request.base.UserLoginDto;
 import com.gym.user.registration.controller.request.base.UserRegisterConfirmation;
 import com.gym.user.registration.controller.request.base.UserRegistrationDto;
+import com.gym.user.registration.controller.request.valid.ValidRefreshTokenRequest;
 import com.gym.user.registration.controller.request.valid.ValidUserLoginRequest;
 import com.gym.user.registration.controller.request.valid.ValidUserRegisterConfirmation;
 import com.gym.user.registration.controller.request.valid.ValidUserRegistrationRequest;
+import com.gym.user.registration.controller.validator.RefreshTokenValidator;
 import com.gym.user.registration.controller.validator.UserLoginValidator;
 import com.gym.user.registration.controller.validator.UserRegistrationConfirmationValidator;
 import com.gym.user.registration.controller.validator.UserRegistrationValidator;
@@ -49,5 +52,13 @@ public class ControllerProxyService implements ControllerProxy {
                 userRegisterConfirmation,
                 UserRegistrationConfirmationValidator.class,
                 it -> userAuthProcessor.verifyUser((ValidUserRegisterConfirmation) it));
+    }
+
+    @Override
+    public MMTResponseCreator refreshToken(RefreshTokenDto refreshTokenDto) {
+        return controllerProcessor.process(
+                refreshTokenDto,
+                RefreshTokenValidator.class,
+                it -> userAuthProcessor.refreshToken((ValidRefreshTokenRequest) it));
     }
 }

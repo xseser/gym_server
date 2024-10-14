@@ -1,7 +1,7 @@
 package com.gym.user.registration.service;
 
 import com.gym.user.registration.controller.request.valid.ValidUserRegistrationRequest;
-import com.gym.user.registration.controller.response.UserLoginResponseDto;
+import com.gym.user.registration.controller.response.UserAuthenticationResponse;
 import com.gym.user.registration.controller.response.UserRegistrationResponseDto;
 import com.gym.user.registration.controller.response.UserVerificationResponseDto;
 import com.gym.user.registration.model.User;
@@ -17,8 +17,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.method.GlobalMethodSecurityBeanDefinitionParser;
-import org.springframework.security.core.Authentication;
 
 import static com.response.gym.controller.answer.UserAnswers.INVALID_VERIFICATION_STATE;
 import static org.mockito.ArgumentMatchers.any;
@@ -63,10 +61,11 @@ public class UserAuthManagementImplTest implements BaseUserValidator {
     public void loginUserAccountProvidesTokenInResponse() {
         //given
         User user = provideUser();
-        when(jwtService.generateToken(eq(user))).thenReturn(token);
+        when(jwtService.generateAccessToken(eq(user))).thenReturn(token);
+        when(jwtService.generateRefreshToken(eq(user))).thenReturn(token);
 
         //when
-        UserLoginResponseDto userLoginResponseDto = userAuthManagement.logInAccount(user);
+        UserAuthenticationResponse userLoginResponseDto = userAuthManagement.generateTokens(user);
 
         //then
         Assertions.assertThat(userLoginResponseDto.getToken())

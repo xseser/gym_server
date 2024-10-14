@@ -1,0 +1,4 @@
+com/gym/bdd/tests/cucumber/Hook.class
+com/gym/bdd/tests/RunCucumberTest.class
+com/gym/bdd/tests/step/def/UserRegistrationDefSteps.class
+com/gym/bdd/tests/step/def/UserLoggingDefSteps.class

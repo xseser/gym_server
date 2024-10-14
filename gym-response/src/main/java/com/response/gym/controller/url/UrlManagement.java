@@ -10,6 +10,7 @@ public abstract class UrlManagement {
     public static final String USER_REGISTRATION = "register";
     public static final String USER_LOGIN = "login";
     public static final String CONFIRM_REGISTRATION = "confirm";
+    public static final String REFRESH_TOKEN = "refresh";
 
     public static final String EMAIL_SEND = "trigger/email";
     public static final String EMAIL_SECRET = "emailSecret";

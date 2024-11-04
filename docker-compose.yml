@@ -37,6 +37,7 @@ services:
 
   db:
     image: postgres:13
+    container_name: gym-postgres-container
     environment:
       POSTGRES_DB: gym_database
       POSTGRES_USER: postgres
@@ -63,7 +64,10 @@ services:
     ports:
       - "9092:9092"
     environment:
+      environment:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_DEFAULT_REPLICATION_FACTOR: 1 # Ustawienie replication factor na 1
       KAFKA_MIN_INSYNC_REPLICAS: 1        # Ustawienie minimalnej liczby replik
@@ -80,4 +84,4 @@ volumes:
 
 networks:
   gym-network:
-    driver: bridge
+    name: my-network-gym-components

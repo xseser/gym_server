@@ -26,7 +26,8 @@ services:
       - DB-SOURCE=jdbc:postgresql://db:5432/gym_database
       - DB-LOGIN=postgres
       - DB-PASSWORD=mysecretpassword
-      - MAIL_PROFILE=mock
+      - MAIL_PROFILE=${MAIL_PROFILE}
+#      - MAIL_PROFILE=mock
       - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
     depends_on:
       - db

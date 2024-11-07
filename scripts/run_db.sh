@@ -6,8 +6,9 @@ DB_NETWORK="gym-network"
 DB_PASSWORD="mysecretpassword"
 DB_USER="postgres"
 DB_NAME="gym_database"
-SCHEMA_FILE="init.sql"
 DB_PORT="5432"
+SCHEMA_FILE=${1:-"init.sql"}
+
 pwd
 echo "Stopping and removing existing PostgreSQL container (if any)..."
 docker rm -f $DB_CONTAINER_NAME > /dev/null 2>&1 || true
@@ -29,14 +30,14 @@ docker exec -u $DB_USER $DB_CONTAINER_NAME psql -U $DB_USER -c "DROP DATABASE IF
 docker exec -u $DB_USER $DB_CONTAINER_NAME psql -U $DB_USER -c "CREATE DATABASE $DB_NAME;" || \
   { echo "Error creating database $DB_NAME"; exit 1; }
 
-echo "Executing schema.sql..."
+echo "Executing schema file: $SCHEMA_FILE..."
 docker cp $SCHEMA_FILE $DB_CONTAINER_NAME:/schema.sql || \
-  { echo "Error copying schema.sql to PostgreSQL container"; exit 1; }
+  { echo "Error copying schema file to PostgreSQL container"; exit 1; }
 
 docker exec -u $DB_USER $DB_CONTAINER_NAME psql -U $DB_USER -d $DB_NAME -f /schema.sql || \
-  { echo "Error executing schema.sql"; exit 1; }
+  { echo "Error executing schema file"; exit 1; }
 
-echo "PostgreSQL container is running and schema.sql executed successfully."
+echo "PostgreSQL container is running and schema file executed successfully."
 echo "PostgreSQL is accessible at:"
 echo "Host: localhost"
 echo "Port: $DB_PORT"

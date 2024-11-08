@@ -57,10 +57,4 @@ public class UserManagementController {
         return controllerProxy.refreshToken(refreshTokenDto)
                 .makeResponse();
     }
-
-    //TODO to delete -- just for test purpose
-    @RequestMapping(method = RequestMethod.POST, value = API_BASE + "test")
-    public ResponseEntity test() {
-        return new Ok().makeResponse();
-    }
 }

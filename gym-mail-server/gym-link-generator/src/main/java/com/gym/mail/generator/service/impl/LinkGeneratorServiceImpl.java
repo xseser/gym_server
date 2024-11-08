@@ -6,6 +6,7 @@ import com.gym.mail.generator.model.EmailType;
 import com.gym.mail.generator.model.MailConfirmation;
 import com.gym.mail.generator.repository.MailConfirmationRepository;
 import com.gym.mail.generator.service.LinkGenerator;
+import com.gym.mail.generator.service.time.ExpirationDateTimeProvider;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -23,16 +24,19 @@ import static com.response.gym.controller.url.UrlManagement.EMAIL_CONFIRMATION_E
 public class LinkGeneratorServiceImpl implements LinkGenerator {
 
     private final MailConfirmationRepository mailConfirmationRepository;
+    private final ExpirationDateTimeProvider expirationDateTimeProvider;
     private final Integer serverPort;
     private final String serverAddress;
     private final String serverProtocol;
 
     public LinkGeneratorServiceImpl(
             MailConfirmationRepository mailConfirmationRepository,
+            ExpirationDateTimeProvider expirationDateTimeProvider,
             @Value("${server.port}") Integer serverPort,
             @Value("${server.address11}") String serverAddress,
             @Value("${server.protocol11}") String serverProtocol) {
         this.mailConfirmationRepository = mailConfirmationRepository;
+        this.expirationDateTimeProvider = expirationDateTimeProvider;
         this.serverPort = serverPort;
         this.serverAddress = serverAddress;
         this.serverProtocol = serverProtocol;
@@ -46,7 +50,7 @@ public class LinkGeneratorServiceImpl implements LinkGenerator {
                 .nickname(mailConfirmationRequestDto.getNickname())
                 .secret(generateRandom())
                 .mail(mailConfirmationRequestDto.getMail())
-                .expirationLinkTime(LocalDateTime.now().plusMinutes(30))
+                .expirationLinkTime(expirationDateTimeProvider.getExpirationDateTime())
                 .linkType(emailType)
                 .emailStatus(EmailStatus.CREATED)
                 .build();

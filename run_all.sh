@@ -8,4 +8,4 @@ mvn clean package -DskipTests
 echo "Stopping and removing existing PostgreSQL container (if any exists)..."
 docker rm -f $DB_CONTAINER_NAME > /dev/null 2>&1 || true
 
-docker-compose up -d --build
+MAIL_PROFILE=mock docker-compose up -d --build

@@ -22,7 +22,7 @@ public class EmailController {
         this.linkAccepterService = linkAccepterService;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = API_BASE + EMAIL_CONFIRMATION_ENDPOINT + EMAIL_CONFIRMATION_PATH_VARIABLE)
+    @RequestMapping(method = RequestMethod.POST, value = API_BASE + EMAIL_CONFIRMATION_ENDPOINT + EMAIL_CONFIRMATION_PATH_VARIABLE)
     public ResponseEntity acceptMail(@PathVariable String confirmation) {
         log.info("received request for action confirmation with data: {}", confirmation);
         return linkAccepterService.acceptConfirmation(confirmation)

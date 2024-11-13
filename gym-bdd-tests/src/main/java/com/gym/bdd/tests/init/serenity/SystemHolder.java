@@ -1,4 +1,4 @@
-package com.gym.bdd.tests.serenity;
+package com.gym.bdd.tests.init.serenity;
 
 import com.gym.bdd.tests.actor.User;
 

@@ -10,6 +10,7 @@ import org.assertj.core.api.Assertions;
 
 import java.util.Optional;
 
+import static com.gym.bdd.tests.http.ClientSpecification.getSpecification;
 import static com.gym.bdd.tests.step.dto.comparator.UserRegistrationComparator.map;
 import static com.gym.bdd.tests.url.UrlManagement.REGISTRATION_URL;
 import static io.restassured.RestAssured.given;
@@ -33,7 +34,7 @@ public class RegistrationActions {
     }
 
     private Either<UserRegistrationResponse, String> provisionUser(UserRegistrationRequest userRegistrationRequest) {
-        Response response = given()
+        Response response = getSpecification()
                 .when()
                 .log().all()
                 .contentType(ContentType.JSON)

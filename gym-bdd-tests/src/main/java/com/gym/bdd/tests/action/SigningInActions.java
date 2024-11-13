@@ -1,25 +1,37 @@
 package com.gym.bdd.tests.action;
 
-import com.gym.bdd.tests.step.dto.comparator.UserRegistrationComparator;
 import com.gym.bdd.tests.step.dto.request.UserLoginInRequest;
-import com.gym.bdd.tests.step.dto.request.UserRegistrationRequest;
 import com.gym.bdd.tests.step.dto.response.UserLoginResponse;
-import com.gym.bdd.tests.step.dto.response.UserRegistrationResponse;
 import cyclops.control.Either;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import lombok.Getter;
 import org.assertj.core.api.Assertions;
 
-import static com.gym.bdd.tests.step.dto.comparator.UserRegistrationComparator.map;
+import java.util.Optional;
+
+import static com.gym.bdd.tests.http.ClientSpecification.getSpecification;
 import static com.gym.bdd.tests.url.UrlManagement.LOGIN_URL;
-import static com.gym.bdd.tests.url.UrlManagement.REGISTRATION_URL;
 import static io.restassured.RestAssured.given;
 import static java.net.HttpURLConnection.HTTP_OK;
 
+@Getter
 public class SigningInActions {
 
+    private String token;
+    private String refreshToken;
+
+    protected void signIn(String nickname, String password, Optional<Integer> code) {
+        UserLoginInRequest request = new UserLoginInRequest(nickname, password);
+
+        signIn(request)
+                .bipeek(
+                        response -> validate(response, nickname),
+                        errorCode -> validate(code, errorCode));
+    }
+
     private Either<UserLoginResponse, String> signIn(UserLoginInRequest userLoginInRequest) {
-        Response response = given()
+        Response response = getSpecification()
                 .when()
                 .log().all()
                 .contentType(ContentType.JSON)
@@ -33,11 +45,16 @@ public class SigningInActions {
         return Either.right(response.getBody().asString());
     }
 
-    private void validate(UserLoginInRequest userLoginInRequest, String mail, String nickname, String gender, String role) {
+    private void validate(UserLoginResponse response, String nickname) {
         //TODO
+        token = response.getToken();
+        refreshToken = response.getRefreshToken();
     }
 
-    private void validate(int expectedErrorCode, String givenErrorCode) {
-        //TOO
+    private void validate(Optional<Integer> expectedErrorCode, String givenErrorCode) {
+        expectedErrorCode.ifPresentOrElse(
+                code -> Assertions.assertThat(Integer.valueOf(givenErrorCode)).isEqualTo(code),
+                () -> Assertions.fail("Invalid error code: " + givenErrorCode)
+        );
     }
 }

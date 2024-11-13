@@ -1,6 +1,5 @@
 package com.gym.bdd.tests.step.dto.comparator;
 
-import com.gym.bdd.tests.step.dto.request.UserRegistrationRequest;
 import com.gym.bdd.tests.step.dto.response.UserRegistrationResponse;
 import lombok.Data;
 

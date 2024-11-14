@@ -1,8 +1,7 @@
 @Feature:
-Feature: logging in
+Feature: confirmation
 
-  @logging
+  @confirmation
   Scenario: User with correct credentials can register
     Given 'FIRST' user registers with random data
     When 'FIRST' user confirms email
-    Given user uses 'FIRST' user valid login data and loggs in

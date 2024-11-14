@@ -1,12 +1,12 @@
 package com.gym.bdd.tests.step;
 
 import com.gym.bdd.tests.actor.User;
-import com.gym.bdd.tests.actor.UserActions;
 import com.gym.bdd.tests.actor.UserRegistrationActions;
+import io.qameta.allure.Step;
 
 import java.util.function.Consumer;
 
-import static com.gym.bdd.tests.serenity.cucumber.Holder.getSystemHolder;
+import static com.gym.bdd.tests.init.serenity.cucumber.Holder.getSystemHolder;
 
 public class RegistrationSteps {
 
@@ -18,6 +18,7 @@ public class RegistrationSteps {
         userAction.accept(getSystemHolder().getUser(userOrder).getUserRegistrationActions());
     }
 
+    @Step
     public void provisionUser(String userOrder) {
         doInUserContext(userOrder, UserRegistrationActions::provisionUser);
     }

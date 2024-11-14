@@ -1,6 +1,7 @@
 package com.gym.bdd.tests.actor;
 
 import com.gym.bdd.tests.action.RegistrationActions;
+import io.qameta.allure.Step;
 
 import java.util.Optional;
 
@@ -22,6 +23,7 @@ public class UserRegistrationActions extends RegistrationActions {
         this.role = role;
     }
 
+    @Step
     public void provisionUser() {
         provisionUser(mail, nickname, null, role, password);
     }

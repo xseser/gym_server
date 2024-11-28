@@ -1,10 +1,12 @@
-package com.gym.bdd.tests.actor;
+package com.gym.bdd.tests.actor.proxy.actions;
 
-import com.gym.bdd.tests.action.RegistrationActions;
+import com.gym.bdd.tests.action.UserLoginActions;
+import com.gym.bdd.tests.action.UserConfirmationActions;
+import com.gym.bdd.tests.action.UserRegistrationActions;
 import lombok.Getter;
 
 @Getter
-public class UserActions extends RegistrationActions {
+public class UserActions {
 
     private final UserRegistrationActions userRegistrationActions;
     private final UserLoginActions userLoginActions;

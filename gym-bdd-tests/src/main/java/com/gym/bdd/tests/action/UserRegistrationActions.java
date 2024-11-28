@@ -1,6 +1,6 @@
-package com.gym.bdd.tests.actor;
+package com.gym.bdd.tests.action;
 
-import com.gym.bdd.tests.action.RegistrationActions;
+import com.gym.bdd.tests.action.impl.RegistrationActions;
 import io.qameta.allure.Step;
 
 import java.util.Optional;

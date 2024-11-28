@@ -1,6 +1,6 @@
 package com.gym.bdd.tests.step;
 
-import com.gym.bdd.tests.actor.UserLoginActions;
+import com.gym.bdd.tests.action.UserLoginActions;
 
 import java.util.function.Consumer;
 

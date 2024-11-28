@@ -1,4 +1,4 @@
-package com.gym.bdd.tests.action;
+package com.gym.bdd.tests.action.impl;
 
 import com.gym.bdd.tests.step.dto.request.UserLoginInRequest;
 import com.gym.bdd.tests.step.dto.response.UserLoginResponse;
@@ -12,7 +12,6 @@ import java.util.Optional;
 
 import static com.gym.bdd.tests.http.ClientSpecification.getSpecification;
 import static com.gym.bdd.tests.url.UrlManagement.LOGIN_URL;
-import static io.restassured.RestAssured.given;
 import static java.net.HttpURLConnection.HTTP_OK;
 
 @Getter

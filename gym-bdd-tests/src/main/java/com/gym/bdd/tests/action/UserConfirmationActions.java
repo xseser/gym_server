@@ -1,6 +1,6 @@
-package com.gym.bdd.tests.actor;
+package com.gym.bdd.tests.action;
 
-import com.gym.bdd.tests.action.ConfirmationActions;
+import com.gym.bdd.tests.action.impl.ConfirmationActions;
 
 public class UserConfirmationActions extends ConfirmationActions {
 

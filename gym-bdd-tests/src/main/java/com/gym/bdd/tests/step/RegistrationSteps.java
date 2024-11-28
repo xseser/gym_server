@@ -1,7 +1,7 @@
 package com.gym.bdd.tests.step;
 
 import com.gym.bdd.tests.actor.User;
-import com.gym.bdd.tests.actor.UserRegistrationActions;
+import com.gym.bdd.tests.action.UserRegistrationActions;
 import io.qameta.allure.Step;
 
 import java.util.function.Consumer;

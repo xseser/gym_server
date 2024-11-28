@@ -1,4 +1,4 @@
-package com.gym.bdd.tests.action;
+package com.gym.bdd.tests.action.impl;
 
 import com.gym.bdd.tests.step.dto.response.mail.PullConfirmationResponse;
 import cyclops.control.Either;
@@ -14,7 +14,6 @@ import java.util.Objects;
 import static com.gym.bdd.tests.http.ClientSpecification.getSpecification;
 import static com.gym.bdd.tests.url.UrlManagement.CONFIRMATION_URL;
 import static com.gym.bdd.tests.url.UrlManagement.PULL_CONFIRMATIONS_URL;
-import static io.restassured.RestAssured.given;
 import static java.net.HttpURLConnection.HTTP_OK;
 
 public class ConfirmationActions {

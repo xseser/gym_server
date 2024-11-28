@@ -1,4 +1,4 @@
-package com.gym.bdd.tests.action;
+package com.gym.bdd.tests.action.impl;
 
 import com.gym.bdd.tests.step.dto.comparator.UserRegistrationComparator;
 import com.gym.bdd.tests.step.dto.request.UserRegistrationRequest;

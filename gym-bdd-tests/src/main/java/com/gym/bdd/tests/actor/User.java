@@ -1,5 +1,6 @@
 package com.gym.bdd.tests.actor;
 
+import com.gym.bdd.tests.actor.proxy.actions.UserActions;
 import lombok.Getter;
 
 import static com.gym.bdd.tests.data.generator.DataGenerator.generateGender;

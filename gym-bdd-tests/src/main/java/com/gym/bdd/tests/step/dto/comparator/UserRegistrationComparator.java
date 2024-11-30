@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.Objects;
 
 @Data
-public class UserRegistrationComparator {
+public class UserRegistrationComparator implements ComparatorMarker {
     private String mail;
     private String nickname;
     private String gender;

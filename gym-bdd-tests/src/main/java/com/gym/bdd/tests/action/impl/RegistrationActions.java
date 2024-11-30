@@ -14,47 +14,50 @@ import static com.gym.bdd.tests.http.ClientSpecification.getSpecification;
 import static com.gym.bdd.tests.step.dto.comparator.UserRegistrationComparator.map;
 import static com.gym.bdd.tests.url.UrlManagement.REGISTRATION_URL;
 import static io.restassured.RestAssured.given;
+import static java.net.HttpURLConnection.HTTP_CREATED;
 import static java.net.HttpURLConnection.HTTP_OK;
 
-public class RegistrationActions {
+public class RegistrationActions extends Actions<UserRegistrationRequest, UserRegistrationResponse, UserRegistrationComparator> {
 
-    protected void provisionUser(String mail, String nickname, String gender, String role, String password, String passwordMatcher, Optional<Integer> code) {
-        UserRegistrationRequest userRegistrationRequest = new UserRegistrationRequest(mail, password, passwordMatcher, nickname, gender);
-        code.ifPresentOrElse(
-                errorCode -> provisionUser(userRegistrationRequest).peek(it -> validate(errorCode, it)),
-                () -> provisionUser(userRegistrationRequest).peekLeft(it -> validate(it, mail, nickname, gender, role)));
+    private final String role;
+
+    public RegistrationActions(String role) {
+        this.role = role;
     }
 
-    protected void provisionUser(String mail, String nickname, String gender, String role, String password, Optional<Integer> code) {
-        provisionUser(mail, nickname, gender, role, password, password, code);
-    }
-
-    protected void provisionUser(String mail, String nickname, String gender, String role, String password) {
-        provisionUser(mail, nickname, gender, role, password, password, Optional.empty());
-    }
-
-    private Either<UserRegistrationResponse, String> provisionUser(UserRegistrationRequest userRegistrationRequest) {
-        Response response = getSpecification()
+    @Override
+    public Response serverRequest(UserRegistrationRequest request) {
+        return getSpecification()
                 .when()
                 .log().all()
                 .contentType(ContentType.JSON)
-                .body(userRegistrationRequest)
+                .body(request)
                 .when()
                 .post(REGISTRATION_URL)
                 .prettyPeek();
-        if (response.getStatusCode() == HTTP_OK) {
-            return Either.left(response.getBody().as(UserRegistrationResponse.class));
-        }
-        return Either.right(response.getBody().asString());
     }
 
-    private void validate(UserRegistrationResponse userRegistrationResponse, String mail, String nickname, String gender, String role) {
-        Assertions
-                .assertThat(map(userRegistrationResponse))
-                .isEqualTo(new UserRegistrationComparator(mail, nickname, gender, role));
+    @Override
+    public UserRegistrationComparator mapToComparator(UserRegistrationResponse response) {
+        return map(response);
     }
 
-    private void validate(int expectedErrorCode, String givenErrorCode) {
-        Assertions.assertThat(Integer.valueOf(givenErrorCode)).isEqualTo(expectedErrorCode);
+    @Override
+    public UserRegistrationComparator mapToComparator(UserRegistrationRequest request) {
+        return new UserRegistrationComparator(
+                request.getMail(),
+                request.getNickName(),
+                request.getGender(),
+                role);
+    }
+
+    @Override
+    public int getValidResponseCode() {
+        return HTTP_CREATED;
+    }
+
+    @Override
+    public UserRegistrationResponse getBodyFromResponse(Response response) {
+        return response.getBody().as(UserRegistrationResponse.class);
     }
 }

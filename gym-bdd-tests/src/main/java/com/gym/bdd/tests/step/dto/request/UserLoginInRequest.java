@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class UserLoginInRequest {
+public class UserLoginInRequest implements RequestMarker {
     private String nickname;
     private String password;
 }

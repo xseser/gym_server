@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
 
 @NoArgsConstructor
 @Data
-public class UserRegistrationResponse {
+public class UserRegistrationResponse implements ResponseMarker {
 
     @Nullable
     private String id;

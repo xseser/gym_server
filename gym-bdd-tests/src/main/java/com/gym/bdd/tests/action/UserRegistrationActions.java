@@ -1,6 +1,8 @@
 package com.gym.bdd.tests.action;
 
 import com.gym.bdd.tests.action.impl.RegistrationActions;
+import com.gym.bdd.tests.step.dto.error.ErrorDto;
+import com.gym.bdd.tests.step.dto.request.UserRegistrationRequest;
 import io.qameta.allure.Step;
 
 import java.util.Optional;
@@ -13,50 +15,57 @@ public class UserRegistrationActions extends RegistrationActions {
     private final String password;
     private final String mail;
     private final String gender;
-    private final String role;
 
     public UserRegistrationActions(String nickname, String password, String mail, String gender, String role) {
+        super(role);
         this.nickname = nickname;
         this.password = password;
         this.mail = mail;
         this.gender = gender;
-        this.role = role;
+    }
+
+    private void provideRequestAndAct(String mail, String nickname, String gender, String passwordMatcher, String password) {
+        makeAction(new UserRegistrationRequest(mail, password, passwordMatcher, nickname, gender), null);
+    }
+
+    private void provideRequestAndAct(String mail, String nickname, String gender, String passwordMatcher, String password, int code) {
+        makeAction(new UserRegistrationRequest(mail, password, passwordMatcher, nickname, gender), new ErrorDto(code));
     }
 
     @Step
     public void provisionUser() {
-        provisionUser(mail, nickname, null, role, password);
+        provideRequestAndAct(mail, nickname, null, password, password);
     }
 
     public void provisionUser(int errorCode) {
-        provisionUser(mail, nickname, null, role, password, Optional.of(errorCode));
+        provideRequestAndAct(mail, nickname, null, password, password, errorCode);
     }
 
     public void provisionUserWithGender() {
-        provisionUser(mail, nickname, gender, role, password);
+        provideRequestAndAct(mail, nickname, gender, password, password);
     }
 
     public void provisionUserWithGender(int errorCode) {
-        provisionUser(mail, nickname, gender, role, password, Optional.of(errorCode));
+        provideRequestAndAct(mail, nickname, gender, password, password, errorCode);
     }
 
     public void provisionUserWithoutNickname(int errorCode) {
-        provisionUser(mail, null, gender, role, password, Optional.of(errorCode));
+        provideRequestAndAct(mail, null, gender, password, password, errorCode);
     }
 
     public void provisionUserWithoutMail(int errorCode) {
-        provisionUser(null, nickname, gender, role, password, Optional.of(errorCode));
+        provideRequestAndAct(null, nickname, gender, password, password, errorCode);
     }
 
     public void provisionUserWithDifferentPasswords(int errorCode) {
-        provisionUser(mail, nickname, gender, role, password, generatePassword(), Optional.of(errorCode));
+        provideRequestAndAct(mail, nickname, gender, password, generatePassword(), errorCode);
     }
 
     public void provisionUserWithIncorrectPassword(int errorCode) {
-        provisionUser(mail, nickname, gender, role, password.toLowerCase(), Optional.of(errorCode));
+        provideRequestAndAct(mail, nickname, gender, password.toLowerCase(), password.toLowerCase(), errorCode);
     }
 
     public void provisionUserWithIncorrectGender(int errorCode) {
-        provisionUser(mail, nickname, gender + "aa", role, password, Optional.of(errorCode));
+        provideRequestAndAct(mail, nickname, gender + "aa", password, password, errorCode);
     }
 }

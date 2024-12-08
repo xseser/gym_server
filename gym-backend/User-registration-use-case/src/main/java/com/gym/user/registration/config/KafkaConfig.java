@@ -20,16 +20,20 @@ import java.util.Map;
 public class KafkaConfig {
 
     private final String kafkaMailGroup;
+    private final String kafkaBootstrapServers;
 
-    public KafkaConfig(@Value("${kafka.mail.group}") String kafkaMailGroup) {
+    public KafkaConfig(
+            @Value("${kafka.mail.group}") String kafkaMailGroup,
+            @Value("${spring.kafka.bootstrap-servers}") String kafkaBootstrapServers) {
         this.kafkaMailGroup = kafkaMailGroup;
+        this.kafkaBootstrapServers = kafkaBootstrapServers;
     }
 
     @Bean
     public ProducerFactory<String, EventDto> producerFactory() {
         Map<String, Object> config = new HashMap<>();
 
-        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka:9092");
+        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaBootstrapServers);
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
         config.put(ProducerConfig.RETRIES_CONFIG, 5);

@@ -30,6 +30,7 @@ import static com.response.gym.controller.answer.UserAnswers.GIVEN_USER_VERIFICA
 import static com.response.gym.controller.answer.UserAnswers.GIVEN_USER_WAS_NOT_FOUND;
 import static com.response.gym.controller.answer.UserAnswers.INVALID_LOCK_STATE;
 import static com.response.gym.controller.answer.UserAnswers.INVALID_LOGIN_CREDENTIALS;
+import static com.response.gym.controller.answer.UserAnswers.INVALID_LOGIN_USER_DOES_NOT_EXIST;
 import static com.response.gym.controller.answer.UserAnswers.INVALID_VERIFICATION_STATE;
 
 @Component
@@ -100,7 +101,7 @@ public class UserAuthProcessor {
 
     private MMTResponseCreator switchResponseInCaseOfError(Integer error) {
         return switch (error) {
-            case INVALID_LOGIN_CREDENTIALS -> new Forbidden();
+            case INVALID_LOGIN_CREDENTIALS -> new Forbidden(INVALID_LOGIN_USER_DOES_NOT_EXIST);
             case INVALID_VERIFICATION_STATE -> new Unauthorised(INVALID_VERIFICATION_STATE);
             case INVALID_LOCK_STATE -> new Unauthorised(INVALID_LOCK_STATE);
             default -> new InternalServerError();

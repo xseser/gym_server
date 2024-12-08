@@ -1,6 +1,6 @@
 package com.gym.bdd.tests.step.def;
 
-import com.gym.bdd.tests.step.RegistrationSteps;
+import com.gym.bdd.tests.step.context.RegistrationSteps;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;

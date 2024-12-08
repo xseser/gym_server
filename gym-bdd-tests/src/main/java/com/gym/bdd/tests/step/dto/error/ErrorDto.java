@@ -1,12 +1,10 @@
 package com.gym.bdd.tests.step.dto.error;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+public record ErrorDto(Integer code) {
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-public class ErrorDto {
-    private Integer code;
+    public ErrorDto {
+        if (code == null) {
+            throw new InvalidErrorCodeException("nullable code exception");
+        }
+    }
 }

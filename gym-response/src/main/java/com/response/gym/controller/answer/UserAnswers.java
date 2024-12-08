@@ -16,6 +16,7 @@ public abstract class UserAnswers {
 
 
     public static final int INVALID_LOGIN_CREDENTIALS = 100070;
+    public static final int INVALID_LOGIN_USER_DOES_NOT_EXIST = 100075;
     public static final int INVALID_VERIFICATION_STATE = 100080;
     public static final int INVALID_LOCK_STATE = 100090;
     public static final int UNKNOWN_ERROR_DURING_AUTHENTICATION = 100069;

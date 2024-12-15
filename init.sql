@@ -1,6 +1,3 @@
--- drop database if exists gym_database;
--- create database gym_database;
-
 drop schema if exists gym;
 create schema gym;
 
@@ -33,16 +30,6 @@ create table if not exists gym.mail_confirmation
     link_expiration_date timestamp,
     mail_type            varchar(20),
     mail_status          varchar(20)
-);
-
-create table if not exists gym.accessors
-(
-    id                           uuid primary key,
-    user_id                      uuid,
-    access_token                 varchar(30),
-    access_token_expiration_date timestamp,
-
-    constraint accessors__user_id__users foreign key (user_id) references gym.users (id)
 );
 
 create table if not exists gym.trainings

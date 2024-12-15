@@ -1,6 +1,7 @@
 package com.gym.bdd.tests.step.action.confirmation;
 
 import com.gym.bdd.tests.step.action.ActionsMarker;
+import com.gym.bdd.tests.step.dto.comparator.confirmation.InvalidPullNotificationResponseException;
 import com.gym.bdd.tests.step.dto.error.ErrorDto;
 import com.gym.bdd.tests.step.dto.request.confirmation.PullMailRequest;
 import com.gym.bdd.tests.step.dto.request.confirmation.Secret;
@@ -23,14 +24,18 @@ public class UserConfirmationActions implements ActionsMarker {
 
     private boolean pullMailsAndCheckIfSecretIsPresent(String nickname) {
         MailDeliveryActionsImpl mailDeliveryActions = new MailDeliveryActionsImpl();
-        mailDeliveryActions.makeAction(new PullMailRequest(nickname), null);
-        return Optional.ofNullable(mailDeliveryActions.getSecret())
-                .map(secret -> this.secret = secret)
-                .isPresent();
+        try {
+            mailDeliveryActions.makeAction(new PullMailRequest(nickname), null);
+        } catch (InvalidPullNotificationResponseException invalidPullNotificationResponseException) {
+            return false;
+        }
+        this.secret = mailDeliveryActions.getSecret();
+        return true;
     }
 
     private void pullMailsUntilSecretWillNotBeRetrieve(String nickname) {
-        awaitFor(new AtMost(30, TimeUnit.SECONDS),
+        awaitFor(
+                new AtMost(30, TimeUnit.SECONDS),
                 new PollInterval(100, TimeUnit.MILLISECONDS),
                 () -> pullMailsAndCheckIfSecretIsPresent(nickname));
     }

@@ -18,7 +18,7 @@ public class UserRegistrationDto {
 
     @Override
     public String toString() {
-        return "UserRegistrationResponseDto{" +
+        return "UserRegistrationDto{" +
                "nickName='" + nickName + '\'' +
                ", mail='" + mail + '\'' +
                ", gender='" + gender + '\'' +

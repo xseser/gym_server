@@ -27,7 +27,7 @@ import static com.gym.user.registration.model.authorities.Auth.getSuperAdminAuth
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "users", schema = "gym")
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Id

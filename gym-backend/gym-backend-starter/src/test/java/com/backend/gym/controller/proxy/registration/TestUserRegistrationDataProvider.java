@@ -1,57 +1,56 @@
 package com.backend.gym.controller.proxy.registration;
 
-import com.backend.gym.controller.proxy.BaseIntegrationTest;
 import com.backend.gym.controller.proxy.DataProvider;
 import com.gym.user.registration.controller.request.base.UserRegistrationDto;
 import com.gym.user.registration.controller.response.UserRegistrationResponseDto;
 import com.gym.user.registration.model.Gender;
 import com.gym.user.registration.model.Role;
-import com.gym.user.registration.model.User;
 import org.assertj.core.api.Assertions;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-class TestUserRegistrationDataProvider extends BaseIntegrationTest implements DataProvider {
+import java.util.Objects;
+
+class TestUserRegistrationDataProvider implements DataProvider {
+
+    private final String password;
+    private final String mail;
+    private String gender;
+    private final String passwordMatcher;
+    private final String nickname;
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public TestUserRegistrationDataProvider(String password, String mail, String gender, String passwordMatcher, String nickname) {
+        this.password = password;
+        this.mail = mail;
+        this.gender = gender;
+        this.passwordMatcher = passwordMatcher;
+        this.nickname = nickname;
+    }
+
+    public TestUserRegistrationDataProvider() {
+        String pass = getPassword();
+        this.password = pass;
+        this.passwordMatcher = pass;
+        this.nickname = getNickName();
+        this.gender = getGender();
+        this.mail = getMail();
+    }
 
     protected UserRegistrationDto provideValidUserRegistrationDto() {
-        String password = getPassword();
         return UserRegistrationDto.builder()
-                .mail(getMail())
-                .gender(getGender())
-                .nickName(getNickName())
+                .mail(mail)
+                .gender(gender)
+                .nickName(nickname)
                 .password(password)
-                .passwordMatcher(password)
+                .passwordMatcher(passwordMatcher)
                 .build();
     }
 
-    private UserTestObject mapUserRegistrationDtoToTestObject(UserRegistrationDto userRegistrationDto) {
-        return UserTestObject.builder()
-                .nickname(userRegistrationDto.getNickName())
-                .mail(userRegistrationDto.getMail())
-                .gender(userRegistrationDto.getGender() == null ? String.valueOf(Gender.UNKNOWN) : userRegistrationDto.getGender())
-                .role(String.valueOf(Role.MEMBER))
-                .build();
-    }
-
-    private UserTestObject mapUserRegistrationResponseDtoToTestObject(UserRegistrationResponseDto userRegistrationResponseDto) {
-        return UserTestObject.builder()
-                .mail(userRegistrationResponseDto.getMail())
-                .gender(String.valueOf(userRegistrationResponseDto.getGender()))
-                .nickname(userRegistrationResponseDto.getNickname())
-                .role(String.valueOf(userRegistrationResponseDto.getRole()))
-                .build();
-    }
-
-    private UserTestObject mapUserEntityToTestObject(User user) {
-        return UserTestObject.builder()
-                .mail(user.getMail())
-                .gender(String.valueOf(user.getGender()))
-                .nickname(user.getNickname())
-                .role(String.valueOf(user.getRole()))
-                .build();
-    }
-
-    protected void assertValidRegistrationResponse(ResponseEntity responseEntity, UserRegistrationDto registrationDto) {
+    protected void assertValidRegistrationResponse(ResponseEntity responseEntity) {
         //given
         UserRegistrationResponseDto response = ((UserRegistrationResponseDto) responseEntity.getBody());
 
@@ -59,26 +58,15 @@ class TestUserRegistrationDataProvider extends BaseIntegrationTest implements Da
         Assertions.assertThat(response).isNotNull();
         Assertions.assertThat(response.getId()).isNotNull();
 
-        //given
-        UserTestObject testObjectFromRegistration = mapUserRegistrationDtoToTestObject(registrationDto);
-        UserTestObject testObjectFromResponse = mapUserRegistrationResponseDtoToTestObject(response);
-
         //then
         Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-        Assertions.assertThat(testObjectFromRegistration).isEqualTo(testObjectFromResponse);
-        checkIfGivenUserWasProvisioned(registrationDto);
-    }
 
-    private void checkIfGivenUserWasProvisioned(UserRegistrationDto registrationDto) {
-        //given
-        User user = userRepository.findByMail(registrationDto.getMail())
-                .orElseThrow();
-        UserTestObject testObjectFromRegistration = mapUserRegistrationDtoToTestObject(registrationDto);
-        UserTestObject testObjectFromDb = mapUserEntityToTestObject(user);
-
-        //then
-        Assertions.assertThat(user.getId()).isNotNull();
-        Assertions.assertThat(testObjectFromRegistration).isEqualTo(testObjectFromDb);
+        System.out.println(response.getGender().toString());
+        System.out.println(gender);
+        Assertions.assertThat(response.getGender().toString()).isEqualTo(Objects.requireNonNullElse(gender, Gender.UNKNOWN.toString()));
+        Assertions.assertThat(response.getMail()).isEqualTo(mail);
+        Assertions.assertThat(response.getNickname()).isEqualTo(nickname);
+        Assertions.assertThat(response.getRole()).isEqualTo(Role.MEMBER);
     }
 
     protected void assertInvalidRegistrationResponse(ResponseEntity responseEntity, HttpStatus status, int errorCode) {
@@ -88,11 +76,12 @@ class TestUserRegistrationDataProvider extends BaseIntegrationTest implements Da
         Assertions.assertThat(response).isEqualTo(errorCode);
     }
 
-    protected void checkIfGivenUserWasNotProvisioned(UserRegistrationDto registrationDto) {
-        Assertions
-                .assertThat(userRepository
-                        .findByMail(registrationDto.getMail())
-                        .isPresent())
-                .isFalse();
+    private TestUserRegistrationDataProvider map(UserRegistrationResponseDto response) {
+        return new TestUserRegistrationDataProvider(
+                null,
+                response.getMail(),
+                response.getGender().toString(),
+                null,
+                response.getNickname());
     }
 }

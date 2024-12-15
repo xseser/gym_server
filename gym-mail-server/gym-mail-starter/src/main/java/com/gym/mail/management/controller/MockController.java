@@ -1,6 +1,5 @@
 package com.gym.mail.management.controller;
 
-import com.gym.mail.generator.model.MailConfirmation;
 import com.gym.mail.generator.repository.MailConfirmationRepository;
 import com.gym.mail.management.controller.dto.MockedMailConfirmation;
 import com.response.gym.response.Ok;

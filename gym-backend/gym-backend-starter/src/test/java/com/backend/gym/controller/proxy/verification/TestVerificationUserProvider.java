@@ -1,89 +1,88 @@
 package com.backend.gym.controller.proxy.verification;
 
-import com.backend.gym.controller.proxy.BaseIntegrationTest;
 import com.backend.gym.controller.proxy.DataProvider;
 import com.gym.user.registration.controller.request.base.UserRegisterConfirmation;
 import com.gym.user.registration.controller.response.UserVerificationResponseDto;
 import com.gym.user.registration.model.Role;
 import com.gym.user.registration.model.User;
+import lombok.Setter;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Objects;
 import java.util.UUID;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
-public class TestVerificationUserProvider extends BaseIntegrationTest implements DataProvider {
+public class TestVerificationUserProvider implements DataProvider {
 
-    private String nickname;
-    private Boolean isVerified;
-    private UUID id;
-    private Role role;
+    private final String nickname;
+    private final UUID id;
+    private final Role role;
 
-    @BeforeEach
-    public void setUp() {
+    @Setter
+    private boolean isVerified;
+
+    public TestVerificationUserProvider() {
         this.nickname = getNickName();
         this.role = getRole();
         this.id = UUID.randomUUID();
-        this.isVerified = true;
+        this.isVerified = false;
     }
 
-    UserRegisterConfirmation getUserRegisterConfirmation() {
+    UserRegisterConfirmation getUserRegisterConfirmation(boolean isVerified) {
         return UserRegisterConfirmation.builder()
                 .nickname(this.nickname)
-                .isVerified(this.isVerified)
+                .isVerified(isVerified)
                 .build();
     }
 
-    void assertUserVerification(ResponseEntity response, HttpStatusCode expectedStatusCode, boolean isVerified) {
-        User user = userRepository.findByNickname(this.nickname).orElseThrow();
+    UserRegisterConfirmation getUserRegisterConfirmation(String nickname, boolean isVerified) {
+        return UserRegisterConfirmation.builder()
+                .nickname(nickname)
+                .isVerified(isVerified)
+                .build();
+    }
 
+    void checkStatusCode(ResponseEntity response, HttpStatusCode expectedStatusCode) {
         Assertions
                 .assertThat(response.getStatusCode())
                 .isEqualTo(expectedStatusCode);
-
-        Assertions
-                .assertThat(user.getIsVerified())
-                .isEqualTo(isVerified);
     }
 
-    void assertUserVerification(ResponseEntity response, HttpStatusCode expectedStatusCode, boolean isVerified, UserVerificationResponseDto expectedResponse) {
-        assertUserVerification(response, expectedStatusCode, isVerified);
+    void checkIfUserVerificationStateIsCorrect(Function<String, User> dbUserGetter, boolean isVerified) {
+        User searchedUser = dbUserGetter.apply(nickname);
+        Assertions.assertThat(searchedUser.getIsVerified()).isEqualTo(isVerified);
+    }
 
+    void checkResponseBody(ResponseEntity response, UserVerificationResponseDto expectedResponse) {
         Assertions
                 .assertThat(response.getBody())
                 .isEqualTo(expectedResponse);
     }
 
-    void assertUserVerification(ResponseEntity response, HttpStatusCode expectedStatusCode, boolean isVerified, int errorCode) {
-        assertUserVerification(response, expectedStatusCode, isVerified);
-
+    void checkCode(ResponseEntity response, Integer errorCode) {
         Assertions
-                .assertThat(response.getBody())
+                .assertThat(Integer.valueOf(Objects.requireNonNull(response.getBody()).toString()))
                 .isEqualTo(errorCode);
     }
 
-    User getUser() {
+    private User getUser() {
         return User.builder()
                 .id(this.id)
                 .mail(getMail())
                 .password(getPassword())
                 .role(this.role)
                 .isLocked(false)
-                .isVerified(false)
+                .isVerified(this.isVerified)
                 .nickname(this.nickname)
                 .build();
     }
 
-    void saveUserAccount() {
+    void saveUserAccount(Consumer<User> saveUserFunction) {
         User user = getUser();
-        userRepository.save(user);
-    }
-
-    void saveUserAccount(boolean isVerified) {
-        User user = getUser();
-        user.setIsVerified(isVerified);
-        userRepository.save(user);
+        saveUserFunction.accept(user);
     }
 
     UserVerificationResponseDto getExpectedResponse(boolean expectedVerificationState) {

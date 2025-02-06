@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 public class UserRegistration extends EventDto {
     private String verification;
 
-    public UserRegistration(String nickname, String mail, String verification) {
+    public UserRegistration(String nickname, String mail, boolean verification) {
         super(nickname, mail);
-        this.verification = verification;
+        this.verification = String.valueOf(verification);
     }
 }

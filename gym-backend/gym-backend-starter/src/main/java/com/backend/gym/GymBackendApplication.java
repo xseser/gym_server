@@ -10,9 +10,17 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
         "gym.mmt.auth",
         "com.core.gym",
         "com.backend.gym",
-        "com.gym.user.registration" })
-@EnableJpaRepositories(basePackages = "com.gym.user.registration")
-@EntityScan(basePackages = "com.gym.user.registration")
+        "com.gym.user.registration",
+        "com.gym.kafka.producer"
+})
+@EnableJpaRepositories(basePackages = {
+        "com.gym.user.registration",
+        "com.gym.kafka.producer.repository"
+})
+@EntityScan(basePackages = {
+        "com.gym.user.registration",
+        "com.gym.kafka.producer.model"
+})
 @EnableTransactionManagement
 public class GymBackendApplication {
 

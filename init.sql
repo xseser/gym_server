@@ -21,6 +21,15 @@ create table if not exists gym.users
     role_expiration_time timestamp
 );
 
+create table if not exists gym.email_confirmation_dispatch_queue
+(
+    id                 uuid primary key,
+    nickname           varchar(20),
+    mail               varchar(100),
+    send_attempts      integer,
+    verification_state boolean
+);
+
 create table if not exists gym.mail_confirmation
 (
     id                   uuid primary key,

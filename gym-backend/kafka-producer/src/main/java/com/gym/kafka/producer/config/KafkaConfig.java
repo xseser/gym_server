@@ -1,7 +1,7 @@
-package com.gym.user.registration.config;
+package com.gym.kafka.producer.config;
 
-import com.gym.kafka.producer.GymKafkaProducer;
-import com.gym.kafka.producer.KafkaProducerWrapper;
+import com.gym.kafka.producer.sender.GymKafkaProducer;
+import com.gym.kafka.producer.sender.KafkaProducerWrapper;
 import com.gym.kafka.producer.mail.EventDto;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;

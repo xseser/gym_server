@@ -1,5 +1,6 @@
 package com.gym.user.registration.service.processor;
 
+import com.gym.kafka.producer.model.VerificationStateToChange;
 import com.gym.user.registration.controller.request.valid.ValidUserLoginRequest;
 import com.gym.user.registration.controller.request.valid.ValidUserRegisterConfirmation;
 import com.gym.user.registration.controller.request.valid.ValidUserRegistrationRequest;
@@ -32,6 +33,8 @@ import static com.response.gym.controller.answer.UserAnswers.GIVEN_USER_WAS_NOT_
 import static com.response.gym.controller.answer.UserAnswers.INVALID_LOGIN_CREDENTIALS;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -53,12 +56,15 @@ public class UserAuthProcessorTest implements BaseUserValidator {
     public void creatingNewAccountWithUniqueData_causesCreatedResponse() {
         //given
         ValidUserRegistrationRequest validUserRegistrationRequest = provideValidUserRegistrationData();
+        UserRegistrationResponseDto userRegistrationResponseDto = mapValidUserRegistrationDataToResponse();
+        VerificationStateToChange verificationStateToChange = new VerificationStateToChange(true);
 
         when(userRepository.existsByNicknameOrMail(any(String.class), any(String.class)))
                 .thenReturn(false);
-        userMailRegistrationProcessor.sendEmailRegistrationConfirmation(any(UserRegistrationResponseDto.class));
         when(userAuthManagement.createUserAccount(any(ValidUserRegistrationRequest.class)))
-                .thenReturn(mapValidUserRegistrationDataToResponse());
+                .thenReturn(userRegistrationResponseDto);
+        userMailRegistrationProcessor.persistPendingMail(eq(userRegistrationResponseDto), eq(verificationStateToChange));
+
         //when
         MMTResponseCreator response = userRegistrationProcessor.createUserAccount(validUserRegistrationRequest);
 
@@ -66,6 +72,8 @@ public class UserAuthProcessorTest implements BaseUserValidator {
         Assertions
                 .assertThat(response.getStatusCode())
                 .isEqualTo(new Created().getStatusCode());
+
+        verifyUserMailRegistrationProcessorInvocations(1, userRegistrationResponseDto, verificationStateToChange);
     }
 
     @Test
@@ -82,6 +90,8 @@ public class UserAuthProcessorTest implements BaseUserValidator {
         Assertions
                 .assertThat(response.getStatusCode())
                 .isEqualTo(new Conflict().getStatusCode());
+
+        verifyUserMailRegistrationProcessorInvocations(0);
     }
 
     @Test
@@ -112,6 +122,8 @@ public class UserAuthProcessorTest implements BaseUserValidator {
         Assertions
                 .assertThat(response.getStatusCode())
                 .isEqualTo(new NotFound().getStatusCode());
+
+        verifyUserMailRegistrationProcessorInvocations(0);
     }
 
     @Test
@@ -191,5 +203,18 @@ public class UserAuthProcessorTest implements BaseUserValidator {
 
         Assertions.assertThat(response.makeResponse().getBody())
                 .isEqualTo(GIVEN_USER_VERIFICATION_STATE_IS_ALREADY_SET);
+    }
+
+    private void verifyUserMailRegistrationProcessorInvocations(
+            int times,
+            UserRegistrationResponseDto responseDto,
+            VerificationStateToChange verificationStateToChange) {
+        verify(userMailRegistrationProcessor, times(times))
+                .persistPendingMail(eq(responseDto), eq(verificationStateToChange));
+    }
+
+    private void verifyUserMailRegistrationProcessorInvocations(int times) {
+        verify(userMailRegistrationProcessor, times(times))
+                .persistPendingMail(any(), any());
     }
 }

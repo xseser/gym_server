@@ -1,5 +1,6 @@
 package com.gym.user.registration.service.processor;
 
+import com.gym.kafka.producer.model.VerificationStateToChange;
 import com.gym.user.registration.controller.request.valid.ValidRefreshTokenRequest;
 import com.gym.user.registration.controller.request.valid.ValidUserLoginRequest;
 import com.gym.user.registration.controller.request.valid.ValidUserRegisterConfirmation;
@@ -62,7 +63,7 @@ public class UserAuthProcessor {
             return new Conflict(GIVEN_USER_ALREADY_EXISTS);
         }
         UserRegistrationResponseDto responseDto = userAuthManagement.createUserAccount(validUserRegistrationRequest);
-        userMailRegistrationProcessor.sendEmailRegistrationConfirmation(responseDto);
+        userMailRegistrationProcessor.persistPendingMail(responseDto, new VerificationStateToChange(true));
         log.info("End of processing registration new user account with response: {}", responseDto);
         return new Created(responseDto);
     }

@@ -5,6 +5,9 @@ import com.gym.user.registration.controller.request.base.UserRegisterConfirmatio
 import com.gym.user.registration.controller.response.UserVerificationResponseDto;
 import com.gym.user.registration.model.Role;
 import com.gym.user.registration.model.User;
+import com.response.gym.response.types.CommonResponse;
+import com.response.gym.response.types.ErrorResponse;
+import com.response.gym.response.types.Response;
 import lombok.Setter;
 import org.assertj.core.api.Assertions;
 import org.springframework.http.HttpStatusCode;
@@ -62,10 +65,10 @@ public class TestVerificationUserProvider implements DataProvider {
                 .isEqualTo(expectedResponse);
     }
 
-    void checkCode(ResponseEntity response, Integer errorCode) {
+    void checkCode(ResponseEntity response, Response body) {
         Assertions
-                .assertThat(Integer.valueOf(Objects.requireNonNull(response.getBody()).toString()))
-                .isEqualTo(errorCode);
+                .assertThat(response.getBody())
+                .isEqualTo(body);
     }
 
     private User getUser() {

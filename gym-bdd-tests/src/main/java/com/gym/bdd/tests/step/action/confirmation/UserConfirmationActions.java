@@ -8,7 +8,6 @@ import com.gym.bdd.tests.step.dto.request.confirmation.Secret;
 import com.gym.bdd.tests.utils.model.AtMost;
 import com.gym.bdd.tests.utils.model.PollInterval;
 
-import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import static com.gym.bdd.tests.utils.Awaiter.awaitFor;

@@ -22,7 +22,7 @@ public abstract class Actions<T extends RequestMarker, F extends ResponseMarker,
         if (response.getStatusCode() == getValidResponseCode()) {
             return Either.left(getBodyFromResponse(response));
         }
-        return Either.right(new ErrorDto(Integer.valueOf(response.getBody().asString())));
+        return Either.right(response.getBody().as(ErrorDto.class));
     }
 
     private void validate(F response, T request) {

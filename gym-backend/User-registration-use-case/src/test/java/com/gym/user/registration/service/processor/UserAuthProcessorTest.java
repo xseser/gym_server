@@ -14,6 +14,8 @@ import com.gym.user.registration.service.UserAuthManagement;
 import com.response.gym.response.Accepted;
 import com.response.gym.response.Conflict;
 import com.response.gym.response.Created;
+import com.response.gym.response.types.CommonResponse;
+import com.response.gym.response.types.ErrorResponse;
 import com.response.gym.response.Forbidden;
 import com.response.gym.response.MMTResponseCreator;
 import com.response.gym.response.NotFound;
@@ -184,7 +186,7 @@ public class UserAuthProcessorTest implements BaseUserValidator {
                 .isEqualTo(new NotFound().getStatusCode());
 
         Assertions.assertThat(response.makeResponse().getBody())
-                .isEqualTo(GIVEN_USER_WAS_NOT_FOUND);
+                .isEqualTo(new ErrorResponse(GIVEN_USER_WAS_NOT_FOUND));
     }
 
     @Test
@@ -202,7 +204,7 @@ public class UserAuthProcessorTest implements BaseUserValidator {
                 .isEqualTo(new Accepted().getStatusCode());
 
         Assertions.assertThat(response.makeResponse().getBody())
-                .isEqualTo(GIVEN_USER_VERIFICATION_STATE_IS_ALREADY_SET);
+                .isEqualTo(new CommonResponse(GIVEN_USER_VERIFICATION_STATE_IS_ALREADY_SET));
     }
 
     private void verifyUserMailRegistrationProcessorInvocations(

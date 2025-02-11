@@ -5,6 +5,7 @@ import com.gym.user.registration.controller.request.base.UserLoginDto;
 import com.gym.user.registration.controller.response.UserAuthenticationResponse;
 import com.gym.user.registration.model.Role;
 import com.gym.user.registration.model.User;
+import com.response.gym.response.types.ErrorResponse;
 import org.assertj.core.api.Assertions;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,10 +55,8 @@ class TestUserLoginDataProvider implements DataProvider {
     }
 
     protected void assertInvalidUserLogin(ResponseEntity response, HttpStatus status, int code) {
-        Integer errorCode = (Integer) response.getBody();
-
         Assertions.assertThat(response.getStatusCode()).isEqualTo(status);
-        Assertions.assertThat(errorCode).isEqualTo(code);
+        Assertions.assertThat(response.getBody()).isEqualTo(new ErrorResponse(code));
     }
 
     protected void assertInvalidUserLogin(ResponseEntity response, HttpStatus status) {

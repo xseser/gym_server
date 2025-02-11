@@ -1,5 +1,6 @@
 package com.response.gym.response;
 
+import com.response.gym.response.types.CommonResponse;
 import org.springframework.http.RequestEntity;
 
 import static java.net.HttpURLConnection.HTTP_ACCEPTED;
@@ -17,8 +18,8 @@ public class Accepted extends SpecifiedResponseDefinition {
         this.statusCode = code;
     }
 
-    public Accepted(Object body) {
-        this.responseBody = body;
+    public Accepted(int responseCode) {
+        this.responseBody = new CommonResponse(responseCode);
         this.statusCode = code;
     }
 

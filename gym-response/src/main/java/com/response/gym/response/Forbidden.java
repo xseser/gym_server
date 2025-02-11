@@ -1,5 +1,6 @@
 package com.response.gym.response;
 
+import com.response.gym.response.types.ErrorResponse;
 import org.springframework.http.RequestEntity;
 
 import static java.net.HttpURLConnection.HTTP_FORBIDDEN;
@@ -17,8 +18,8 @@ public class Forbidden extends SpecifiedResponseDefinition {
         this.statusCode = code;
     }
 
-    public Forbidden(Object body) {
-        this.responseBody = body;
+    public Forbidden(int errorCode) {
+        this.responseBody = new ErrorResponse(errorCode);
         this.statusCode = code;
     }
 

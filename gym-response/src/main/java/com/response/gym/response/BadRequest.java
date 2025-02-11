@@ -1,5 +1,6 @@
 package com.response.gym.response;
 
+import com.response.gym.response.types.ErrorResponse;
 import org.springframework.http.RequestEntity;
 
 import static java.net.HttpURLConnection.HTTP_BAD_REQUEST;
@@ -17,8 +18,8 @@ public class BadRequest extends SpecifiedResponseDefinition {
         this.statusCode = code;
     }
 
-    public BadRequest(Object body) {
-        this.responseBody = body;
+    public BadRequest(int errorCode) {
+        this.responseBody = new ErrorResponse(errorCode);
         this.statusCode = code;
     }
 

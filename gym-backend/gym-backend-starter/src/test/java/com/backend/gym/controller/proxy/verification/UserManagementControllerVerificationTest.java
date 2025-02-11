@@ -5,6 +5,8 @@ import com.gym.user.registration.controller.request.base.UserRegisterConfirmatio
 import com.gym.user.registration.model.User;
 import com.gym.user.registration.repository.UserRepository;
 import com.response.gym.response.MMTResponseCreator;
+import com.response.gym.response.types.CommonResponse;
+import com.response.gym.response.types.ErrorResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +80,7 @@ public class UserManagementControllerVerificationTest extends BaseIntegrationTes
         //then
         testVerificationUserProvider.checkStatusCode(mmtResponseCreator.makeResponse(), HttpStatus.BAD_REQUEST);
         testVerificationUserProvider.checkIfUserVerificationStateIsCorrect(findUser(), false);
-        testVerificationUserProvider.checkCode(mmtResponseCreator.makeResponse(), INVALID_NICKNAME_CREDENTIALS);
+        testVerificationUserProvider.checkCode(mmtResponseCreator.makeResponse(), new ErrorResponse(INVALID_NICKNAME_CREDENTIALS));
     }
 
     @Test
@@ -93,7 +95,7 @@ public class UserManagementControllerVerificationTest extends BaseIntegrationTes
         //then
         testVerificationUserProvider.checkStatusCode(mmtResponseCreator.makeResponse(), HttpStatus.NOT_FOUND);
         testVerificationUserProvider.checkIfUserVerificationStateIsCorrect(findUser(), false);
-        testVerificationUserProvider.checkCode(mmtResponseCreator.makeResponse(), GIVEN_USER_WAS_NOT_FOUND);
+        testVerificationUserProvider.checkCode(mmtResponseCreator.makeResponse(), new ErrorResponse(GIVEN_USER_WAS_NOT_FOUND));
     }
 
     @Test
@@ -109,7 +111,7 @@ public class UserManagementControllerVerificationTest extends BaseIntegrationTes
         //then
         testVerificationUserProvider.checkStatusCode(mmtResponseCreator.makeResponse(), HttpStatus.BAD_REQUEST);
         testVerificationUserProvider.checkIfUserVerificationStateIsCorrect(findUser(), false);
-        testVerificationUserProvider.checkCode(mmtResponseCreator.makeResponse(), INVALID_VERIFICATION_FLAG);
+        testVerificationUserProvider.checkCode(mmtResponseCreator.makeResponse(), new ErrorResponse(INVALID_VERIFICATION_FLAG));
     }
 
     @Test
@@ -125,7 +127,7 @@ public class UserManagementControllerVerificationTest extends BaseIntegrationTes
         //then
         testVerificationUserProvider.checkStatusCode(mmtResponseCreator.makeResponse(), HttpStatus.ACCEPTED);
         testVerificationUserProvider.checkIfUserVerificationStateIsCorrect(findUser(), true);
-        testVerificationUserProvider.checkCode(mmtResponseCreator.makeResponse(), GIVEN_USER_VERIFICATION_STATE_IS_ALREADY_SET);
+        testVerificationUserProvider.checkCode(mmtResponseCreator.makeResponse(), new CommonResponse(GIVEN_USER_VERIFICATION_STATE_IS_ALREADY_SET));
     }
 
     @Test
@@ -141,7 +143,7 @@ public class UserManagementControllerVerificationTest extends BaseIntegrationTes
         //then
         testVerificationUserProvider.checkStatusCode(mmtResponseCreator.makeResponse(), HttpStatus.ACCEPTED);
         testVerificationUserProvider.checkIfUserVerificationStateIsCorrect(findUser(), false);
-        testVerificationUserProvider.checkCode(mmtResponseCreator.makeResponse(), GIVEN_USER_VERIFICATION_STATE_IS_ALREADY_SET);
+        testVerificationUserProvider.checkCode(mmtResponseCreator.makeResponse(), new CommonResponse(GIVEN_USER_VERIFICATION_STATE_IS_ALREADY_SET));
     }
 
     private Consumer<User> saveUserFunction() {

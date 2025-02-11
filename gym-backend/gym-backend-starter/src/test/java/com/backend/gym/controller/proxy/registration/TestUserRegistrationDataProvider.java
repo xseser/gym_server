@@ -5,6 +5,7 @@ import com.gym.user.registration.controller.request.base.UserRegistrationDto;
 import com.gym.user.registration.controller.response.UserRegistrationResponseDto;
 import com.gym.user.registration.model.Gender;
 import com.gym.user.registration.model.Role;
+import com.response.gym.response.types.ErrorResponse;
 import org.assertj.core.api.Assertions;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +22,6 @@ class TestUserRegistrationDataProvider implements DataProvider {
 
     public void setGender(String gender) {
         this.gender = gender;
-    }
-
-    public TestUserRegistrationDataProvider(String password, String mail, String gender, String passwordMatcher, String nickname) {
-        this.password = password;
-        this.mail = mail;
-        this.gender = gender;
-        this.passwordMatcher = passwordMatcher;
-        this.nickname = nickname;
     }
 
     public TestUserRegistrationDataProvider() {
@@ -70,18 +63,7 @@ class TestUserRegistrationDataProvider implements DataProvider {
     }
 
     protected void assertInvalidRegistrationResponse(ResponseEntity responseEntity, HttpStatus status, int errorCode) {
-        Integer response = ((Integer) responseEntity.getBody());
-
         Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(status);
-        Assertions.assertThat(response).isEqualTo(errorCode);
-    }
-
-    private TestUserRegistrationDataProvider map(UserRegistrationResponseDto response) {
-        return new TestUserRegistrationDataProvider(
-                null,
-                response.getMail(),
-                response.getGender().toString(),
-                null,
-                response.getNickname());
+        Assertions.assertThat(responseEntity.getBody()).isEqualTo(new ErrorResponse(errorCode));
     }
 }

@@ -55,4 +55,10 @@ public class UserConfirmationActions implements ActionsMarker {
     public void confirmWithInvalidLink(int code) {
         confirmPersonalisationAction(new Secret("invalidSecretValue"), code);
     }
+
+    public void confirmPersonalisationTwice(int code) {
+        pullMailsUntilSecretWillNotBeRetrieve(nickname);
+        confirmPersonalisationAction(secret);
+        confirmPersonalisationAction(secret, code);
+    }
 }

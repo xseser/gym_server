@@ -7,17 +7,13 @@
     <parent>
         <groupId>com.gym</groupId>
         <artifactId>gym-backend</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
-    <groupId>com.backend.gym</groupId>
     <artifactId>gym-backend-starter</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${revision}</version>
 
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <lombok.version>1.18.30</lombok.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <db.postgreSQL.version>42.7.3</db.postgreSQL.version>
@@ -25,9 +21,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>gym.mmt.auth</groupId>
+            <groupId>com.gym</groupId>
             <artifactId>gym-backend-security</artifactId>
-            <version>0.0.1</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
@@ -56,12 +52,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.gym</groupId>
-            <artifactId>gym-response</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
             <version>0.11.5</version>
@@ -77,9 +67,9 @@
             <version>0.11.5</version>
         </dependency>
         <dependency>
-            <groupId>com.core.gym</groupId>
+            <groupId>com.gym</groupId>
             <artifactId>gym-core</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${revision}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -95,35 +85,35 @@
         <dependency>
             <groupId>com.gym</groupId>
             <artifactId>User-platform-access-use-case</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${revision}</version>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <id>docker-build</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>docker</executable>
-                            <arguments>
-                                <argument>build</argument>
-                                <argument>-t</argument>
-                                <argument>spring-boot-module:latest</argument>
-                                <argument>${project.basedir}</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.codehaus.mojo</groupId>-->
+<!--                <artifactId>exec-maven-plugin</artifactId>-->
+<!--                <version>3.0.0</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>docker-build</id>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>exec</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <executable>docker</executable>-->
+<!--                            <arguments>-->
+<!--                                <argument>build</argument>-->
+<!--                                <argument>-t</argument>-->
+<!--                                <argument>spring-boot-module:latest</argument>-->
+<!--                                <argument>${project.basedir}</argument>-->
+<!--                            </arguments>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -135,7 +125,13 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <image>
+                        <name>gym-backend-starter:latest</name>
+                    </image>
+                </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>

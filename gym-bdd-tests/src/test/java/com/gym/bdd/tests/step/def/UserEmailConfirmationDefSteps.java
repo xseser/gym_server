@@ -20,4 +20,9 @@ public class UserEmailConfirmationDefSteps {
     public void userConfirmsWithInvalidData(String userOrder, int code) {
         confirmationSteps.givenUserConfirmsInvalidLink(userOrder, code);
     }
+
+    @When("{string} user confirms email twice and at the second time receives <{int}> code")
+    public void userConfirmsMailTwice(String userOrder, int code) {
+        confirmationSteps.givenUserConfirmsLinkTwice(userOrder, code);
+    }
 }

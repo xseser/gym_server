@@ -6,7 +6,7 @@
 
     <groupId>com.gym</groupId>
     <artifactId>gym-backend</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
 
     <parent>
@@ -25,6 +25,7 @@
     </modules>
 
     <properties>
+        <revision>0.0.1</revision>
         <lombok.version>1.18.30</lombok.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <db.postgreSQL.version>42.7.3</db.postgreSQL.version>

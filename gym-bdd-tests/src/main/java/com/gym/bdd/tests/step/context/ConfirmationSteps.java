@@ -20,4 +20,8 @@ public class ConfirmationSteps extends AbstractContext<UserConfirmationActions> 
     public void givenUserConfirmsInvalidLink(String userOrder, int code) {
         doInUserContext(userOrder, user -> user.confirmWithInvalidLink(code));
     }
+
+    public void givenUserConfirmsLinkTwice(String userOrder, int code) {
+        doInUserContext(userOrder, user -> user.confirmPersonalisationTwice(code));
+    }
 }

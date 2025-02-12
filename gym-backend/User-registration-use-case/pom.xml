@@ -3,35 +3,31 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>com.gym</groupId>
         <artifactId>gym-backend</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>User-platform-access-use-case</artifactId>
+    <version>${revision}</version>
 
-    <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
     <dependencies>
         <dependency>
-            <groupId>gym.mmt.auth</groupId>
+            <groupId>com.gym</groupId>
             <artifactId>gym-backend-security</artifactId>
             <version>0.0.1</version>
         </dependency>
         <dependency>
-            <groupId>com.core.gym</groupId>
+            <groupId>com.gym</groupId>
             <artifactId>gym-core</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
-            <groupId>com.gym.kafka.producer</groupId>
+            <groupId>com.gym</groupId>
             <artifactId>kafka-producer</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${revision}</version>
         </dependency>
     </dependencies>
-
 </project>
